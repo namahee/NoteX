@@ -58,18 +58,18 @@ _CATEGORY = {
 SAVED_SETTINGS = get_collection("CONFIGS")
 REPO_X = InlineQueryResultArticle(
     title="Repo",
-    input_message_content=InputTextMessageContent("**Here's how to setup USERGE-X** "),
-    url="https://github.com/code-rgb/USERGE-X",
+    input_message_content=InputTextMessageContent("**Here's how to setup NoteX** "),
+    url="https://github.com/samuca78/NoteX",
     description="Setup Your Own",
     thumb_url="https://i.imgur.com/1xsOo9o.png",
     reply_markup=InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(
-                    "🔥 NOTE-X Repo", url="https://github.com/samuca78/Note-X"
+                    "🔥 NOTE-X Repo", url="https://github.com/samuca78/NoteX"
                 ),
                 InlineKeyboardButton(
-                    "🚀 Deploy Note-X",
+                    "🚀 Deploy NoteX",
                     url=(
                         "https://heroku.com/deploy?template="
                         "https://github.com/samuca78/MyGpack"
