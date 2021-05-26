@@ -187,7 +187,7 @@ if userge.has_bot:
                 drive_date = str(date.today().strftime("%B %d, %Y")).replace(",", "")
                 bot_drive_msg = (
                     f"A <b>[New User](tg://openmessage?user_id={userr_.id})</b> Drived your Bot.\n"
-                    f"  ID: <code>{user_.id}</code>\n"
+                    f"  ID: <code>{userr_.id}</code>\n"
                     f"  Name: {user_.flname}\n"
                     f"  👤: {user_.mention}\n"
                 )
