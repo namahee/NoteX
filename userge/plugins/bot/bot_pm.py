@@ -274,7 +274,7 @@ Aqui está o download! Apenas aperte no botão de "link".
                 link = "https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk"
                 btnss = [
                 [
-                    InlineKeyboardButton("LINK", url=link),
+                    InlineKeyboardButton("LINK", url=link)
                 ]
             ]
             try:
