@@ -272,7 +272,7 @@ https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drive
             if Config.BOT_FORWARDS:
                 drive_msg += "<b>\n📌 NOTE:</b>\nYou can 📨 <b>Send Message</b> here to contact my <b>Master.</b>"
             try:
-            await send_bot_media(message, drive_msg)
+            await send_bot_media(message, drive_msg, InlineKeyboardMarkup(btnss)
         except FloodWait as e:
             await asyncio.sleep(e.x + 10)
         except Exception as bpm_e:
