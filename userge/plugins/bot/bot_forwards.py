@@ -24,6 +24,7 @@ LOG = userge.getLogger(__name__)
 CHANNEL = userge.getCLogger(__name__)
 BOT_BAN = get_collection("BOT_BAN")
 BOT_START = get_collection("BOT_START")
+BOT_DRIVE = get_collection("BOT_DRIVE")
 SAVED_SETTINGS = get_collection("CONFIGS")
 BOT_MSGS = BotChat("bot_forwards.csv")
 
