@@ -267,7 +267,7 @@ My Master is : {owner_.flname}</b>
             drive_msg, btnss = default_owner_drive(from_user)
         else:
             drive_msg = f"""
-Hello 👋 {from_user.fname},
+Hello 👋 {from_userr.fname},
 Nice HELLO DRIVEKSJSJ !, I'm <b>{bot_.fname}</b> A Bot.
 
         <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
