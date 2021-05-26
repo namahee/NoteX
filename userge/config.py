@@ -34,7 +34,7 @@ logbot.reply_last_msg("Setting Configs ...")
 
 
 class Config:
-    """Configs to setup USERGE-X"""
+    """Configs to setup NoteX"""
 
     API_ID = int(os.environ.get("API_ID"))
     API_HASH = os.environ.get("API_HASH")
@@ -121,14 +121,14 @@ class Config:
 
 
 def get_version() -> str:
-    """get USERGE-X version"""
+    """get NoteX version"""
     ver = f"{versions.__major__}.{versions.__minor__}.{versions.__micro__}"
     if Config.HEROKU_ENV:
         if not hasattr(Config, "HBOT_VERSION"):
             setattr(Config, "HBOT_VERSION", hbot_version(ver))
         return Config.HBOT_VERSION
     try:
-        if "/code-rgb/userge-x" in Config.UPSTREAM_REPO.lower():
+        if "/samuca78/NoteX" in Config.UPSTREAM_REPO.lower():
             diff = list(_REPO.iter_commits(f"v{ver}..HEAD"))
             if diff:
                 ver = f"{ver}|VULCAN.{len(diff)}"

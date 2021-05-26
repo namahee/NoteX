@@ -66,13 +66,13 @@ REPO_X = InlineQueryResultArticle(
         [
             [
                 InlineKeyboardButton(
-                    "🔥 USERGE-X Repo", url="https://github.com/code-rgb/USERGE-X"
+                    "🔥 NOTE-X Repo", url="https://github.com/samuca78/Note-X"
                 ),
                 InlineKeyboardButton(
-                    "🚀 Deploy USERGE-X",
+                    "🚀 Deploy Note-X",
                     url=(
                         "https://heroku.com/deploy?template="
-                        "https://github.com/code-pms/MyGpack"
+                        "https://github.com/samuca78/MyGpack"
                     ),
                 ),
             ]
