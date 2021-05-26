@@ -188,13 +188,13 @@ if userge.has_bot:
                 bot_drive_msg = (
                     f"A <b>[New User](tg://openmessage?user_id={userr_.id})</b> Drived your Bot.\n"
                     f"  ID: <code>{userr_.id}</code>\n"
-                    f"  Name: {user_.flname}\n"
-                    f"  👤: {user_.mention}\n"
+                    f"  Name: {userr_.flname}\n"
+                    f"  👤: {userr_.mention}\n"
                 )
                 await asyncio.gather(
                     BOT_DRIVE.insert_one(
                         {
-                            "firstname": user_.flname,
+                            "firstname": userr_.flname,
                             "user_id": userr_.id,
                             "date": start_date,
                         }
