@@ -212,7 +212,10 @@ if userge.has_bot:
 
     def default_owner_drive(from_userr):
         drive_msg = f"https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk\n"
-        return drive_msg
+        btnss = [
+            [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
+        ]
+        return drive_msg, btnss
 
     @userge.bot.on_message(start_filter())
     async def start_bot(_, message: Message):
@@ -261,7 +264,7 @@ My Master is: {owner_.flname}</b>
         ownerr_ = c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
-            drive_msg = default_owner_drive(from_userr)
+            drive_msg, btnss= default_owner_drive(from_userr)
         else:
             drive_msg = f"""
 https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk
