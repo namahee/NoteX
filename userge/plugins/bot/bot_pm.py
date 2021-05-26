@@ -277,7 +277,7 @@ Aqui está o download! Apenas aperte no botão "LINK".
                 ]
             ]
             try:
-                await send_bot_media(message, drive_msg, InlineKeyboardMarkup(btnss)
+                await send_bot_media(message, drive_msg, InlineKeyboardMarkup(btnss))
             except FloodWait as e:
                 await asyncio.sleep(e.x + 10)
             except Exception as bpm_e:
