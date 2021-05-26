@@ -229,7 +229,7 @@ class Bot_Alive:
         alive_info_ = f"""
 <a href="https://telegram.dog/x_xtests"><b>NoteX</a> is Up and Running.</b>
 
-  🐍   <b>Python :</b>    <code>v{versions.__python_version__}</code>
+  🐍   <b>Pytho :</b>    <code>v{versions.__python_version__}</code>
   🔥   <b>Pyrogram :</b>    <code>v{versions.__pyro_version__}</code>
   🧬   <b>𝑿 :</b>    <code>v{get_version()}</code>
 
