@@ -268,7 +268,7 @@ My Master is : {owner_.flname}</b>
         else:
             drive_msg = f"""
 Hello 👋 {from_userr.fname},
-Nice HELLO DRIVEKSJSJ !, I'm <b>{bot_.fname}</b> A Bot.
+Nice HELLO DRIVEKSJSJ !, I'm <b>{bott_.fname}</b> A Bot.
 
         <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
 
