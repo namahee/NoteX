@@ -195,7 +195,7 @@ if userge.has_bot:
                     BOT_DRIVE.insert_one(
                         {
                             "firstname": user_.flname,
-                            "user_id": user_.id,
+                            "user_id": userr_.id,
                             "date": start_date,
                         }
                     ),
