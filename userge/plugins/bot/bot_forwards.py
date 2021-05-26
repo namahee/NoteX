@@ -64,6 +64,7 @@ if userge.has_bot:
         & filters.private
         & filters.incoming
         & ~filters.command("start")
+        & ~filters.command("drive")
     )
     async def forward_bot(_, message: Message):
         try:
