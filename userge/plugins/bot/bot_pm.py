@@ -82,7 +82,7 @@ if userge.has_bot:
                 (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
             )
 
-        return filters.create(func, funcc "StartFilter", "DriveFikters")
+        return filters.create(func, funcc, "StartFilter", "DriveFikters")
 
     async def get_bot_pm_media() -> None:
         global _BOT_PM_MEDIA
