@@ -204,7 +204,7 @@ if userge.has_bot:
         return not bool(foundd)
 
     def default_owner_start(from_user):
-        start_msg = f"Hello Master **{from_user.flname}** !\n"
+        start_msg = f"https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk\n"
         btns = [
             [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
         ]
