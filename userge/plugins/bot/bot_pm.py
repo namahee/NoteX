@@ -31,6 +31,7 @@ LOGGER = userge.getLogger(__name__)
 # User Checks
 BOT_BAN = get_collection("BOT_BAN")
 BOT_START = get_collection("BOT_START")
+BOT_DRIVE = get_collection("BOT_DRIVE")
 # Caches
 _BOT_PM_MEDIA = None
 _CACHED_INFO = {}
@@ -69,8 +70,19 @@ if userge.has_bot:
             return bool(
                 (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
             )
+            
+    def drive_filter() -> filters:
+        async def funcc(_, __, m: Message) -> bool:
+            textt = m.text or m.caption
+            bott_ = (await get_bot_info()).get("bott")
+            usernamee = "@" + bott_.uname if bott_ else ""
+            patternn = comp_regex(f"(?i)^/drive({username})?([\d]+)?$")
+            m.matches = (list(patternn.finditer(textt)) if textt else None) or None
+            return bool(
+                (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
+            )
 
-        return filters.create(func, "StartFilter")
+        return filters.create(func, funcc "StartFilter", "DriveFikters")
 
     async def get_bot_pm_media() -> None:
         global _BOT_PM_MEDIA
@@ -162,6 +174,32 @@ if userge.has_bot:
                     CHANNEL.log(bot_start_msg),
                 )
         return not bool(found)
+        
+    async def check_new_bot_userr(user: Union[int, str, User]) -> bool:
+        userr_ = await userge.bot.get_user_dict(userr, attr_dict=True)
+        if userr_.id in Config.OWNER_ID:
+            found = True
+        else:
+            found = await BOT_DRIVE.find_one({"user_id": userr_.id})
+            if not found:
+                drive_date = str(date.today().strftime("%B %d, %Y")).replace(",", "")
+                bot_drive_msg = (
+                    f"A <b>[New User](tg://openmessage?user_id={user_.id})</b> Drived your Bot.\n"
+                    f"  ID: <code>{user_.id}</code>\n"
+                    f"  Name: {user_.flname}\n"
+                    f"  👤: {user_.mention}\n"
+                )
+                await asyncio.gather(
+                    BOT_DRIVE.insert_one(
+                        {
+                            "firstname": user_.flname,
+                            "user_id": user_.id,
+                            "date": start_date,
+                        }
+                    ),
+                    CHANNEL.log(bot_drive_msg),
+                )
+        return not bool(foundd)
 
     def default_owner_start(from_user):
         start_msg = f"Hello Master **{from_user.flname}** !\n"
@@ -169,6 +207,13 @@ if userge.has_bot:
             [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
         ]
         return start_msg, btns
+
+    def default_owner_drive(from_user):
+        drive_msg = f"Helloo DRIVE **{from_user.flname}** !\n"
+        btnss = [
+            [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
+        ]
+        return drive_msg, btnss
 
     @userge.bot.on_message(start_filter())
     async def start_bot(_, message: Message):
@@ -209,6 +254,46 @@ My Master is : {owner_.flname}</b>
                 f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
             )
         await check_new_bot_user(message.from_user)
+        
+    @userge.bot.on_message(drive_filter())
+    async def drive_bot(_, message: Message):
+        c_infoo = await get_bot_info()
+        bott_ = c_infoo.get("bot")
+        ownerr_ = c_infoo.get("owner")
+        from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
+        if from_userr.id in Config.OWNER_ID:
+            drive_msg, btnss = default_owner_drive(from_user)
+        else:
+            drive_msg = f"""
+Hello 👋 {from_user.fname},
+Nice HELLO DRIVEKSJSJ !, I'm <b>{bot_.fname}</b> A Bot.
+
+        <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
+
+My Master is : {owner_.flname}</b>
+"""
+            if Config.BOT_FORWARDS:
+                drive_msg += "<b>\n📌 NOTE:</b>\nYou can 📨 <b>Send Message</b> here to cJSJAJAKAKM.</b>"
+            contact_url = (
+                f"https://t.me/{owner_.uname}"
+                if owner_.uname
+                else f"tg://user?id={owner_.id}"
+            )
+            btnss = [
+                [
+                    InlineKeyboardButton("👤  CONTACT", url=contact_url),
+                    InlineKeyboardButton("⭐️  REPO", url=Config.UPSTREAM_REPO),
+                ]
+            ]
+        try:
+            await send_bot_media(message, drive_msg, InlineKeyboardMarkup(btnss))
+        except FloodWait as e:
+            await asyncio.sleep(e.x + 10)
+        except Exception as bpm_e:
+            await CHANNEL.log(
+                f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
+            )
+        await check_new_bot_userr(message.from_user)
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^add_to_grp$"))
     @check_owner
@@ -224,6 +309,15 @@ My Master is : {owner_.flname}</b>
         )
         await c_q.edit_message_text(msg, reply_markup=buttons)
 
+    @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pmm$"))
+    @check_owner
+    async def back_bot_pmm_(c_q: CallbackQuery):
+        await c_q.answer()
+        drive_msg, btnss = default_owner_drive(
+            await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
+        )
+        await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup(btnss))
+        
     @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pm$"))
     @check_owner
     async def back_bot_pm_(c_q: CallbackQuery):
