@@ -70,9 +70,9 @@ if userge.has_bot:
             return bool(
                 (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
             )
-
+          
         return filters.create(func, "StartFilter")
-
+        
     def drive_filter() -> filters:
         async def funcc(_, __, m: Message) -> bool:
             textt = m.text or m.caption
@@ -176,7 +176,7 @@ if userge.has_bot:
                     CHANNEL.log(bot_start_msg),
                 )
         return not bool(found)
-
+        
     async def check_new_bot_userr(user: Union[int, str, User]) -> bool:
         userr_ = await userge.bot.get_user_dict(userr, attr_dict=True)
         if userr_.id in Config.OWNER_ID:
@@ -210,8 +210,8 @@ if userge.has_bot:
         ]
         return start_msg, btns
 
-    def default_owner_drive(from_user):
-        drive_msg = f"Helloo DRIVE **{from_user.flname}** !\n"
+    def default_owner_drive(from_userr):
+        drive_msg = f"Helloo DRIVE **{from_userr.flname}** !\n"
         btnss = [
             [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
         ]
@@ -256,7 +256,7 @@ My Master is : {owner_.flname}</b>
                 f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
             )
         await check_new_bot_user(message.from_user)
-
+        
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_info()
@@ -264,7 +264,7 @@ My Master is : {owner_.flname}</b>
         ownerr_ = c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
-            drive_msg, btnss = default_owner_drive(from_user)
+            drive_msg, btnss = default_owner_drive(from_userr)
         else:
             drive_msg = f"""
 Hello 👋 {from_userr.fname},
@@ -319,7 +319,7 @@ My Master is : {ownerr_.flname}</b>
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
         await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup(btnss))
-
+        
     @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pm$"))
     @check_owner
     async def back_bot_pm_(c_q: CallbackQuery):
