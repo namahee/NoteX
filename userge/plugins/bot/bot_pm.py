@@ -272,7 +272,7 @@ Nice HELLO DRIVEKSJSJ !, I'm <b>{bott_.fname}</b> A Bot.
 
         <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
 
-My Master is : {owner_.flname}</b>
+My Master is : {ownerr_.flname}</b>
 """
             if Config.BOT_FORWARDS:
                 drive_msg += "<b>\n📌 NOTE:</b>\nYou can 📨 <b>Send Message</b> here to cJSJAJAKAKM.</b>"
