@@ -70,9 +70,9 @@ if userge.has_bot:
             return bool(
                 (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
             )
-
+          
         return filters.create(func, "StartFilter")
-
+        
     def drive_filter() -> filters:
         async def funcc(_, __, m: Message) -> bool:
             textt = m.text or m.caption
@@ -176,7 +176,7 @@ if userge.has_bot:
                     CHANNEL.log(bot_start_msg),
                 )
         return not bool(found)
-
+        
     async def check_new_bot_userr(user: Union[int, str, User]) -> bool:
         userr_ = await userge.bot.get_user_dict(user, attr_dict=True)
         if userr_.id in Config.OWNER_ID:
@@ -228,11 +228,11 @@ if userge.has_bot:
         else:
             start_msg = f"""
 Hello 👋 {from_user.fname},
-Nice To Meet You !, I'm <b>{bot_.fname}</b> A Bot.
+Nice To Meet You!, I'm <b>{bot_.fname}</b> A Bot.
 
-        <b><i>Powered by</i> [USERGE-X](https://t.me/x_xtests)
+        <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
 
-My Master is : {owner_.flname}</b>
+My Master is: {owner_.flname}</b>
 """
             if Config.BOT_FORWARDS:
                 start_msg += "<b>\n📌 NOTE:</b>\nYou can 📨 <b>Send Message</b> here to contact my <b>Master.</b>"
@@ -256,7 +256,7 @@ My Master is : {owner_.flname}</b>
                 f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
             )
         await check_new_bot_user(message.from_user)
-
+        
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_info()
@@ -267,12 +267,7 @@ My Master is : {owner_.flname}</b>
             drive_msg, btnss = default_owner_drive(from_userr)
         else:
             drive_msg = f"""
-Hello 👋 {from_userr.fname},
-Nice HELLO DRIVEKSJSJ !, I'm <b>{bott_.fname}</b> A Bot.
-
-        <b><i>Powered by</i> [NoteX](https://t.me/x_xtests)
-
-My Master is : {ownerr_.flname}</b>
+https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk
 """
             if Config.BOT_FORWARDS:
                 drive_msg += "<b>\n📌 NOTE:</b>\nYou can 📨 <b>Send Message</b> here to cJSJAJAKAKM.</b>"
@@ -319,7 +314,7 @@ My Master is : {ownerr_.flname}</b>
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
         await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup(btnss))
-
+        
     @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pm$"))
     @check_owner
     async def back_bot_pm_(c_q: CallbackQuery):
