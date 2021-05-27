@@ -70,9 +70,9 @@ if userge.has_bot:
             return bool(
                 (m.chat and m.chat.type == "private") and m.matches and not m.edit_date
             )
-          
+
         return filters.create(func, "StartFilter")
-        
+
     def drive_filter() -> filters:
         async def funcc(_, __, m: Message) -> bool:
             textt = m.text or m.caption
@@ -176,7 +176,7 @@ if userge.has_bot:
                     CHANNEL.log(bot_start_msg),
                 )
         return not bool(found)
-        
+
     async def check_new_bot_userr(user: Union[int, str, User]) -> bool:
         userr_ = await userge.bot.get_user_dict(user, attr_dict=True)
         if userr_.id in Config.OWNER_ID:
@@ -213,7 +213,7 @@ if userge.has_bot:
     def default_owner_drive(from_userr):
         drive_msg = f"https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk\n"
         btnss = [
-             [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
+            [InlineKeyboardButton("➕  ADD TO GROUP", callback_data="add_to_grp")],
         ]
         return drive_msg, btnss
 
@@ -256,12 +256,12 @@ My Master is: {owner_.flname}</b>
                 f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
             )
         await check_new_bot_user(message.from_user)
-        
+
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_info()
-        bott_ = c_infoo.get("bot")
-        ownerr_ = c_infoo.get("owner")
+        c_infoo.get("bot")
+        c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
             drive_msg, btnss = default_owner_drive(from_userr)
@@ -271,19 +271,15 @@ Aqui está o download! Apenas aperte no botão "LINK".
 """
             if Config.BOT_FORWARDS:
                 link = "https://drive.google.com/file/d/1OGN-8kUoP0OPsCEp3zlfaPu94EzsrZ9z/view?usp=drivesdk"
-                btnss = [
-                [
-                    InlineKeyboardButton("LINK", url=link)
-                ]
-            ]
+                btnss = [[InlineKeyboardButton("LINK", url=link)]]
             try:
                 await send_bot_media(message, drive_msg, InlineKeyboardMarkup(btnss))
             except FloodWait as e:
                 await asyncio.sleep(e.x + 10)
             except Exception as bpm_e:
                 await CHANNEL.log(
-                f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
-            )
+                    f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
+                )
         await check_new_bot_userr(message.from_user)
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^add_to_grp$"))
@@ -304,11 +300,11 @@ Aqui está o download! Apenas aperte no botão "LINK".
     @check_owner
     async def back_bot_pmm_(c_q: CallbackQuery):
         await c_q.answer()
-        drive_msg,  = default_owner_drive(
+        (drive_msg,) = default_owner_drive(
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
         await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup())
-        
+
     @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pm$"))
     @check_owner
     async def back_bot_pm_(c_q: CallbackQuery):
