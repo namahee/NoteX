@@ -289,7 +289,7 @@ My Master is: {owner_.flname}</b>
 
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
-        c_infoo = await get_bot_info()
+        c_infoo = await get_bot_infoo()
         bott_ = c_infoo.get("bot")
         ownerr_ = c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
