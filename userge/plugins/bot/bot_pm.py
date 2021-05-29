@@ -76,7 +76,7 @@ if userge.has_bot:
     def drive_filter() -> filters:
         async def funcc(_, __, m: Message) -> bool:
             textt = m.text or m.caption
-            bott_ = (await get_bot_info()).get("bott")
+            bott_ = (await get_bot_infoo()).get("bott")
             usernamee = "@" + bott_.uname if bott_ else ""
             patternn = comp_regex(f"(?i)^/drive({usernamee})?([\s]+)?$")
             m.matches = (list(patternn.finditer(textt)) if textt else None) or None
