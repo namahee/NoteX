@@ -333,7 +333,7 @@ Aqui está o download! Apenas aperte no botão "LINK".
         drive_msg, btnss = default_owner_drive(
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
-        await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup())
+        await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup(btnss))
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^back_bot_pm$"))
     @check_owner
@@ -342,7 +342,7 @@ Aqui está o download! Apenas aperte no botão "LINK".
         start_msg, btns = default_owner_start(
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
-        await c_q.edit_message_text(start_msg, reply_markup=InlineKeyboardMarkup(btnss))
+        await c_q.edit_message_text(start_msg, reply_markup=InlineKeyboardMarkup(btns))
 
     # >>> ############# | X Bot Antiflood | ############# <<< #
 
