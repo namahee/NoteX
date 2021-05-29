@@ -260,8 +260,8 @@ My Master is: {owner_.flname}</b>
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_info()
-        bott_ = c_infoo.get("bot")
-        ownerr_ = c_infoo.get("owner")
+        c_infoo.get("bot")
+        c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
             drive_msg, btnss = default_owner_drive(from_userr)
