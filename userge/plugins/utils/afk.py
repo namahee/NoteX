@@ -14,16 +14,18 @@ AFK_COLLECTION = get_collection("AFK")
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
 REASON = ""
+LINK = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, LINK, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
         REASON = data["data"]
+        LINK = data("link")
         TIME = data["time"] if "time" in data else 0
     async for _user in AFK_COLLECTION.find():
         USERS.update({_user["_id"]: [_user["pcount"], _user["gcount"], _user["men"]]})
@@ -41,17 +43,18 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
+    LINK = message.input_str
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
-            {"$set": {"on": True, "data": REASON, "time": TIME}},
+            {"$set": {"on": True, "data": REASON, "time": TIME, "link": LINK}},
             upsert=True,
         ),
     )
@@ -87,7 +90,7 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            if REASON:
+            if REASON or LINK:
                 out_str = (
                     f"I'm still **AFK**.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time} ago`"
@@ -100,10 +103,11 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if REASON:
+        if REASON or LINK:
             out_str = (
                 f"I'm **AFK** right now.\nReason: <code>{REASON}</code>\n"
-                f"Last Seen: `{afk_time} ago` \n[\u3164]()"
+                f"Last Seen: `{afk_time} ago` \n[\u3164]({LINK})"
+                
             )
         else:
             out_str = choice(AFK_REASONS)
