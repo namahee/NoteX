@@ -260,8 +260,8 @@ My Master is: {owner_.flname}</b>
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_info()
-        c_infoo.get("bot")
-        c_infoo.get("owner")
+        bott_ = c_infoo.get("bot")
+        ownerr_ = c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
             drive_msg, btnss = default_owner_drive(from_userr)
@@ -280,7 +280,7 @@ Aqui está o download! Apenas aperte no botão "LINK".
                 await CHANNEL.log(
                     f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Pm Media"
                 )
-        await check_new_bot_userr(message.from_user)
+        await check_new_bot_user(message.from_user)
 
     @userge.bot.on_callback_query(filters.regex(pattern=r"^add_to_grp$"))
     @check_owner
