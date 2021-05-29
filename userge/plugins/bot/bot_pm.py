@@ -136,7 +136,7 @@ if userge.has_bot:
                     datetime.timestamp(t_now + timedelta(days=1))
                 )
         return _CACHED_INFO
-
+        
     async def get_bot_infoo():
         """Caching Owner and bot info"""
         global _CACHED_INFO
@@ -290,8 +290,8 @@ My Master is: {owner_.flname}</b>
     @userge.bot.on_message(drive_filter())
     async def drive_bot(_, message: Message):
         c_infoo = await get_bot_infoo()
-        c_infoo.get("bot")
-        c_infoo.get("owner")
+        bott_ = c_infoo.get("bot")
+        ownerr_ = c_infoo.get("owner")
         from_userr = await userge.bot.get_user_dict(message.from_user, attr_dict=True)
         if from_userr.id in Config.OWNER_ID:
             drive_msg, btnss = default_owner_drive(from_userr)
@@ -330,7 +330,7 @@ Aqui está o download! Apenas aperte no botão "LINK".
     @check_owner
     async def back_bot_pmm_(c_q: CallbackQuery):
         await c_q.answer()
-        (drive_msg,) = default_owner_drive(
+        drive_msg, btnss = default_owner_drive(
             await userge.bot.get_user_dict(c_q.from_user, attr_dict=True)
         )
         await c_q.edit_message_text(drive_msg, reply_markup=InlineKeyboardMarkup())
