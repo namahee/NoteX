@@ -25,7 +25,7 @@ async def _init() -> None:
     if data:
         IS_AFK = data["on"]
         REASON = data["data"]
-        LINK = data("link")
+        LINK = data["link"]
         TIME = data["time"] if "time" in data else 0
     async for _user in AFK_COLLECTION.find():
         USERS.update({_user["_id"]: [_user["pcount"], _user["gcount"], _user["men"]]})
@@ -107,6 +107,7 @@ async def handle_afk_incomming(message: Message) -> None:
             out_str = (
                 f"I'm **AFK** right now.\nReason: <code>{REASON}</code>\n"
                 f"Last Seen: `{afk_time} ago` \n[\u3164]({LINK})"
+                
             )
         else:
             out_str = choice(AFK_REASONS)
