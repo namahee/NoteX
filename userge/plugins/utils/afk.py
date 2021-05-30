@@ -108,11 +108,6 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                 f"Last Seen: `{afk_time}` ago. \n[\u3164]({LINK})"
             )
-        elif LINK:
-            out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                f"Last Seen: `{afk_time}` ago. \n[\u3164]({LINK})"
-            )
         else:
             out_str = choice(AFK_REASONS)
         coro_list.append(message.reply(out_str))
@@ -233,7 +228,8 @@ I'll get back to you later.",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
 LINKS = (
-    "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-    "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-    "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
-)
+  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
+  "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
+  )
+  
