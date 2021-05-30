@@ -93,7 +93,7 @@ async def handle_afk_incomming(message: Message) -> None:
             if REASON or LINK:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` Las"
+                    f"Last Seen: `{afk_time}` ago"
                 )
             else:
                 out_str = choice(AFK_REASONS)
@@ -103,11 +103,10 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if REASON or LINK:
+        if REASON and LINK:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                f"Last Seen: `{afk_time}` ago"
-                choice(LINKS)
+                f"Last Seen: `{afk_time}` ago. \n[\u3164]({LINK})"
             )
         else:
             out_str = choice(AFK_REASONS)
