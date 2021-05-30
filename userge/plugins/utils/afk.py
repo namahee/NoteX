@@ -47,7 +47,7 @@ async def active_afk(message: Message) -> None:
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
-    LINK = message.input_str 
+    LINK = message.input_str
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
@@ -233,6 +233,6 @@ links = (
     "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
     "https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg",
     "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
-    "https://telegra.ph/file/4ef264941a867aef33f0d.jpg"
+    "https://telegra.ph/file/4ef264941a867aef33f0d.jpg",
 )
 linkz = choice(links)
