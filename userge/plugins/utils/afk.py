@@ -47,7 +47,7 @@ async def active_afk(message: Message) -> None:
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
-    LINK = message.input_str
+    LINK = message.input
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
@@ -105,7 +105,7 @@ async def handle_afk_incomming(message: Message) -> None:
     else:
         if REASON or LINK:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: {REASON} \n[\u3164]({LINK})\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON} \n[\u3164](choice(AFK_REASONS)\n"
                 f"Last Seen: `{afk_time}` ago"
             )
         else:
