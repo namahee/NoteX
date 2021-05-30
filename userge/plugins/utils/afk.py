@@ -232,6 +232,6 @@ links = (
     "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
     "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
     "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
-    "[\u3164]https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
+    "[\u3164](https://telegra.ph/file/8dd0c5414fb03e866423b.mp4)",
 )
 linkz = choice(links)
