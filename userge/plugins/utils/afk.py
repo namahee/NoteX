@@ -80,23 +80,6 @@ async def active_afk(message: Message) -> None:
     allow_via_bot=False
 )
 
-
-
-
-
-links = (
-  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-  "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
-  "[\u3164]https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
-  )
-linkz = choice(links)
-
-
-
-
-
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -246,3 +229,10 @@ I'll get back to you later.",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
 
+links = (
+  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
+  "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
+  "[\u3164]https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
+  )
+linkz = choice(links)
