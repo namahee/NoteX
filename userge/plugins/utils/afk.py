@@ -79,6 +79,15 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
+
+
+
+LINKZ = choice(LINKS)
+
+
+
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -90,7 +99,7 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            if REASON or LINK:
+            if REASON:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time}` ago"
@@ -229,9 +238,7 @@ I'll get back to you later.",
 )
 
 LINKS = (
-    "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-    "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-    "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
-)
-
-LINKZ = choice(LINKS)
+  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
+  "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
+  )
