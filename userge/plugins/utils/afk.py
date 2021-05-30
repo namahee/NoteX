@@ -105,8 +105,8 @@ async def handle_afk_incomming(message: Message) -> None:
     else:
         if REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `I'm Sleeping` \n"
-                f"Last Seen: `{afk_time}` ago. \n[\u3164]({LINK})"
+                f"I'm **AFK** right now, leave me alone.\nReason: `teste`\n"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
             )
         else:
             out_str = choice(AFK_REASONS)
@@ -233,6 +233,6 @@ links = (
     "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
     "https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg",
     "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
-    "https://telegra.ph/file/4ef264941a867aef33f0d.jpg",
+    "https://telegra.ph/file/4ef264941a867aef33f0d.jpg"
 )
 linkz = choice(links)
