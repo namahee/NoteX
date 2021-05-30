@@ -231,7 +231,7 @@ I'll get back to you later.",
 LINKS = (
   "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
   "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-  "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
+  "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)"
   )
   
 LINKZ = choice(LINKS)
