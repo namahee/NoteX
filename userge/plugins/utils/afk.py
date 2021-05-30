@@ -3,7 +3,6 @@
 import asyncio
 import time
 from random import choice, randint
-
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
@@ -13,7 +12,9 @@ CHANNEL = userge.getCLogger(__name__)
 SAVED_SETTINGS = get_collection("CONFIGS")
 AFK_COLLECTION = get_collection("AFK")
 
-_TG_GRAPH_REGEX = comp_regex(r"telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?")
+_TG_GRAPH_REGEX = comp_regex(
+    r"telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
+)
 
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
