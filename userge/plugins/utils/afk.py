@@ -4,12 +4,16 @@ import asyncio
 import time
 from random import choice, randint
 
+from re import compile as comp_regex
+
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
 CHANNEL = userge.getCLogger(__name__)
 SAVED_SETTINGS = get_collection("CONFIGS")
 AFK_COLLECTION = get_collection("AFK")
+
+_TG_GRAPH_REGEX = comp_regex(r"telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?")
 
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
@@ -46,10 +50,10 @@ async def active_afk(message: Message) -> None:
     global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
+    REASON = message.input_str.split("|", f"{LINK}", maxsplit=1)
     LINK = message.input_str
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON}`"),
+        CHANNEL.log(f"You went AFK! : `[{REASON}]({LINK})`"),
         message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
