@@ -107,7 +107,6 @@ async def handle_afk_incomming(message: Message) -> None:
             out_str = (
                 f"I'm **AFK** right now.\nReason: <code>{REASON}</code>\n"
                 f"Last Seen: `{afk_time} ago` \n[\u3164]({LINK})"
-                
             )
         else:
             out_str = choice(AFK_REASONS)
