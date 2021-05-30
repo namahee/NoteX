@@ -77,9 +77,8 @@ async def active_afk(message: Message) -> None:
             )
         )
     ),
-    allow_via_bot=False
+    allow_via_bot=False,
 )
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -230,8 +229,8 @@ I'll get back to you later.",
 )
 
 LINKS = (
-  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-  "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
-  )
+    "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+    "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
+    "[\u3164](https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg)",
+)
 LINKZ = choice(LINKS)
