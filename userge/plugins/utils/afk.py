@@ -227,10 +227,11 @@ I'll get back to you later.",
     "Life is so short, there are so many things to do...\nI'm away doing one of them..",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
-LINKS = (
-    "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-    "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
-    "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
-)
 
+LINKS = (
+  "[\u3164](https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+  "[\u3164](https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg)",
+  "[\u3164](https://telegra.ph/file/6ccc956f49583d3ca8db5.jpg)",
+  )
+  
 LINKZ = choice(LINKS)
