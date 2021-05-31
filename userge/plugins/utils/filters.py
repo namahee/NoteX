@@ -122,7 +122,7 @@ async def filters_active(message: Message) -> None:
         "usage": "{tr}delfilter [filter name | filter type]\n{tr}delfilter -all",
     },
     allow_channels=False,
-    allow_bots=False,
+    allow_bots=True,
 )
 async def delete_filters(message: Message) -> None:
     """delete filter in current chat"""
