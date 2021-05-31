@@ -88,7 +88,7 @@ async def _init() -> None:
         "flags": {"-all": "List all saved filters in every chats"},
     },
     allow_channels=False,
-    allow_bots=False,
+    allow_bots=True,
 )
 async def filters_active(message: Message) -> None:
     """list filters in current chat"""
@@ -177,7 +177,7 @@ async def delete_filters(message: Message) -> None:
         "<b>add a url button to same row</b>",
     },
     allow_channels=False,
-    allow_bots=False,
+    allow_bots=True,
 )
 async def add_filter(message: Message) -> None:
     """add filter to current chat"""
