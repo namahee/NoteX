@@ -114,7 +114,6 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {}\n".format(REASON)
                     f"Last Seen: `{afk_time}` ago."
                 )
-            
         else:
             out_str = choice(AFK_REASONS)
         coro_list.append(message.reply(out_str))
