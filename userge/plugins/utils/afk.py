@@ -3,6 +3,7 @@
 import asyncio
 import time
 from random import choice, randint
+
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
@@ -51,8 +52,8 @@ async def active_afk(message: Message) -> None:
     global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
-    LINK = message.input_str.split("|", maxsplit=1)
+    REASON = message.input_str.split("|", maxsplit=1)
+    LINK = message.input_str
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
@@ -97,9 +98,9 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
-                )
+                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                        f"Last Seen: `{afk_time}` ago"
+                    )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
@@ -112,6 +113,7 @@ async def handle_afk_incomming(message: Message) -> None:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago."
+                f"{LINK}"
             )
         else:
             out_str = choice(AFK_REASONS)
