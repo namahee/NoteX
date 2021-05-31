@@ -3,6 +3,7 @@
 import asyncio
 import time
 from random import choice, randint
+
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
@@ -51,8 +52,7 @@ async def active_afk(message: Message) -> None:
     global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str.split("|", maxsplit=1)
-    LINK = message.input_str
+    REASON = message.input_str
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
@@ -91,15 +91,16 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     user_dict = await message.client.get_user_dict(user_id)
+    replied = message.reply_to_message
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
-                )
+                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                        f"Last Seen: `{afk_time}` ago"
+                    )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
@@ -109,13 +110,29 @@ async def handle_afk_incomming(message: Message) -> None:
             USERS[user_id][1] += 1
     else:
         if REASON:
+            if replied and replied.text:
+                LINK = replied.message
+                out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                    )
+            else:
+                out_str = (
+                        f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                        f"Last Seen: `{afk_time}` ago."
+        if '|' in REASON:
+            LINK = message.input_str.split("|", maxsplit=1)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago."
-            )
-        else:
-            out_str = choice(AFK_REASONS)
-        coro_list.append(message.reply(out_str))
+                f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+        elif:
+            if REASON:
+                out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                    f"Last Seen: `{afk_time}` ago."
+            else:
+                out_str = choice(AFK_REASONS)
+            coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
