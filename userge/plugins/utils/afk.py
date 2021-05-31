@@ -113,7 +113,7 @@ async def handle_afk_incomming(message: Message) -> None:
             if '|' in message.input_str:
                 out_str = (
                     "I'm **AFK** right now, leave me alone.\nReason: {}\n".format(REASON)
-                    "{}".format(LINK)
+                    "[\u3164]({})".format(LINK)
                 ),
                 LINK = message.input_str.split("|", maxsplit=1)
             else:
