@@ -3,6 +3,7 @@
 import asyncio
 import time
 from random import choice, randint
+
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
@@ -97,9 +98,9 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
-                )
+                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                        f"Last Seen: `{afk_time}` ago"
+                    )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
@@ -110,7 +111,7 @@ async def handle_afk_incomming(message: Message) -> None:
     else:
         if REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: {}\n".format(REASON)
                 f"Last Seen: `{afk_time}` ago."
                 f"{LINK}"
             )
