@@ -120,16 +120,16 @@ async def handle_afk_incomming(message: Message) -> None:
                 out_str = (
                         f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                         f"Last Seen: `{afk_time}` ago."
-        if '|' in REASON:
-            LINK = message.input_str.split("|", maxsplit=1)
+        if not '|' in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                f"Last Seen: `{afk_time}` ago."
         else:
             if REASON:
+                LINK = message.input_str.split("|", maxsplit=1)
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                    f"Last Seen: `{afk_time}` ago."
+                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
