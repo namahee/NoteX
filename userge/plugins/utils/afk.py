@@ -1,10 +1,9 @@
 """ setup AFK mode """
 
 import asyncio
+import random
 import time
 from random import choice, randint
-import random
-
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
@@ -92,16 +91,16 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     user_dict = await message.client.get_user_dict(user_id)
-    replied = message.reply_to_message
+    message.reply_to_message
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                        f"Last Seen: `{afk_time}` ago"
-                    )
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
+                )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
