@@ -4,7 +4,6 @@ import asyncio
 import random
 import time
 from random import choice, randint
-from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -103,7 +102,7 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if '|' in message.input_str and REASON:
+        if "|" in message.input_str and REASON:
             LINK = message.input_str.split("|", maxsplit=1)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
