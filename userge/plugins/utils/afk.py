@@ -79,11 +79,6 @@ async def active_afk(message: Message) -> None:
     allow_via_bot=False,
 )
 
-sleeping = "https://telegra.ph/file/fc3056c3292de5daffb06.jpg"
-watching = "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4"
-busy = "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4"
-
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -109,16 +104,19 @@ async def handle_afk_incomming(message: Message) -> None:
             USERS[user_id][1] += 1
     else:
         if "sleeping" in REASON:
+            sleeping = "https://telegra.ph/file/fc3056c3292de5daffb06.jpg"
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago. [\u3164]({sleeping})"
             )
         elif "watching" in REASON:
+            watching = "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4"
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                 f"Last Seen: `{afk_time}` ago. [\u3164]({watching})"
             )
         elif "busy" in REASON:
+            busy = "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4"
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                 f"Last Seen: `{afk_time}` ago. [\u3164]({busy})"
