@@ -1,10 +1,8 @@
 """ setup AFK mode """
 
 import asyncio
-import random
 import time
 from random import choice, randint
-from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -13,25 +11,19 @@ CHANNEL = userge.getCLogger(__name__)
 SAVED_SETTINGS = get_collection("CONFIGS")
 AFK_COLLECTION = get_collection("AFK")
 
-_TG_GRAPH_REGEX = comp_regex(
-    r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
-)
-
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
 REASON = ""
-LINK = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, LINK, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
         REASON = data["data"]
-        LINK = data["on"]
         TIME = data["time"] if "time" in data else 0
     async for _user in AFK_COLLECTION.find():
         USERS.update({_user["_id"]: [_user["pcount"], _user["gcount"], _user["men"]]})
@@ -59,7 +51,7 @@ async def active_afk(message: Message) -> None:
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
-            {"$set": {"on": True, "data": REASON, "time": TIME, "on": LINK}},
+            {"$set": {"on": True, "data": REASON, "time": TIME}},
             upsert=True,
         ),
     )
@@ -91,16 +83,16 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     user_dict = await message.client.get_user_dict(user_id)
-    message.reply_to_message
+    replied = message.reply_to_message
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
-                )
+                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                        f"Last Seen: `{afk_time}` ago"
+                    )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
@@ -110,46 +102,64 @@ async def handle_afk_incomming(message: Message) -> None:
             USERS[user_id][1] += 1
     else:
         if REASON:
+            if replied and replied.text:
+                LINK = replied.message
+                out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                )
+            else:
+                out_str = (
+                        f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                        f"Last Seen: `{afk_time}` ago."
+        if not "|" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago [\u3164]({random.choice(links)})"
+                f"Last Seen: `{afk_time}` ago."
             )
         else:
-            out_str = choice(AFK_REASONS)
-        coro_list.append(message.reply(out_str))
+            if REASON:
+                LINK = message.input_str.split("|", maxsplit=1)
+                out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                )
+            else:
+                out_str = choice(AFK_REASONS)
+            coro_list.append(message.reply(out_str))
+            if chat.type == "private":
+                USERS[user_id] = [1, 0, user_dict["mention"]]
+                else:
+                USERS[user_id] = [0, 1, user_dict["mention"]]
         if chat.type == "private":
-            USERS[user_id] = [1, 0, user_dict["mention"]]
+            coro_list.append(
+                CHANNEL.log(
+                    f"#PRIVATE\n{user_dict['mention']} send you\n\n" f"{message.text}"
+                )
+            )
         else:
-            USERS[user_id] = [0, 1, user_dict["mention"]]
-    if chat.type == "private":
+            coro_list.append(
+                CHANNEL.log(
+                    "#GROUP\n"
+                    f"{user_dict['mention']} tagged you in [{chat.title}](http://t.me/{chat.username})\n\n"
+                    f"{message.text}\n\n"
+                    f"[goto_msg](https://t.me/c/{str(chat.id)[4:]}/{message.message_id})"
+                )
+            )
         coro_list.append(
-            CHANNEL.log(
-                f"#PRIVATE\n{user_dict['mention']} send you\n\n" f"{message.text}"
+            AFK_COLLECTION.update_one(
+                {"_id": user_id},
+                {
+                    "$set": {
+                        "pcount": USERS[user_id][0],
+                        "gcount": USERS[user_id][1],
+                        "men": USERS[user_id][2],
+                    }
+                },
+                upsert=True,
             )
         )
-    else:
-        coro_list.append(
-            CHANNEL.log(
-                "#GROUP\n"
-                f"{user_dict['mention']} tagged you in [{chat.title}](http://t.me/{chat.username})\n\n"
-                f"{message.text}\n\n"
-                f"[goto_msg](https://t.me/c/{str(chat.id)[4:]}/{message.message_id})"
-            )
-        )
-    coro_list.append(
-        AFK_COLLECTION.update_one(
-            {"_id": user_id},
-            {
-                "$set": {
-                    "pcount": USERS[user_id][0],
-                    "gcount": USERS[user_id][1],
-                    "men": USERS[user_id][2],
-                }
-            },
-            upsert=True,
-        )
-    )
-    await asyncio.gather(*coro_list)
+        await asyncio.gather(*coro_list)
 
 
 @userge.on_filters(IS_AFK_FILTER & filters.outgoing, group=-1, allow_via_bot=False)
@@ -241,4 +251,4 @@ links = (
     "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
     "https://telegra.ph/file/4ef264941a867aef33f0d.jpg",
 )
-linkz = random.choice(links)
+linkz = choice(links)
