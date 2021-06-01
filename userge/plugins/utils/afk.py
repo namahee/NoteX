@@ -90,9 +90,9 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                        f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                        f"Last Seen: `{afk_time}` ago"
-                    )
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
+                )
             else:
                 out_str = choice(AFK_REASONS)
             coro_list.append(message.reply(out_str))
@@ -110,9 +110,9 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
             else:
                 out_str = (
-                        f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                        f"Last Seen: `{afk_time}` ago."
-                    )
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                    f"Last Seen: `{afk_time}` ago."
+                )
         if not "|" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
