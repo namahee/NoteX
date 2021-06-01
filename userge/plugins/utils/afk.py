@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -77,6 +78,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -104,19 +106,17 @@ async def handle_afk_incomming(message: Message) -> None:
         if "sleeping" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({sleeping})"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(sleeping)})"
             )
         elif "watching" in REASON:
-            watching = "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4"
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({watching})"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(watching)})"
             )
         elif "busy" in REASON:
-            busy = "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4"
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({busy})"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(busy)})"
             )
         else:
             out_str = choice(AFK_REASONS)
@@ -238,7 +238,21 @@ I'll get back to you later.",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
 
-sleeping = "https://telegra.ph/file/fc3056c3292de5daffb06.jpg"
+sleeping = (
+    "https://telegra.ph/file/fc3056c3292de5daffb06.jpg",
+    "https://telegra.ph/file/a241c48ab578f88b38a8b.mp4",
+    "https://telegra.ph/file/712d78c5cd60f369be907.mp4",
+)
+watching = (
+    "https://telegra.ph/file/0780e89404a11f2fe2055.mp4",
+    "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4",
+    "https://telegra.ph/file/15dcea7c7b796d6720dd7.mp4",
+)
+busy = (
+    "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
+    "https://telegra.ph/file/adedf1dceedf33528cb48.mp4",
+    "https://telegra.ph/file/40ed4d05652b03b4da993.mp4",
+)
 
 links = (
     "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
