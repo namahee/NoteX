@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -77,6 +78,12 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
+sleeping = "https://telegra.ph/file/fc3056c3292de5daffb06.jpg"
+watching = "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4"
+busy = "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4"
+
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -84,7 +91,6 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     user_dict = await message.client.get_user_dict(user_id)
-    message.reply_to_message
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
     if user_id in USERS:
@@ -102,16 +108,20 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" in message.input_str and REASON:
-            LINK = message.input_str.split("|", maxsplit=1)
+        if "sleeping" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({sleeping})"
             )
-        elif REASON:
+        elif "watching" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago."
+                f"Last Seen: `{afk_time}` ago. [\u3164]({watching})"
+            )
+        elif "busy" in REASON:
+            out_str = (
+                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({busy})"
             )
         else:
             out_str = choice(AFK_REASONS)
