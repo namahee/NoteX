@@ -113,12 +113,13 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                     f"Last Seen: `{afk_time}` ago."
                 )
-        if "|" in REASON:
-            LINK = (message.input_str.split("|", maxsplit=1),)
-            out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. ({LINK})"
-            )
+               
+out_str = (
+   f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
+   f"Last Seen: `{afk_time}` ago. ({LINK})"
+   
+        if '|' in message.input_str:
+            out_str, LINK = message.input_str.split("|", maxsplit=1)
         else:
             if REASON:
                 out_str = (
