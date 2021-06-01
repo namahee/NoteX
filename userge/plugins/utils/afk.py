@@ -121,7 +121,8 @@ out_str = (
         if '|' in message.input_str:
             out_str = (out_str,
             LINK = message.input_str.split("|", maxsplit=1),
-            f"{LINK}"
+            f"{LINK}",
+            )
         else:
             if REASON:
                 out_str = (
