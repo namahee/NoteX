@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -77,6 +78,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -236,6 +238,7 @@ I'll get back to you later.",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
 
+# AFK reasons
 sleeping = (
     "https://telegra.ph/file/fc3056c3292de5daffb06.jpg",
     "https://telegra.ph/file/a241c48ab578f88b38a8b.mp4",
@@ -252,6 +255,7 @@ busy = (
     "https://telegra.ph/file/40ed4d05652b03b4da993.mp4",
 )
 
+# Test AFKA reasons
 links = (
     "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
     "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
