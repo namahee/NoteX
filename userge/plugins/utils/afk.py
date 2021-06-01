@@ -106,18 +106,18 @@ async def handle_afk_incomming(message: Message) -> None:
                 LINK = replied.message
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                    f"Last Seen: `{afk_time}` ago. ({LINK})"
                 )
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                     f"Last Seen: `{afk_time}` ago."
                 )
-        if "|" in REASON:
+        if '|' in REASON:
             LINK = message.input_str.split("|", maxsplit=1)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
+                f"Last Seen: `{afk_time}` ago. ({LINK})"
             )
         else:
             if REASON:
