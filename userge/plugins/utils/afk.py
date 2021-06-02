@@ -4,7 +4,6 @@ import asyncio
 import random
 import time
 from random import choice, randint
-from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -78,10 +77,10 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
 def fatiar(reason):
-    x,y = reason.split("| ", maxsplit=1)
+    x, y = reason.split("| ", maxsplit=1)
     return y
+
 
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
@@ -112,7 +111,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago."
             )
-        elif '|' in REASON:
+        elif "|" in REASON:
             LINK = fatiar(REASON)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
