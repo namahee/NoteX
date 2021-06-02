@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -77,6 +78,11 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
+def fatiar(reason):
+    x,y = reason.split("| ", maxsplit=1)
+    return y
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -101,20 +107,16 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "sleeping" in REASON:
+        if REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(sleeping)})"
+                f"Last Seen: `{afk_time}` ago."
             )
-        elif "watching" in REASON:
+        elif '|' in REASON:
+            LINK = fatiar(reason)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(watching)})"
-            )
-        elif "busy" in REASON:
-            out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({random.choice(busy)})"
+                f"Last Seen: `{afk_time}` ago. [\u3164](%s)" % (LINK)
             )
         else:
             out_str = choice(AFK_REASONS)
