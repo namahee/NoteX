@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -20,7 +21,7 @@ USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, LINK, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
@@ -42,7 +43,7 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
@@ -77,6 +78,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -106,7 +108,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago."
             )
-        elif "|" in REASON:
+        elif '|' in REASON:
             LINK = REASON.split("|", maxsplit=1)
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
