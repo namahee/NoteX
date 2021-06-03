@@ -4,6 +4,7 @@ import asyncio
 import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -45,7 +46,7 @@ async def active_afk(message: Message) -> None:
     global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
+    REASON = message.input_str.split("|", maxsplit=1)
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON}`"),
         message.edit("`You went AFK!`", del_in=1),
@@ -77,6 +78,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -90,7 +92,7 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
             else:
@@ -103,8 +105,13 @@ async def handle_afk_incomming(message: Message) -> None:
     else:
         if REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
                 f"Last Seen: `{afk_time}` ago."
+            )
+        elif "|" in REASON:
+            out_str = (
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})"
             )
         else:
             out_str = choice(AFK_REASONS)
