@@ -113,6 +113,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 out_str = (
                         f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
                         f"Last Seen: `{afk_time}` ago."
+                )
         if not "|" in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
