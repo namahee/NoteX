@@ -51,7 +51,7 @@ async def active_afk(message: Message) -> None:
         if "|" in REASON:
             CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})")
         else:
-            CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})"),
+            CHANNEL.log(f"You went AFK! : `{REASON[0]}`"),
         message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
