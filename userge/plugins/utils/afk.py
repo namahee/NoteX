@@ -228,31 +228,3 @@ I'll get back to you later.",
     "Life is so short, there are so many things to do...\nI'm away doing one of them..",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
-
-# AFK reasons
-sleeping = (
-    "https://telegra.ph/file/3fbbf017f23a08a7e6d6f.mp4",
-    "https://telegra.ph/file/a241c48ab578f88b38a8b.mp4",
-    "https://telegra.ph/file/712d78c5cd60f369be907.mp4",
-    "https://telegra.ph/file/1ae31ed287a1f7e018548.mp4",
-)
-watching = (
-    "https://telegra.ph/file/0780e89404a11f2fe2055.mp4",
-    "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4",
-    "https://telegra.ph/file/15dcea7c7b796d6720dd7.mp4",
-)
-busy = (
-    "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
-    "https://telegra.ph/file/adedf1dceedf33528cb48.mp4",
-    "https://telegra.ph/file/40ed4d05652b03b4da993.mp4",
-)
-
-# Test AFK reasons
-links = (
-    "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
-    "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
-    "https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg",
-    "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
-    "https://telegra.ph/file/4ef264941a867aef33f0d.jpg",
-)
-linkz = random.choice(links)
