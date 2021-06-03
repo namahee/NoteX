@@ -47,12 +47,19 @@ async def active_afk(message: Message) -> None:
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str.split("| ", maxsplit=1)
-    await asyncio.gather(
-        if "|" in REASON:
-            CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})")
-        else:
+    if "|" in REASON:
+        await asyncio.gather(
+            CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})"),
+        AFK_COLLECTION.drop(),
+        SAVED_SETTINGS.update_one(
+            {"_id": "AFK"},
+            {"$set": {"on": True, "data": REASON, "time": TIME}},
+            upsert=True,
+        ),
+    )
+    else:
+        await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{REASON[0]}`"),
-        message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
