@@ -108,10 +108,6 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
                 f"Last Seen: `{afk_time}` ago." 
                 f"link = {REASON[1]}"
-        elif REASON:
-            out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
-                f"Last Seen: `{afk_time}` ago."
             )
         else:
             out_str = choice(AFK_REASONS)
