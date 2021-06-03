@@ -48,7 +48,7 @@ async def active_afk(message: Message) -> None:
     TIME = time.time()
     REASON = message.input_str.split("| ", maxsplit=1)
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON[0]} \nlink: {REASON[1]}`"),
+        CHANNEL.log(f"You went AFK! : `{REASON[0]}` \nlink: {REASON[1]}"),
         message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
