@@ -44,9 +44,9 @@ async def active_afk(message: Message) -> None:
     global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
+    REASON = message.input_str.split("| ", maxsplit=1)
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON}`"),
+        CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3154]({REASON[1]})"),
         message.edit("`You went AFK!`", del_in=1),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
@@ -89,8 +89,8 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm still **AFK**.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time} ago`"
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
                 )
             else:
                 out_str = choice(AFK_REASONS)
@@ -100,13 +100,16 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if REASON:
+        if "|" REASON:
             out_str = (
-                f"I'm **AFK** right now.\nReason: <code>{REASON}</code>\n"
-                f"Last Seen: `{afk_time} ago`"
+                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
+                f"Last Seen: `{afk_time}` ago [\u3164]({REASON[1]})"
             )
         else:
-            out_str = choice(AFK_REASONS)
+            out_str = (
+                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
+                f"Last Seen: `{afk_time} ago` [\u3164]({REASON[1]})"
+            )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
