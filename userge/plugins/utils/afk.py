@@ -1,8 +1,10 @@
 """ setup AFK mode """
 
 import asyncio
+import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -41,13 +43,12 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, LINK, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str.split("| ", maxsplit=1)
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON[0]}`"),
-        message.edit("`You went AFK!`", del_in=1),
+        CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})"),
         AFK_COLLECTION.drop(),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
@@ -55,7 +56,6 @@ async def active_afk(message: Message) -> None:
             upsert=True,
         ),
     )
-
 
 @userge.on_filters(
     IS_AFK_FILTER
@@ -76,6 +76,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -83,7 +84,6 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     user_dict = await message.client.get_user_dict(user_id)
-    replied = message.reply_to_message
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
     if user_id in USERS:
@@ -101,60 +101,50 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if REASON:
-            if replied and replied.text:
-                LINK = replied.text
-                out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
-                    f"Last Seen: `{afk_time}` ago. [\u3164]({LINK})"
-                )
-        if "|" not in REASON:
+        if "|" in REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
-                f"Last Seen: `{afk_time}` ago."
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})" 
             )
         else:
-            if REASON:
-                out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
-                    f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})"
+            out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
                 )
-            else:
-                out_str = choice(AFK_REASONS)
-            coro_list.append(message.reply(out_str))
-            if chat.type == "private":
-                USERS[user_id] = [1, 0, user_dict["mention"]]
-            else:
-                USERS[user_id] = [0, 1, user_dict["mention"]]
+        coro_list.append(message.reply(out_str))
         if chat.type == "private":
-            coro_list.append(
-                CHANNEL.log(
-                    f"#PRIVATE\n{user_dict['mention']} send you\n\n" f"{message.text}"
-                )
-            )
+            USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
-            coro_list.append(
-                CHANNEL.log(
-                    "#GROUP\n"
-                    f"{user_dict['mention']} tagged you in [{chat.title}](http://t.me/{chat.username})\n\n"
-                    f"{message.text}\n\n"
-                    f"[goto_msg](https://t.me/c/{str(chat.id)[4:]}/{message.message_id})"
-                )
-            )
+            USERS[user_id] = [0, 1, user_dict["mention"]]
+    if chat.type == "private":
         coro_list.append(
-            AFK_COLLECTION.update_one(
-                {"_id": user_id},
-                {
-                    "$set": {
-                        "pcount": USERS[user_id][0],
-                        "gcount": USERS[user_id][1],
-                        "men": USERS[user_id][2],
-                    }
-                },
-                upsert=True,
+            CHANNEL.log(
+                f"#PRIVATE\n{user_dict['mention']} send you\n\n" f"{message.text}"
             )
         )
-        await asyncio.gather(*coro_list)
+    else:
+        coro_list.append(
+            CHANNEL.log(
+                "#GROUP\n"
+                f"{user_dict['mention']} tagged you in [{chat.title}](http://t.me/{chat.username})\n\n"
+                f"{message.text}\n\n"
+                f"[goto_msg](https://t.me/c/{str(chat.id)[4:]}/{message.message_id})"
+            )
+        )
+    coro_list.append(
+        AFK_COLLECTION.update_one(
+            {"_id": user_id},
+            {
+                "$set": {
+                    "pcount": USERS[user_id][0],
+                    "gcount": USERS[user_id][1],
+                    "men": USERS[user_id][2],
+                }
+            },
+            upsert=True,
+        )
+    )
+    await asyncio.gather(*coro_list)
 
 
 @userge.on_filters(IS_AFK_FILTER & filters.outgoing, group=-1, allow_via_bot=False)
@@ -239,6 +229,25 @@ I'll get back to you later.",
     "I am not here right now...\nbut if I was...\n\nwouldn't that be awesome?",
 )
 
+# AFK reasons
+sleeping = (
+    "https://telegra.ph/file/3fbbf017f23a08a7e6d6f.mp4",
+    "https://telegra.ph/file/a241c48ab578f88b38a8b.mp4",
+    "https://telegra.ph/file/712d78c5cd60f369be907.mp4",
+    "https://telegra.ph/file/1ae31ed287a1f7e018548.mp4",
+)
+watching = (
+    "https://telegra.ph/file/0780e89404a11f2fe2055.mp4",
+    "https://telegra.ph/file/a7dbb626bb178aa88aeff.mp4",
+    "https://telegra.ph/file/15dcea7c7b796d6720dd7.mp4",
+)
+busy = (
+    "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
+    "https://telegra.ph/file/adedf1dceedf33528cb48.mp4",
+    "https://telegra.ph/file/40ed4d05652b03b4da993.mp4",
+)
+
+# Test AFK reasons
 links = (
     "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
     "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
@@ -246,4 +255,4 @@ links = (
     "https://telegra.ph/file/8dd0c5414fb03e866423b.mp4",
     "https://telegra.ph/file/4ef264941a867aef33f0d.jpg",
 )
-linkz = choice(links)
+linkz = random.choice(links)
