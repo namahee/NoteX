@@ -46,7 +46,7 @@ async def active_afk(message: Message) -> None:
     global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str.split("| ", maxsplit=1)
+    REASON = message.input_str.split(" | ", maxsplit=1)
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})"),
         AFK_COLLECTION.drop(),
