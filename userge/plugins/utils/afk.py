@@ -2,7 +2,7 @@
 
 import asyncio
 import time
-from random import randint
+from random import choice, randint
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -87,7 +87,7 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            if "|" not in REASON:
+            if not '|' in REASON:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
                     f"Last Seen: `{afk_time}` ao"
@@ -103,9 +103,9 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" not in REASON:
+        if not '|' in REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON}`\n"
                 f"Last Seen: `{afk_time}` agooooooooooo."
             )
         else:
