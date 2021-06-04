@@ -1,7 +1,6 @@
 """ setup AFK mode """
 
 import asyncio
-import random
 import time
 from random import choice, randint
 
@@ -57,6 +56,7 @@ async def active_afk(message: Message) -> None:
         ),
     )
 
+
 @userge.on_filters(
     IS_AFK_FILTER
     & ~filters.me
@@ -76,7 +76,6 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -104,13 +103,13 @@ async def handle_afk_incomming(message: Message) -> None:
         if REASON[1] in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})" 
+                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})"
             )
         else:
             out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
-                )
+                f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
+                f"Last Seen: `{afk_time}` ago"
+            )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
