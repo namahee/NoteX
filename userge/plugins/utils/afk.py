@@ -1,8 +1,10 @@
 """ setup AFK mode """
 
 import asyncio
+import random
 import time
 from random import choice, randint
+from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -14,13 +16,12 @@ AFK_COLLECTION = get_collection("AFK")
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
 REASON = ""
-REASON2 = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, REASON2, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
@@ -42,22 +43,20 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, REASON2, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
-    REASON2 = REASON.split(" | ", maxsplit=1)
+    REASON = message.input_str.split("| ", maxsplit=1)
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON2[0]}` [\u3164]({REASON2[1]})"),
-        message.edit("`You went AFK!`", del_in=1),
+        CHANNEL.log(f"You went AFK! : `{REASON[0]}` [\u3164]({REASON[1]})"),
         AFK_COLLECTION.drop(),
+        message.edit("`You went AFK!`", del_in=1),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
             {"$set": {"on": True, "data": REASON, "time": TIME}},
             upsert=True,
         ),
     )
-
 
 @userge.on_filters(
     IS_AFK_FILTER
@@ -78,6 +77,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -91,8 +91,8 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             if REASON:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON2[0]}</code>\n"
-                    f"Last Seen: `{afk_time}` ao"
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
                 )
             else:
                 out_str = choice(AFK_REASONS)
@@ -102,16 +102,16 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" not in REASON:
+        if "|" in REASON:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{[REASON2[0]]}`\n"
-                f"Last Seen: `{afk_time}` ago."
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON[0]}\n"
+                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})" 
             )
         else:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON2[0]}`\n"
-                f"Last Seen: `{afk_time}` ago. [\u3164]({REASON2[1]})"
-            )
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
+                )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
