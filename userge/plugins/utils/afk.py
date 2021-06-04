@@ -115,7 +115,7 @@ async def handle_afk_incomming(message: Message) -> None:
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
-            USERS[user_id] = [0, 1, user_dict["mention"]]
+            USERS[user_id] = [1, 0, user_dict["mention"]]
     if chat.type == "private":
         coro_list.append(
             CHANNEL.log(
