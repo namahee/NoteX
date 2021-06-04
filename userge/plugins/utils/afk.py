@@ -98,7 +98,7 @@ async def handle_afk_incomming(message: Message) -> None:
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
-            USERS[user_id][1] += 1
+            USERS[user_id][0] += 1
     else:
         if "|" in REASON:
             out_str = (
