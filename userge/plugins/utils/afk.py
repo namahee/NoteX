@@ -90,7 +90,7 @@ async def handle_afk_incomming(message: Message) -> None:
             if REASON:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
-                    f"Last Seen: `{afk_time}` ago"
+                    f"Last Seen: `{afk_time}` agoo"
                 )
             else:
                 out_str = choice(AFK_REASONS)
@@ -100,16 +100,16 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" in REASON:
+        if '|' in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
-                f"Last Seen: `{afk_time}` ago [\u3164]({REASON[1]})"
+                f"Last Seen: `{afk_time}` ago {REASON[1]}"
             )
         else:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
-                f"Last Seen: `{afk_time} ago`"
-            )
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
+                    f"Last Seen: `{afk_time} agoooo`"
+                )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
