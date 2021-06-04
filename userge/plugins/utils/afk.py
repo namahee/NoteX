@@ -87,20 +87,23 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            if REASON:
+            if not '|' in REASON:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON[0]}</code>\n"
-                    f"Last Seen: `{afk_time}` agoo"
+                    f"Last Seen: `{afk_time}` ao"
                 )
             else:
-                out_str = choice(AFK_REASONS)
+                out_str = (
+                    f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}\n"
+                    f"Last Seen: `{afk_time}` ago. [\u3164]({REASON[1]})"
+                )
             coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" not in REASON:
+        if not '|' in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{REASON[0]}`\n"
                 f"Last Seen: `{afk_time}` agooooooooooo."
