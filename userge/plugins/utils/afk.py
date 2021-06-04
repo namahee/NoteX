@@ -14,12 +14,13 @@ AFK_COLLECTION = get_collection("AFK")
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
 REASON = ""
+REASON2 = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, REASON2, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
@@ -41,7 +42,7 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, REASON2, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
@@ -101,7 +102,7 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        if "|" not in REASON:
+        if not '|' in REASON:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: `{[REASON2[0]]}`\n"
                 f"Last Seen: `{afk_time}` agooooooooooo."
