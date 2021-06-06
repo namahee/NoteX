@@ -126,10 +126,10 @@ async def handle_afk_incomming(message: Message) -> None:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time}` ago."
-                    f"<a href="{match.group(0)"></a>"
+                    f"<a href="{match.group(0)}"></a>"
                 )
             try:
-                await send_bot_button(message, InlineKeyboardMarkup(buttons)
+                await send_bot_button(message, InlineKeyboardMarkup(buttons))
             except FloodWait as e:
                 await asyncio.sleep(e.x + 10)
             except Exception as bpm_e:
