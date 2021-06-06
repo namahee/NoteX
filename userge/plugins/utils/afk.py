@@ -55,10 +55,10 @@ async def active_afk(message: Message) -> None:
     TIME = time.time()
     reason = message.input_str
     rr = TL.search(reason)
-    match = _TELE_REGEX.search(reason)
+    matche = _TELE_REGEX.search(reason)
     reasom = reason.replace(rr.group(0),"")
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{reasom} [\u3164]({match.group(0)}"),
+        CHANNEL.log(f"You went AFK! : `{reasom} [\u3164]({matche.group(0)}"),
         AFK_COLLECTION.drop(),
         message.edit("`You went AFK!`", del_in=1),
         SAVED_SETTINGS.update_one(
