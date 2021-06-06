@@ -152,7 +152,7 @@ async def handle_afk_incomming(message: Message) -> None:
         if match:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
-                f"Last Seen: `{afk_time}` ago. [\200]({match.group(0)})
+                f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
             )
         else:
             out_str = (
