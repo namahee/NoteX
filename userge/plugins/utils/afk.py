@@ -60,8 +60,8 @@ async def active_afk(message: Message) -> None:
         reasom = reason.replace(rr.group(0),"")
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{reasom}` [\u200c]({matche.group(0)})"),
-            AFK_COLLECTION.drop(),
             message.edit("`You went AFK!`", del_in=1),
+            AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
                 {"$set": {"on": True, "data": reason, "time": TIME}},
@@ -70,9 +70,9 @@ async def active_afk(message: Message) -> None:
         )
     else:
         await asyncio.gather(
-            CHANNEL.log(f"You went AFK! : `{reason}`")
-            AFK_COLLECTION.drop(),
+            CHANNEL.log(f"You went AFK! : `{reason}`"),
             message.edit("`You went AFK!`", del_in=1),
+            AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
                 {"set": {"on": True, "data": reason, "time": TIMTIME}},
