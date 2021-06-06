@@ -9,6 +9,7 @@ from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
 from re import compile as comp_regex
+import re
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
