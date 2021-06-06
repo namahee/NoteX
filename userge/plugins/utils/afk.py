@@ -1,12 +1,15 @@
 """ setup AFK mode """
 
 import asyncio
+import random
 import time
-from random import randint
-from re import compile as comp_regex
+from random import choice, randint
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
+
+from re import compile as comp_regex
+import re
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
@@ -54,7 +57,7 @@ async def active_afk(message: Message) -> None:
     rr = TL.search(reason)
     matche = _TELE_REGEX.search(reason)
     if matche:
-        reasom = reason.replace(rr.group(0), "")
+        reasom = reason.replace(rr.group(0),"")
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{reasom}` [\u200c]({matche.group(0)})"),
             message.edit("`You went AFK!`", del_in=1),
@@ -72,11 +75,10 @@ async def active_afk(message: Message) -> None:
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
-                {"set": {"on": True, "data": reason, "time": TIMTIME}},
+                {"set": {"on": True, "data": reason, "time": TIME}},
                 upsert=True,
             ),
         )
-
 
 @userge.on_filters(
     IS_AFK_FILTER
@@ -97,6 +99,7 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -111,7 +114,7 @@ async def handle_afk_incomming(message: Message) -> None:
             r = TL.search(reason)
             match = _TELE_REGEX.search(reason)
             if match:
-                REASON = reason.replace(r.group(0), "")
+                REASON = reason.replace(r.group(0),"")
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
@@ -130,16 +133,16 @@ async def handle_afk_incomming(message: Message) -> None:
         r = TL.search(reason)
         match = _TELE_REGEX.search(reason)
         if match:
-            REASON = reason.replace(r.group(0), "")
+            REASON = reason.replace(r.group(0),"")
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
             )
         else:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: <code>{reason}</code>\n"
-                f"Last Seen: `{afk_time}` ago"
-            )
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{reason}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
+                )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
