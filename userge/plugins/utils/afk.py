@@ -125,8 +125,7 @@ async def handle_afk_incomming(message: Message) -> None:
             if match:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago."
-                    f"<a href="{match.group(0)}"></a>"
+                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})
                 )
             try:
                 await send_bot_button(message, InlineKeyboardMarkup(buttons))
@@ -153,7 +152,7 @@ async def handle_afk_incomming(message: Message) -> None:
         if match:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
-                f"Last Seen: `{afk_time}` ago. <a href="{match.group(0)}"></a>"
+                f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})
             )
         else:
             out_str = (
