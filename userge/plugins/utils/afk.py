@@ -22,17 +22,17 @@ AFK_COLLECTION = get_collection("AFK")
 
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
-REASON = ""
+reason = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
+    global IS_AFK, reason, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
-        REASON = data["data"]
+        reason = data["data"]
         TIME = data["time"] if "time" in data else 0
     async for _user in AFK_COLLECTION.find():
         USERS.update({_user["_id"]: [_user["pcount"], _user["gcount"], _user["men"]]})
@@ -50,18 +50,18 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
+    global reason, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    REASON = message.input_str
-    match = _TELE_REGEX.search(REASON)
+    reason = message.input_str
+    match = _TELE_REGEX.search(reason)
     await asyncio.gather(
-        CHANNEL.log(f"You went AFK! : `{REASON} [\u3164]({match.group(0)}"),
+        CHANNEL.log(f"You went AFK! : `{reason} [\u3164]({match.group(0)}"),
         AFK_COLLECTION.drop(),
         message.edit("`You went AFK!`", del_in=1),
         SAVED_SETTINGS.update_one(
             {"_id": "AFK"},
-            {"$set": {"on": True, "data": REASON, "time": TIME}},
+            {"$set": {"on": True, "data": reason, "time": TIME}},
             upsert=True,
         ),
     )
@@ -97,9 +97,9 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            r = TL.search(REASON)
-            match = _TELE_REGEX.search(REASON)
-            REASON = REASON.replace(r.group(0),"")
+            r = TL.search(reason)
+            match = _TELE_REGEX.search(reason)
+            REASON = reason.replace(r.group(0),"")
             if match:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
