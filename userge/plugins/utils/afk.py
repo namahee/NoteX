@@ -116,9 +116,9 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        r = TL.search(REASON)
-        match = _TELE_REGEX.search(REASON)
-        REASON = REASON.replace(r.group(0),"")
+        r = TL.search(reason)
+        match = _TELE_REGEX.search(reason)
+        REASON = reason.replace(r.group(0),"")
         if match:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
