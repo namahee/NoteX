@@ -5,9 +5,6 @@ import random
 import time
 from random import choice, randint
 
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-from pyrogram.errors import BadRequest, FloodWait, UserIsBlocked
-
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
@@ -70,23 +67,6 @@ async def active_afk(message: Message) -> None:
             upsert=True,
         ),
     )
-    
-async def send_bot_button(
-        message: Message, markup: InlineKeyboardMarkup
-    ) -> None:
-        if InlineKeyboardButton(buttons):
-            await message.reply(reply_markup=markup)
-        else:
-            await message.reply(reply_markup=markup)
-    
-def afk_buttons() -> InlineKeyboardMarkup:
-    buttons = [
-        [
-            InlineKeyboardButton(text="CONTACT", url=f"https://t.me/{owner_.uname}"),
-            InlineKeyboardButton(text="¶ REPO ¶", url=Config.UPSTREAM_REPO),
-        ]
-    ]
-    return InlineKeyboardMarkup(buttons)
 
 @userge.on_filters(
     IS_AFK_FILTER
@@ -126,13 +106,6 @@ async def handle_afk_incomming(message: Message) -> None:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
-                try:
-                await send_bot_button(message, InlineKeyboardMarkup(afk_buttons))
-                except FloodWait as e:
-                    await asyncio.sleep(e.x + 10)
-                except Exception as bpm_e:
-                    await CHANNEL.log(
-                        f"**ERROR**: {str(bpm_e)}\n\nFatal Error occured while sending Bot Button")
                 )
             else:
                 out_str = (
