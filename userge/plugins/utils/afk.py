@@ -75,7 +75,8 @@ async def active_afk(message: Message) -> None:
             message.edit("`You went AFK!`", del_in=1),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
-                {"set": {"on": True, "data": reason, "time": TIME}},
+                {"set": {"on": True, "data": reason, "time": TIMTIME}},
+                upsert=True,
             ),
         )
 
