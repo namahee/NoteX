@@ -1,15 +1,18 @@
 """ setup AFK mode """
 
 import asyncio
+import random
 import time
-from random import randint
-from re import compile as comp_regex
+from random import choice, randint
 
-from pyrogram.errors import FloodWait
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.errors import BadRequest, FloodWait, UserIsBlocked
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
+
+from re import compile as comp_regex
+import re
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
@@ -55,8 +58,8 @@ async def active_afk(message: Message) -> None:
     TIME = time.time()
     reason = message.input_str
     rr = TL.search(reason)
-    _TELE_REGEX.search(reason)
-    reasom = reason.replace(rr.group(0), "")
+    matche = _TELE_REGEX.search(reason)
+    reasom = reason.replace(rr.group(0),"")
     await asyncio.gather(
         CHANNEL.log(f"You went AFK! : `{reasom} "),
         AFK_COLLECTION.drop(),
@@ -67,15 +70,15 @@ async def active_afk(message: Message) -> None:
             upsert=True,
         ),
     )
-
-
-async def send_bot_button(message: Message, markup: InlineKeyboardMarkup) -> None:
-    if InlineKeyboardButton(buttons):
-        await message.reply(reply_markup=markup)
-    else:
-        await message.reply(reply_markup=markup)
-
-
+    
+async def send_bot_button(
+        message: Message, markup: InlineKeyboardMarkup
+    ) -> None:
+        if InlineKeyboardButton(buttons):
+            await message.reply(reply_markup=markup)
+        else:
+            await message.reply(reply_markup=markup)
+    
 def afk_buttons() -> InlineKeyboardMarkup:
     buttons = [
         [
@@ -84,7 +87,6 @@ def afk_buttons() -> InlineKeyboardMarkup:
         ]
     ]
     return InlineKeyboardMarkup(buttons)
-
 
 @userge.on_filters(
     IS_AFK_FILTER
@@ -105,6 +107,7 @@ def afk_buttons() -> InlineKeyboardMarkup:
     ),
     allow_via_bot=False,
 )
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -118,14 +121,15 @@ async def handle_afk_incomming(message: Message) -> None:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             r = TL.search(reason)
             match = _TELE_REGEX.search(reason)
-            REASON = reason.replace(r.group(0), "")
+            REASON = reason.replace(r.group(0),"")
             if match:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                    f"Last Seen: `{afk_time}` ago. [\200]({match.group(0)})"
+                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
+                
             try:
-                await send_bot_button(message, InlineKeyboardMarkup(buttons))
+                await send_bot_button(message, InlineKeyboardMarkup(afk_buttons))
             except FloodWait as e:
                 await asyncio.sleep(e.x + 10)
             except Exception as bpm_e:
@@ -145,7 +149,7 @@ async def handle_afk_incomming(message: Message) -> None:
     else:
         r = TL.search(reason)
         match = _TELE_REGEX.search(reason)
-        REASON = reason.replace(r.group(0), "")
+        REASON = reason.replace(r.group(0),"")
         if match:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
@@ -153,9 +157,9 @@ async def handle_afk_incomming(message: Message) -> None:
             )
         else:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
-                f"Last Seen: `{afk_time}` ago"
-            )
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"Last Seen: `{afk_time}` ago"
+                )
         coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
