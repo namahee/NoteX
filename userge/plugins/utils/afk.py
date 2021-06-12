@@ -11,7 +11,7 @@ from userge.utils import time_formatter
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
 )
-TL = comp_regex(r"[¿].*[?]")
+TL = comp_regex(r"[<].*[>]")
 
 CHANNEL = userge.getCLogger(__name__)
 SAVED_SETTINGS = get_collection("CONFIGS")
