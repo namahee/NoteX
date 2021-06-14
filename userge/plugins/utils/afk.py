@@ -51,9 +51,9 @@ async def active_afk(message: Message) -> None:
     IS_AFK = True
     TIME = time.time()
     reason = message.input_str
-    rr = TL.search(reason)
     MATCH = _TELE_REGEX.search(reason)
     if MATCH:
+        rr = TL.search(reason)
         REASOM = reason.replace(rr.group(0), "")
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{REASOM}` [\u200c]({MATCH.group(0)})"),
@@ -108,9 +108,9 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            r = TL.search(reason)
             match = _TELE_REGEX.search(reason)
             if match:
+                r = TL.search(reason)
                 REASON = reason.replace(r.group(0), "")
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
