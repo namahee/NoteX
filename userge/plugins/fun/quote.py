@@ -96,4 +96,8 @@ async def quotecmd(message: Message):
 )
 async def kfun(message: Message):
     """kkk fun"""
-    await message.edit("kkkkkkkk")
+    kkk = ["kkkk", "kkkkkk", "kkkkkkkk", "kkkkkkkkkk", "kkkkkkkkkkkk", "kkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkkkkkkkkkkkk"]
+    for k in kkk:
+        if io == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
+            break
+        message.edit(k)
