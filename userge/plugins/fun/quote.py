@@ -96,7 +96,18 @@ async def quotecmd(message: Message):
 )
 async def kfun(message: Message):
     """kkk fun"""
-    kkk = ["kkkk", "kkkkkk", "kkkkkkkk", "kkkkkkkkkk", "kkkkkkkkkkkk", "kkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkkkkk", "kkkkkkkkkkkkkkkkkkkkkkkkkkkk"]
+    kkk = [
+        "kkkk",
+        "kkkkkk",
+        "kkkkkkkk",
+        "kkkkkkkkkk",
+        "kkkkkkkkkkkk",
+        "kkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+    ]
     for k in kkk:
         if io == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
             break
