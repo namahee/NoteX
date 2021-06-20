@@ -111,4 +111,4 @@ async def kfun(message: Message):
     for k in kkk:
         if k == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
             break
-        message.edit(k)
+        await message.edit(k)
