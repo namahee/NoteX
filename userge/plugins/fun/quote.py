@@ -107,8 +107,16 @@ async def kfun(message: Message):
         "kkkkkkkkkkkkkkkkkk",
         "kkkkkkkkkkkkkkkkkkkkk",
         "kkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
+        "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
     ]
     for k in kkk:
-        if k == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
+        if k == "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk":
             break
         await message.edit(k)
