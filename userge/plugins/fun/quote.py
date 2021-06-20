@@ -88,3 +88,13 @@ async def quotecmd(message: Message):
         await message.err(
             "@QuotLyBot Didn't respond in time\n:(  please try again later...", del_in=5
         )
+
+@userge.on_cmd(
+    "kkk$",
+    about={
+        "header": "fun"
+    },
+)
+async def kfun(message: Message):
+    """kkk fun"""
+    message.edit("kkkkkkkk")
