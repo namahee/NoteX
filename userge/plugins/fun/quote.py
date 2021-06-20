@@ -97,4 +97,4 @@ async def quotecmd(message: Message):
 )
 async def kfun(message: Message):
     """kkk fun"""
-    message.edit("kkkkkkkk")
+    await message.edit("kkkkkkkk")
