@@ -109,6 +109,6 @@ async def kfun(message: Message):
         "kkkkkkkkkkkkkkkkkkkkkkkkkkkk",
     ]
     for k in kkk:
-        if io == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
+        if k == "kkkkkkkkkkkkkkkkkkkkkkkkkkkk":
             break
         message.edit(k)
