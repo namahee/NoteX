@@ -132,7 +132,7 @@ async def handle_afk_incomming(message: Message, callback_query: CallbackQuery) 
                 ]
                 await userge.bot.edit_inline_text(
                 callback_query.inline_message_id,
-                "[\u200c](https://t.me/NoteZV"
+                "[\u200c](https://t.me/NoteZV) **IDK**",
                 reply_markup=InlineKeyboardMarkup(buttons)
                 )
             else:
