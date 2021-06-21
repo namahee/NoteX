@@ -113,12 +113,12 @@ async def handle_afk_incomming(message: Message) -> None:
                 r = TL.search(REASON)
                 STATUS = REASON.replace(r.group(0), "")
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{STATUS}</code>\n"
+                    f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
             else:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
             coro_list.append(message.reply(out_str))
@@ -137,7 +137,7 @@ async def handle_afk_incomming(message: Message) -> None:
             )
         else:
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: <code>{reason}</code>\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago"
             )
         coro_list.append(message.reply(out_str))
