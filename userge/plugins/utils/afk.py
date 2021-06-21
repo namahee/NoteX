@@ -136,6 +136,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 callback_query.inline_message_id,
                 "[\u200c](https://telegra.ph/file/c3cdea0642e1723f3304c.jpg)**FLAME GAPPS**",
                 reply_markup=InlineKeyboardMarkup(afk_buttons()),
+                )
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
