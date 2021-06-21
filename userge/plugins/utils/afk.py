@@ -131,7 +131,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     ]
                 ]
                 await userge.bot.edit_inline_text(
-                callback_query.inline_message_id,
+                CallbackQuery.inline_message_id,
                 reply_markup=InlineKeyboardMarkup(buttons)
                 )
             else:
