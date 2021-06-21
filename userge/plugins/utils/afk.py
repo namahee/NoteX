@@ -5,6 +5,8 @@ import time
 from random import randint
 from re import compile as comp_regex
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
@@ -12,9 +14,6 @@ _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
 )
 TL = comp_regex(r"[<].*[>]")
-
-
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 
 CHANNEL = userge.getCLogger(__name__)
@@ -101,16 +100,16 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
-
 def afk_buttons() -> InlineKeyboardMarkup:
-        buttons = [
-            [
-                InlineKeyboardButton(text="🔧  CONTACT", callback_data="https://t.me/NoteZV"),
-                InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
-            ]
+    buttons = [
+        [
+            InlineKeyboardButton(
+                text="🔧  CONTACT", callback_data="https://t.me/NoteZV"
+            ),
+            InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
         ]
-        return InlineKeyboardMarkup(buttons)
+    ]
+    return InlineKeyboardMarkup(buttons)
 
 
 async def handle_afk_incomming(message: Message) -> None:
@@ -134,13 +133,15 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
                 buttons = [
                     [
-                        InlineKeyboardButton(text="🔧  CONTACT", url="https://t.me/NoteZV"),
+                        InlineKeyboardButton(
+                            text="🔧  CONTACT", url="https://t.me/NoteZV"
+                        ),
                         InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
                     ]
                 ]
                 await userge.bot.edit_inline_text(
-                callback_query.inline_message_id,
-                reply_markup=InlineKeyboardMarkup(buttons)
+                    callback_query.inline_message_id,
+                    reply_markup=InlineKeyboardMarkup(buttons),
                 )
             else:
                 out_str = (
