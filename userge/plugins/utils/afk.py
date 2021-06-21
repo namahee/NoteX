@@ -130,9 +130,9 @@ async def handle_afk_incomming(message: Message) -> None:
         match = _TELE_REGEX.search(REASON)
         if match:
             r = TL.search(REASON)
-            REASON = REASON.replace(r.group(0), "")
+            STATUS = REASON.replace(r.group(0), "")
             out_str = (
-                f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
+                f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                 f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
             )
         else:
