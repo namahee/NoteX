@@ -103,7 +103,7 @@ async def active_afk(message: Message) -> None:
 )
 
 
-def afk_buttons -> InlineKeyboardMarkup:
+def afk_buttons() -> InlineKeyboardMarkup:
     buttons = [
         [
             InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
