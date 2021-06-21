@@ -5,8 +5,6 @@ import time
 from random import randint
 from re import compile as comp_regex
 
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
-
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
@@ -14,6 +12,9 @@ _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
 )
 TL = comp_regex(r"[<].*[>]")
+
+from pyrogram.errors import BadRequest, FloodWait
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 
 CHANNEL = userge.getCLogger(__name__)
@@ -100,7 +101,20 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-async def handle_afk_incomming(message: Message, callback_query: CallbackQuery) -> None:
+
+
+@staticmethod
+def afk_buttons() -> InlineKeyboardMarkup:
+    buttons = [
+        [
+            InlineKeyboardButton(text="🔧  CONTACT", url="https://t.me/NoteZV"),
+            InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
+        ]
+    ]
+    return InlineKeyboardMarkup(buttons)
+
+
+async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
         return
@@ -119,19 +133,15 @@ async def handle_afk_incomming(message: Message, callback_query: CallbackQuery) 
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
-                buttons = [
-                    [
-                        InlineKeyboardButton(
-                            text="🔧  CONTACT", url="https://t.me/NoteZV"
-                        ),
-                        InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
-                    ]
-                ]
-                await userge.bot.edit_inline_text(
-                    callback_query.inline_message_id,
-                    "[\u200c](https://t.me/NoteZV) **IDK**",
-                    reply_markup=InlineKeyboardMarkup(buttons),
-                )
+                try:
+                    await userge.bot.edit_inline_text(
+                        callback_query.inline_message_id,
+                        reply_markup=afk_buttons(),
+                    )
+                except FloodWait as e:
+                    await asyncio.sleep(e.x)
+                except BadRequest:
+                    pass
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
