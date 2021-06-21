@@ -103,7 +103,6 @@ async def active_afk(message: Message) -> None:
 )
 
 
-@staticmethod
 def afk_buttons -> InlineKeyboardMarkup:
     buttons = [
         [
