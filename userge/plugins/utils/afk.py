@@ -135,7 +135,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
                 if allow:
                     try:
-                        await userge.edit_message_text(
+                        await c_q.edit_message_text(
                             reply_markup=buttons,
                         )
                     except FloodWait as e:
