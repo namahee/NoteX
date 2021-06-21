@@ -138,7 +138,6 @@ async def handle_afk_incomming(message: Message) -> None:
                         InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
                     ]
                 ]
-        return InlineKeyboardMarkup(buttons)
                 await userge.bot.edit_inline_text(
                 callback_query.inline_message_id,
                 "[\u200c](https://telegra.ph/file/c3cdea0642e1723f3304c.jpg)**FLAME GAPPS**",
