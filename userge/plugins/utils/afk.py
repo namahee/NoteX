@@ -19,17 +19,17 @@ AFK_COLLECTION = get_collection("AFK")
 
 IS_AFK = False
 IS_AFK_FILTER = filters.create(lambda _, __, ___: bool(IS_AFK))
-reason = ""
+REASON = ""
 TIME = 0.0
 USERS = {}
 
 
 async def _init() -> None:
-    global IS_AFK, reason, TIME  # pylint: disable=global-statement
+    global IS_AFK, REASON, TIME  # pylint: disable=global-statement
     data = await SAVED_SETTINGS.find_one({"_id": "AFK"})
     if data:
         IS_AFK = data["on"]
-        reason = data["data"]
+        REASON = data["data"]
         TIME = data["time"] if "time" in data else 0
     async for _user in AFK_COLLECTION.find():
         USERS.update({_user["_id"]: [_user["pcount"], _user["gcount"], _user["men"]]})
@@ -47,32 +47,32 @@ async def _init() -> None:
 )
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
-    global reason, IS_AFK, TIME  # pylint: disable=global-statement
+    global REASON, IS_AFK, TIME  # pylint: disable=global-statement
     IS_AFK = True
     TIME = time.time()
-    reason = message.input_str
-    MATCH = _TELE_REGEX.search(reason)
+    REASON = message.input_str
+    MATCH = _TELE_REGEX.search(REASON)
     if MATCH:
-        rr = TL.search(reason)
-        REASOM = reason.replace(rr.group(0), "")
+        rr = TL.search(REASON)
+        STATUSS = REASON.replace(rr.group(0), "")
         await asyncio.gather(
-            CHANNEL.log(f"You went AFK! : `{REASOM}` [\u200c]({MATCH.group(0)})"),
+            CHANNEL.log(f"You went AFK! : `{STATUSS}` [\u200c]({MATCH.group(0)})"),
             message.edit("`You went AFK!`", del_in=1),
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
-                {"$set": {"on": True, "data": REASOM, "time": TIME}},
+                {"$set": {"on": True, "data": STATUSS, "time": TIME}},
                 upsert=True,
             ),
         )
     else:
         await asyncio.gather(
-            CHANNEL.log(f"You went AFK! : `{reason}`"),
+            CHANNEL.log(f"You went AFK! : `{REASON}`"),
             message.edit("`You went AFK!`", del_in=1),
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
                 {"_id": "AFK"},
-                {"set": {"on": True, "data": reason, "time": TIME}},
+                {"set": {"on": True, "data": REASON, "time": TIME}},
                 upsert=True,
             ),
         )
@@ -108,17 +108,17 @@ async def handle_afk_incomming(message: Message) -> None:
     coro_list = []
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
-            match = _TELE_REGEX.search(reason)
+            match = _TELE_REGEX.search(REASON)
             if match:
-                r = TL.search(reason)
-                REASON = reason.replace(r.group(0), "")
+                r = TL.search(REASON)
+                STATUS = REASON.replace(r.group(0), "")
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{STATUS}</code>\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
             else:
                 out_str = (
-                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{reason}</code>\n"
+                    f"I'm **AFK** right now, leave me alone.\nReason: <code>{REASON}</code>\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
             coro_list.append(message.reply(out_str))
@@ -127,10 +127,10 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             USERS[user_id][1] += 1
     else:
-        match = _TELE_REGEX.search(reason)
+        match = _TELE_REGEX.search(REASON)
         if match:
-            r = TL.search(reason)
-            REASON = reason.replace(r.group(0), "")
+            r = TL.search(REASON)
+            REASON = REASON.replace(r.group(0), "")
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
