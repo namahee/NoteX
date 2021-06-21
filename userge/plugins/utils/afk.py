@@ -13,6 +13,10 @@ _TELE_REGEX = comp_regex(
 )
 TL = comp_regex(r"[<].*[>]")
 
+
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+
 CHANNEL = userge.getCLogger(__name__)
 SAVED_SETTINGS = get_collection("CONFIGS")
 AFK_COLLECTION = get_collection("AFK")
@@ -97,6 +101,18 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
+
+def afk_buttons() -> InlineKeyboardMarkup:
+        buttons = [
+            [
+                InlineKeyboardButton(text="🔧  CONTACT", callback_data="https://t.me/NoteZV"),
+                InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
+            ]
+        ]
+        return InlineKeyboardMarkup(buttons)
+
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -116,6 +132,10 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
+                await userge.bot.edit_inline_text(
+                callback_query.inline_message_id,
+                "[\u200c](https://telegra.ph/file/c3cdea0642e1723f3304c.jpg)**FLAME GAPPS**",
+                reply_markup=InlineKeyboardMarkup(afk_buttons),
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
