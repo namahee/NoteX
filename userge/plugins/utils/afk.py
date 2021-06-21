@@ -134,7 +134,6 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
                 try:
                     await userge.bot.edit_inline_text(
-                        callback_query.inline_message_id,
                         reply_markup=afk_buttons(),
                     )
                 except FloodWait as e:
