@@ -91,7 +91,7 @@ async def quotecmd(message: Message):
 
 
 @userge.on_cmd(
-    "kkk$",
+    "^kkk$",
     about={"header": "fun"},
 )
 async def kfun(message: Message):
