@@ -27,6 +27,7 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .utils.afk import afk_buttons
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -38,7 +39,6 @@ from .bot.utube_inline import (
 )
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
-from .utils.afk import afk_buttons
 from .utils.notes import get_inote
 
 CHANNEL = userge.getCLogger(__name__)
@@ -497,8 +497,6 @@ if userge.has_bot:
             or (iq_user_id in Config.SUDO_USERS)
             and Config.SUDO_ENABLED
         ):
-            if string == "afk":
-                buttons = afk_buttons()
 
             if string == "syntax":
                 owner = [
