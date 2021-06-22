@@ -102,41 +102,6 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
-# @userge.bot.on_callbackquery(filters.regex(pattern=r"^idk_btn$"))
-# async def afk_ver(_, c_q: CallbackQuery):
-    # allow = bool(
-        # c_q.from_user
-        # and (
-            # c_q.from_user.id in Config.OWNER_ID
-            # or c_q.from_user.id in Config.SUDO_USERS
-        # )
-    # )
-    # if allow:
-        # start = datetime.now()
-        # try:
-            # await c_q.edit_message_text(
-                # afk_info(),
-                # reply_markup=afk_buttons(),
-                # disable_web_page_preview=True,
-            # )
-        # except FloodWait as e:
-            # await asyncio.sleep(e.x)
-        # except BadRequest:
-            # pass
-        # ping = "RUNNING {} sec\n"
-    # afk_ss += f"I'm **AFK**, then leave me alone.\n"
-    # afk_ss += f"My reason is: {REASON}\n"
-
-    # if allow:
-        # end = datetime.now()
-        # m_s = (end - start).microseconds / 1000
-        # await c_q.answer(ping.format(m_s) + afk_ss, show_alert=True)
-    # else:
-        # await c_q.answer(afk_ss, show_alert=True)
-    # await asyncio.sleep(0.5)
-
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -175,8 +140,6 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                 f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
             )
-            buttons = afk_buttons()
-            await reply_markup=buttons
         else:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
@@ -216,24 +179,8 @@ async def handle_afk_incomming(message: Message) -> None:
         )
     )
     await asyncio.gather(*coro_list)
-# oi
 
 
-# def afk_info() -> str:
-    # afk_info_ = f"""
-    # slá
-# """
-
-def afk_buttons() -> InlinekeyboardMarkup:
-    buttons = [
-        [
-            InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
-            InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-        ],
-    ]
-
-
-#oi
 @userge.on_filters(IS_AFK_FILTER & filters.outgoing, group=-1, allow_via_bot=False)
 async def handle_afk_outgoing(message: Message) -> None:
     """handle outgoing messages when you afk"""
