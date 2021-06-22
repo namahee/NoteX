@@ -165,6 +165,7 @@ async def test_filter(message: Message):
 </details> 
 
 ### Project Credits 
+* [USERGE-X](https://github.com/code-rgb/USERGE-X)
 * [Pyrogram Assistant](https://github.com/pyrogram/assistant)
 * [PyroGramBot](https://github.com/SpEcHiDe/PyroGramBot)
 * [PaperPlane](https://github.com/RaphielGang/Telegram-Paperplane)
