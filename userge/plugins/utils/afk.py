@@ -5,12 +5,10 @@ import time
 from random import randint
 from re import compile as comp_regex
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
-
-
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
-
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
@@ -49,8 +47,6 @@ async def _init() -> None:
     },
     allow_channels=False,
 )
-
-
 # async def send_afk_buttons(IKM: InlineKeyboardMarkup, IKB: InlineKeyboardButton):
 #    buttons = IKM(
 #        [
@@ -66,8 +62,6 @@ async def _init() -> None:
 #            ]
 #        ]
 #    )
-
-
 async def active_afk(message: Message) -> None:
     """turn on or off afk mode"""
     global REASON, IS_AFK, TIME  # pylint: disable=global-statement
@@ -140,35 +134,37 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
                 # await message.reply_text(
-                    # out_str,
-                    # reply_markup=InlineKeyboardMarkup(
-                        # [
-                            # [
-                                # InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
-                                # InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-                            # ]
-                        # ]
-                    # )
+                # out_str,
+                # reply_markup=InlineKeyboardMarkup(
+                # [
+                # [
+                # InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
+                # InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+                # ]
+                # ]
+                # )
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            coro_list.append(message.reply(out_str,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "CONTACT", url="https://t.me/NoteZV"
-                        ),
-                        InlineKeyboardButton(
-                            text="REPO",
-                            url=Config.UPSTREAM_REPO,
-                        ),
-                    ]
-                ]
+            coro_list.append(
+                message.reply(
+                    out_str,
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    "CONTACT", url="https://t.me/NoteZV"
+                                ),
+                                InlineKeyboardButton(
+                                    text="REPO",
+                                    url=Config.UPSTREAM_REPO,
+                                ),
+                            ]
+                        ]
+                    ),
                 )
-              )
             )
         if chat.type == "private":
             USERS[user_id][0] += 1
