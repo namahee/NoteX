@@ -137,15 +137,15 @@ async def handle_afk_incomming(message: Message) -> None:
                 STATUS = REASON.replace(r.group(0), "")
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
-                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})",
-                    reply_markup=InlineKeyboardMarkup(
+                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
+                )
+                reply_markup=InlineKeyboardMarkup(
+                    [
                         [
-                            [
-                                InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
-                                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-                            ],
+                            InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
+                            InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
                         ]
-                    ),
+                    ]
                 )
             else:
                 out_str = (
