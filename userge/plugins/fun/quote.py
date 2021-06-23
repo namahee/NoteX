@@ -121,10 +121,10 @@ async def kfun(message: Message):
             break
         await message.edit(k)
         
-@userge.on_cmd(
-    "Kkk$", about={"header": "execute .kkk"}, trigger="",
-    allow_via_bot=False
-)
+# @userge.on_cmd(
+    # "Kkk$", about={"header": "execute .kkk"}, trigger="",
+    # allow_via_bot=False
+# )
 # async def kkk_(message: Message):
     # """Kkk"""
     # kkkk = ".kkk"
