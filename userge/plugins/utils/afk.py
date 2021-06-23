@@ -138,13 +138,12 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
-                await send_afk_buttons(message.from_user)
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            coro_list.append(message.reply(out_str))
+            coro_list.append(message.reply(out_str, await send_afk_buttons(message.from_user)))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
