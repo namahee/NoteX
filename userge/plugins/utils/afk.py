@@ -159,7 +159,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 [
                     [
                         InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
-                        InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO)
+                        InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
                     ]
                 ]
             )))
