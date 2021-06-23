@@ -144,22 +144,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            coro_list.append(message.reply(out_str,
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "CONTACT", url="https://t.me/NoteZV"
-                        ),
-                        InlineKeyboardButton(
-                            text="REPO",
-                            url=Config.UPSTREAM_REPO,
-                        ),
-                    ]
-                ]
-                )
-              )
-            )
+            coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
