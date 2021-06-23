@@ -5,12 +5,10 @@ import time
 from random import randint
 from re import compile as comp_regex
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
-
-
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
-
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
@@ -132,7 +130,9 @@ async def handle_afk_incomming(message: Message) -> None:
                     InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
                 ]
             ]
-            coro_list.append(message.reply(out_str, reply_markup=InlineKeyboardMarkup(buttons)))
+            coro_list.append(
+                message.reply(out_str, reply_markup=InlineKeyboardMarkup(buttons))
+            )
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
@@ -152,13 +152,15 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"Last Seen: `{afk_time}` ago"
             )
         contact_url = "https://t.me/NoteZV"
-            buttons = [
-                [
-                    InlineKeyboardButton(text="CONTACT", url=contact_url),
-                    InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-                ]
+        buttons = [
+            [
+                InlineKeyboardButton(text="CONTACT", url=contact_url),
+                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
             ]
-        coro_list.append(message.reply(out_str, reply_markup=InlineKeyboardMarkup(buttons)))
+        ]
+        coro_list.append(
+            message.reply(out_str, reply_markup=InlineKeyboardMarkup(buttons))
+        )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
