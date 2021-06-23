@@ -5,12 +5,10 @@ import time
 from random import randint
 from re import compile as comp_regex
 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
-
-
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|mp4|[0-9]+)(?:/([0-9]+))?"
@@ -49,16 +47,11 @@ async def _init() -> None:
     },
     allow_channels=False,
 )
-
-
 async def send_afk_buttons():
     buttons = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton(
-                    text="CONTACT",
-                    url="https://t.me/NoteZV"
-                ),
+                InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
                 InlineKeyboardButton(
                     text="REPO",
                     url="https://github.com/samuca78/NoteX",
