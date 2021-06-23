@@ -139,7 +139,9 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
                     f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
                 )
-                await reply_markup=InlineKeyboardMarkup(
+                message.reply_text(
+                    out_str,
+                    reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
