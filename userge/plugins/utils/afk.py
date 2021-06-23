@@ -9,7 +9,7 @@ from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
 
 
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
 
 
 _TELE_REGEX = comp_regex(
@@ -137,7 +137,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 STATUS = REASON.replace(r.group(0), "")
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
-                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
+                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})",
                     reply_markup=InlineKeyboardMarkup(
                         [
                             [
