@@ -142,12 +142,13 @@ async def handle_afk_incomming(message: Message) -> None:
                 message.reply_text(
                     out_str,
                     reply_markup=InlineKeyboardMarkup(
-                    [
                         [
-                            InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
-                            InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+                            [
+                                InlineKeyboardButton(text="CONTACT", url="https://t.me/NoteZV"),
+                                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+                            ]
                         ]
-                    ]
+                    )
                 )
                 reply_markup=ForceReply(True)
             else:
