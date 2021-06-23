@@ -162,7 +162,7 @@ async def handle_afk_incomming(message: Message) -> None:
                         InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO)
                     ]
                 ]
-            )),
+            )))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
