@@ -117,23 +117,26 @@ async def kfun(message: Message):
         "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk",
     ]
     for k in kkk:
-        if k == "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk":
+        if (
+            k
+            == "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
+        ):
             break
         await message.edit(k)
-        
+
+
 @userge.on_cmd(
-    "Kkk$", about={"header": "execute .kkk"}, trigger="",
-    allow_via_bot=False
+    "Kkk$", about={"header": "execute .kkk"}, trigger="", allow_via_bot=False
 )
 async def kkk_(message: Message):
     """Kkk"""
     kkkk = ".kkk"
     await message.edit(kkkk, del_in=1)
-    
+
+
 async def check_and_send(message: Message, *args, **kwargs):
     replied = message.reply_to_message
     if replied:
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-    
