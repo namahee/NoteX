@@ -91,7 +91,7 @@ async def quotecmd(message: Message):
 
 
 @userge.on_cmd(
-    "^kkk$",
+    "kkk",
     about={"header": "fun"},
 )
 async def kfun(message: Message):
@@ -123,3 +123,13 @@ async def kfun(message: Message):
         ):
             break
         await message.edit(k)
+        
+@userge.on_cmd(
+    "kkk$", about={"header": "execute .kkk"}, trigger="",
+    allow_via_bot=False
+)
+async def kkk_(message: Message):
+    """kkk"""
+    kkk = "!kkk"
+    await message.try_to_edit(kkk, del_in=1)
+    
