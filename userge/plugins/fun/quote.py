@@ -125,15 +125,15 @@ async def kfun(message: Message):
     "Kkk$", about={"header": "execute .kkk"}, trigger="",
     allow_via_bot=False
 )
-async def kkk_(message: Message):
-    """Kkk"""
-    kkkk = ".kkk"
-    await message.try_to_edit(kkkk, del_in=1)
+# async def kkk_(message: Message):
+    # """Kkk"""
+    # kkkk = ".kkk"
+    # await message.try_to_edit(kkkk, del_in=1)
     
-async def check_and_send(message: Message, *args, **kwargs):
-    replied = message.reply_to_message
-    if replied:
-        await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
-    else:
-        await message.edit(*args, **kwargs)
+# async def check_and_send(message: Message, *args, **kwargs):
+    # replied = message.reply_to_message
+    # if replied:
+        # await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
+    # else:
+        # await message.edit(*args, **kwargs)
     
