@@ -57,7 +57,7 @@ async def upload_media_(message: Message):
         progress=progress,
         progress_args=(message, "trying to download"),
     )
-    await message.edit("`uploading to telegraph...`")
+    await message.edit("**uploading to telegraph...**")
     try:
         response = upload_file(dl_loc)
     except Exception as t_e:
