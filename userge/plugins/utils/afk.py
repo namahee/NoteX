@@ -204,12 +204,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
             if match.group(3) == "gif" or "mp4":
                 coro_list.append(
-                    client.send_animation(
-                        chat_id,
-                        animation=match.group(0),
-                        caption=out_str,
-                        reply_markup=buttons,
-                    )
+                    message.reply(out_str)
                 )
         else:
             out_str = (
