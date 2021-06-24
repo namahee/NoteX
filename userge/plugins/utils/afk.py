@@ -215,7 +215,7 @@ async def handle_afk_incomming(message: Message) -> None:
         else:
             out_str = (
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
-                f"▫️ **Status**: {STATUS}"
+                f"▫️ **Status**: {REASON}"
             )
             coro_list.append(
                 message.reply(out_str)
