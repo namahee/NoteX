@@ -197,7 +197,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 client.send_message(
                     chat_id,
                     caption=out_str
-                    reply_markup=reply_markup,
+                    reply_markup=buttons,
                     disable_web_page_preview=True,
                 )
             )
