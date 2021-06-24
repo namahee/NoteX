@@ -5,7 +5,7 @@ import time
 from random import randint
 from re import compile as comp_regex
 
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
 
 from userge import Config, Message, filters, get_collection, userge
 from userge.utils import time_formatter
@@ -110,16 +110,6 @@ async def handle_afk_incomming(message: Message) -> None:
 
     client = message.client
     chat_id = message.chat.id
-
-    contact_url = "https://t.me/NoteZV"
-    buttons = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(text="CONTACT", url=contact_url),
-                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-            ]
-        ]
-    )
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             match = _TELE_REGEX.search(REASON)
@@ -130,26 +120,15 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                     f"▫️ **Status**: {STATUS}"
                 )
-
-                if match.group(3) == "gif" or "mp4":
-                    coro_list.append(
-                        client.send_animation(
-                            chat_id,
-                            animation=match.group(0),
-                            caption=out_str,
-                            reply_markup=_afk_.afk_buttons(),
-                        )
+                coro_list.append(
+                    await chat_id.send_animation(
+                        chat_id,
+                        animation=match.group(0),
+                        caption=out_str,
+                        reply_markup=_afk_.afk_buttons(),
+                        reply_markup=ForceReply(True)
                     )
-                else:
-                    if match.group(3) == "jpg" or "png" or "jpeg":
-                        coro_list.append(
-                            client.send_photo(
-                                chat_id,
-                                photo=match.group(0),
-                                caption=out_str,
-                                reply_markup=_afk_.afk_buttons(),
-                            )
-                        )
+                )
             else:
                 out_str = (
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
@@ -170,22 +149,28 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                 f"▫️ **Status**: {STATUS}"
             )
-            url_ = LINK.strip()
-            type_, media_ = await _afk_.check_media_link(LINK)
-            if type_ == "url_gif":
-                await client.send_animation(
-                    chat_id,
-                    animation=url_,
-                    caption=out_str,
-                    reply_markup=_afk_.afk_buttons(),
-                )
-            elif type_ == "url_image":
-                await client.send_photo(
-                    chat_id,
-                    photo=url_,
-                    caption=out_str,
-                    reply_markup=_afk_.afk_buttons(),
-                )
+            await send_animation(
+                chat_id,
+                animation=match.group(0),
+                caption=out_str,
+                reply_markup=_afk_.afk_buttons(),
+            )
+            # url_ = LINK.strip()
+            # type_, media_ = await _afk_.check_media_link(LINK)
+            # if type_ == "url_gif":
+                # await client.send_animation(
+                    # chat_id,
+                    # animation=url_,
+                    # caption=out_str,
+                    # reply_markup=_afk_.afk_buttons(),
+                # )
+            # elif type_ == "url_image":
+                # await client.send_photo(
+                    # chat_id,
+                    # photo=url_,
+                    # caption=out_str,
+                    # reply_markup=_afk_.afk_buttons(),
+                # )
         else:
             out_str = (
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
