@@ -55,10 +55,16 @@ async def active_afk(message: Message) -> None:
     REASON = message.input_str
     MATCH = _TELE_REGEX.search(REASON)
     if MATCH:
+        buttons = [
+            [
+                InlineKeyboardButton(text="REPO", url="https://github.com/samuca78/NoteX"),
+            ]
+        ]
         rr = TL.search(REASON)
         STATUSS = REASON.replace(rr.group(0), "")
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{STATUSS}` [\u200c]({MATCH.group(0)})"),
+            CHANNEL.log(await userge.bot.send_message(chat_id, "buttons", reply_markup=buttons),
             message.edit("`You went AFK!`", del_in=1),
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
