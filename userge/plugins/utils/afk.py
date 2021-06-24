@@ -116,6 +116,7 @@ async def handle_afk_incomming(message: Message) -> None:
         return
     user_id = message.from_user.id
     chat = message.chat
+    client = message.client
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
