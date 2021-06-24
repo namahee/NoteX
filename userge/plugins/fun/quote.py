@@ -132,7 +132,7 @@ async def git_(message: Message):
         ]
     ]
     
-    await userge.send_message(chat_id, msg, reply_markup=buttons )
+    await userge.send_message(chat_id, msg, reply_markup=buttons)
     
     # try:
         # await send_buttons(message, msg, InlineKeyboardMarkup(buttons3))
