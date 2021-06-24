@@ -2,7 +2,7 @@
 # code-rgb
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
@@ -119,8 +119,8 @@ o</code>
 )
 async def git_(message: Message):
     cap = _info()
-    chat_id = message.chat.id
-    client = message.client
+    message.chat.id
+    message.client
     foto = "https://telegra.ph/file/b8581802499a71ebd3f96.jpg"
     cap += (
         f"\n⚡️  <a href={Config.UPSTREAM_REPO}><b>REPO</b></a>"
@@ -150,13 +150,13 @@ async def git_(message: Message):
         ]
     ]
 
-    #await client.send_photo(
-        #chat_id,
-        #photo=foto,
-        #caption=cap,
-        #ReplyForce(1),
-        #reply_markup=buttons,
-    #)
+    # await client.send_photo(
+    # chat_id,
+    # photo=foto,
+    # caption=cap,
+    # ReplyForce(1),
+    # reply_markup=buttons,
+    # )
 
     # await message.reply(msg, reply_markup=buttons2)
 
