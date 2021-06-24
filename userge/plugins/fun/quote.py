@@ -182,5 +182,5 @@ async def kfun(message: Message):
 # )
 # async def kkk_(message: Message):
 # """Kkk"""
-# kkkk = ".kkk"
-# await message.try_to_edit(kkkk, del_in=1)
+# kkkkk = ".kkk"
+# await message.try_to_edit(kkkkk, del_in=1)
