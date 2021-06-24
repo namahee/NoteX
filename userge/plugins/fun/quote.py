@@ -3,8 +3,11 @@
 
 from pyrogram.errors import YouBlockedUser
 
-from userge import Message, userge
+from userge import Message, userge, Config
 from userge.utils.exceptions import StopConversation
+
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 @userge.on_cmd(
@@ -88,6 +91,53 @@ async def quotecmd(message: Message):
         await message.err(
             "@QuotLyBot Didn't respond in time\n:(  please try again later...", del_in=5
         )
+
+
+
+
+
+@userge.on_cmd(
+    "git",
+    about={"header": "test"},
+)
+async def py(message: Message):
+    msg = "IAAEEEEEEE"
+    teste = []
+    
+    buttons = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+            ]
+        ]
+    )
+    
+    buttons2 = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="MY GIT", url="https://github.com/samuca78"),
+            ]
+        ]
+    )
+    
+    buttons2 = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="GITHUB", url="https://github.com/"),
+            ]
+        ]
+    )
+    
+    if "mr" in message.flags:
+        message.edit(msg, reply_markup=buttons)
+    elif "mg" in message.flags:
+        message.edit(msg, reply_markup=buttons2)
+    else:
+        teste.append(message.reply(msg, reply_markup(buttons3)))
+        
+
+
+
 
 
 @userge.on_cmd(
