@@ -108,7 +108,7 @@ async def handle_afk_incomming(message: Message) -> None:
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
 
-    message.client
+    client = message.client
     chat_id = message.chat.id
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
@@ -121,7 +121,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"▫️ **Status**: {STATUS}"
                 )
                 coro_list.append(
-                    await chat_id.send_animation(
+                    await client.send_animation(
                         chat_id,
                         animation=match.group(0),
                         caption=out_str,
@@ -148,7 +148,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                 f"▫️ **Status**: {STATUS}"
             )
-            await send_animation(
+            await client.send_animation(
                 chat_id,
                 animation=match.group(0),
                 caption=out_str,
