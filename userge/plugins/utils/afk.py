@@ -242,7 +242,7 @@ class _afk_:
         if match_.group(1) == "i.imgur.com":
             link = match_.group(0)
             link_type = "url_gif" if match_.group(3) == "gif" else "url_image"
-        elif match_.group(1) == "telepra.ph/file":
+        elif match_.group(1) == "telegra.ph/file":
             link = match_.group(0)
             link_type = "url_image"
         else:
