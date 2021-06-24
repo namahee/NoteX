@@ -100,7 +100,7 @@ async def quotecmd(message: Message):
     "git",
     about={"header": "test"},
 )
-async def py(message: Message):
+async def git_(message: Message):
     msg = "IAAEEEEEEE"
     teste = []
     
