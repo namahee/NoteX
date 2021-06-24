@@ -150,13 +150,13 @@ async def git_(message: Message):
         ]
     ]
 
-    await client.send_photo(
-        chat_id,
-        photo=foto,
-        caption=cap,
-        ReplyForce(1),
-        reply_markup=buttons,
-    )
+    #await client.send_photo(
+        #chat_id,
+        #photo=foto,
+        #caption=cap,
+        #ReplyForce(1),
+        #reply_markup=buttons,
+    #)
 
     # await message.reply(msg, reply_markup=buttons2)
 
