@@ -198,7 +198,8 @@ async def handle_afk_incomming(message: Message) -> None:
                     chat_id,
                     caption=out_str
                     reply_markup=reply_markup,
-                    disable_web_page_preview=True,)
+                    disable_web_page_preview=True,
+                )
             )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
