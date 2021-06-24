@@ -99,6 +99,17 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
+contact_url = "https://t.me/NoteZV"
+buttons = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(text="CONTACT", url=contact_url),
+            InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+        ]
+    ]
+)
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -123,16 +134,12 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            contact_url = "https://t.me/NoteZV"
-            buttons = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(text="CONTACT", url=contact_url),
-                        InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-                    ]
-                ]
+            coro_list.append(client.send_photo(
+                chat_id,
+                photo=match.group(0),
+                caption=out_str,
+                reply_markup=buttons,
             )
-            coro_list.append(message.reply(out_str, reply_markup=buttons))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
