@@ -127,20 +127,19 @@ async def handle_afk_incomming(message: Message) -> None:
                 STATUS = REASON.replace(r.group(0), "")
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
-                    f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
+                    f"Last Seen: `{afk_time}` ago."
                 )
             else:
                 out_str = (
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            coro_list.append(
-                client.send_photo(
-                    chat_id,
-                    photo=match.group(0),
-                    caption=out_str,
-                    reply_markup=buttons,
-                )
+            coro_list.append(client.send_photo(
+                chat_id,
+                photo=match.group(0),
+                caption=out_str,
+                reply_markup=buttons,
+              )
             )
         if chat.type == "private":
             USERS[user_id][0] += 1
@@ -153,23 +152,19 @@ async def handle_afk_incomming(message: Message) -> None:
             STATUS = REASON.replace(r.group(0), "")
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {STATUS}\n"
-                f"Last Seen: `{afk_time}` ago. [\u200c]({match.group(0)})"
+                f"Last Seen: `{afk_time}` ago."
             )
         else:
             out_str = (
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago"
             )
-        contact_url = "https://t.me/NoteZV"
-        buttons = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(text="CONTACT", url=contact_url),
-                    InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-                ]
-            ]
-        )
-        coro_list.append(message.reply(out_str, reply_markup=buttons))
+        coro_list.append(client.send_photo(
+                chat_id,
+                photo=match.group(0),
+                caption=out_str,
+                reply_markup=buttons,
+              ))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
