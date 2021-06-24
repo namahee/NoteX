@@ -99,7 +99,6 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
 async def check_media_link(media_link: str):
     matchh = _TELE_REGEX.search(media_link)
     if not matchh:
@@ -121,6 +120,7 @@ async def check_media_link(media_link: str):
         link = [chat_id, int(message_id)]
     return link_type, link
 
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -130,10 +130,10 @@ async def handle_afk_incomming(message: Message) -> None:
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
-    
+
     client = message.client
     chat_id = message.chat.id
-    
+
     contact_url = "https://t.me/NoteZV"
     buttons = InlineKeyboardMarkup(
         [
@@ -177,9 +177,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-                coro_list.append(
-                    message.reply(out_str)
-                )
+                coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
@@ -217,9 +215,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago"
             )
-            coro_list.append(
-                message.reply(out_str)
-            )
+            coro_list.append(message.reply(out_str))
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
