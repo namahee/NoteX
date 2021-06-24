@@ -99,17 +99,6 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
-
-contact_url = "https://t.me/NoteZV"
-buttons = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton(text="CONTACT", url=contact_url),
-            InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-        ]
-    ]
-)
-
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -120,6 +109,15 @@ async def handle_afk_incomming(message: Message) -> None:
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
+    contact_url = "https://t.me/NoteZV"
+    buttons = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(text="CONTACT", url=contact_url),
+                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
+            ]
+        ]
+    )
     if user_id in USERS:
         if not (USERS[user_id][0] + USERS[user_id][1]) % randint(2, 4):
             match = _TELE_REGEX.search(REASON)
