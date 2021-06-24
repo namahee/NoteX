@@ -55,8 +55,8 @@ async def active_afk(message: Message) -> None:
     REASON = message.input_str
     MATCH = _TELE_REGEX.search(REASON)
     if MATCH:
-        rr = TL.search(REASON)
-        STATUSS = REASON.replace(rr.group(0), "")
+        rr = REASON.split(" | ", maxsplit=1)
+        STATUSS = rr[0]
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{STATUSS}` [\u200c]({MATCH.group(0)})"),
             message.edit("`You went AFK!`", del_in=1),
@@ -99,26 +99,28 @@ async def active_afk(message: Message) -> None:
     ),
     allow_via_bot=False,
 )
+
 # async def check_media_link(media_link: str):
-# matchh = _TELE_REGEX.search(media_link)
-# if not matchh:
-# return None, None
-# if matchh.group(1) == "i.imgur.com":
-# link = matchh.group(0)
-# link_type = "url_gif" if matchh.group(3) == "gif" else "url_image"
-# elif matchh.group(1) == "telegra.ph/file":
-# link = matchh.group(0)
-# link_type = "url_image"
-# else:
-# link_type = "tg_media"
-# if matchh.group(2) == "c":
-# chat_id = int("-100" + str(matchh.group(3)))
-# message_id = matchh.group(4)
-# else:
-# chat_id = matchh.group(2)
-# message_id = matchh.group(3)
-# link = [chat_id, int(message_id)]
-# return link_type, link
+    # matchh = _TELE_REGEX.search(media_link)
+    # if not matchh:
+        # return None, None
+    # if matchh.group(1) == "i.imgur.com":
+        # link = matchh.group(0)
+        # link_type = "url_gif" if matchh.group(3) == "gif" else "url_image"
+    # elif matchh.group(1) == "telegra.ph/file":
+        # link = matchh.group(0)
+        # link_type = "url_image"
+    # else:
+        # link_type = "tg_media"
+        # if matchh.group(2) == "c":
+            # chat_id = int("-100" + str(matchh.group(3)))
+            # message_id = matchh.group(4)
+        # else:
+            # chat_id = matchh.group(2)
+            # message_id = matchh.group(3)
+        # link = [chat_id, int(message_id)]
+    # return link_type, link
+
 async def handle_afk_incomming(message: Message) -> None:
     """handle incomming messages when you afk"""
     if not message.from_user:
@@ -128,10 +130,10 @@ async def handle_afk_incomming(message: Message) -> None:
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
-
+    
     client = message.client
     chat_id = message.chat.id
-
+    
     contact_url = "https://t.me/NoteZV"
     buttons = InlineKeyboardMarkup(
         [
@@ -146,21 +148,21 @@ async def handle_afk_incomming(message: Message) -> None:
             match = _TELE_REGEX.search(REASON)
             if match:
                 r = REASON.split(" | ", maxsplit=1)
-                STATUS = REASON.replace(r[1], "")
+                STATUS = r[0]
                 out_str = (
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                     f"▫️ **Status**: {STATUS}"
                 )
                 # type_, media_ = check_media_link(match.group(0))
-                # if type_ == "jpg" or "png" or "jpeg":
-                # coro_list.append(
-                # client.send_photo(
-                # chat_id,
-                # photo=match.group(0),
-                # caption=out_str,
-                # reply_markup=buttons,
-                # )
-                # )
+               # if type_ == "jpg" or "png" or "jpeg":
+                    # coro_list.append(
+                        # client.send_photo(
+                            # chat_id,
+                            # photo=match.group(0),
+                            # caption=out_str,
+                            # reply_markup=buttons,
+                        # )
+                    # )
                 if match.group(3) == "gif" or "mp4":
                     coro_list.append(
                         client.send_animation(
@@ -185,7 +187,9 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                     f"▫️ **Status**: {REASON}"
                 )
-                coro_list.append(message.reply(out_str))
+                coro_list.append(
+                    message.reply(out_str)
+                )
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
@@ -194,7 +198,7 @@ async def handle_afk_incomming(message: Message) -> None:
         match = _TELE_REGEX.search(REASON)
         if match:
             r = REASON.split(" | ", maxsplit=1)
-            STATUS = REASON.replace(r[1], "")
+            STATUS = r[0]
             out_str = (
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                 f"▫️ **Status**: {STATUS}"
@@ -219,20 +223,22 @@ async def handle_afk_incomming(message: Message) -> None:
                         )
                     )
             # else:
-            # coro_list.append(
-            # client.send_photo(
-            # chat_id,
-            # photo=match.group(0),
-            # caption=out_str,
-            # reply_markup=buttons,
-            # )
-            # )
+                # coro_list.append(
+                    # client.send_photo(
+                        # chat_id,
+                        # photo=match.group(0),
+                        # caption=out_str,
+                        # reply_markup=buttons,
+                    # )
+                # )
         else:
             out_str = (
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                 f"▫️ **Status**: {REASON}"
             )
-            coro_list.append(message.reply(out_str))
+            coro_list.append(
+                message.reply(out_str)
+            )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
