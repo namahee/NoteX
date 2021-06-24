@@ -2,10 +2,12 @@
 # code-rgb
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from userge import Config, Message, userge
+from userge import Message, userge, Config
 from userge.utils.exceptions import StopConversation
+
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 @userge.on_cmd(
@@ -91,6 +93,9 @@ async def quotecmd(message: Message):
         )
 
 
+
+
+
 @userge.on_cmd(
     "git",
     about={"header": "test"},
@@ -98,7 +103,7 @@ async def quotecmd(message: Message):
 async def git_(message: Message):
     msg = "IAAEEEEEEE"
     teste = []
-
+    
     buttons = InlineKeyboardMarkup(
         [
             [
@@ -106,7 +111,7 @@ async def git_(message: Message):
             ]
         ]
     )
-
+    
     buttons2 = InlineKeyboardMarkup(
         [
             [
@@ -114,21 +119,25 @@ async def git_(message: Message):
             ]
         ]
     )
-
-    buttons2 = InlineKeyboardMarkup(
+    
+    buttons3 = InlineKeyboardMarkup(
         [
             [
                 InlineKeyboardButton(text="GITHUB", url="https://github.com/"),
             ]
         ]
     )
-
+    
     if "mr" in message.flags:
         message.edit(msg, reply_markup=buttons)
     elif "mg" in message.flags:
         message.edit(msg, reply_markup=buttons2)
     else:
         teste.append(message.reply(msg, reply_markup(buttons3)))
+        
+
+
+
 
 
 @userge.on_cmd(
