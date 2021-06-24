@@ -108,10 +108,10 @@ async def handle_afk_incomming(message: Message) -> None:
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
-
+    
     client = message.client
     chat_id = message.chat.id
-
+    
     contact_url = "https://t.me/NoteZV"
     buttons = InlineKeyboardMarkup(
         [
@@ -133,7 +133,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
                 if match.group(3) == "jpg" or "png" or "jpeg":
                     coro_list.append(
-                        client.send_photo(
+                        await client.send_photo(
                             chat_id,
                             photo=match.group(0),
                             caption=out_str,
@@ -142,7 +142,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     )
                 if match.group(3) == "gif" or "mp4":
                     coro_list.append(
-                        client.send_animation(
+                        await client.send_animation(
                             chat_id,
                             animation=match.group(0),
                             caption=out_str,
@@ -154,7 +154,9 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-                coro_list.append(message.reply(out_str))
+                coro_list.append(
+                    message.reply(out_str)
+                )
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
@@ -170,7 +172,7 @@ async def handle_afk_incomming(message: Message) -> None:
             )
             if match.group(3) == "jpg" or "png" or "jpeg":
                 coro_list.append(
-                    client.send_photo(
+                    await client.send_photo(
                         chat_id,
                         photo=match.group(0),
                         caption=out_str,
@@ -179,7 +181,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 )
             if match.group(3) == "gif" or "mp4":
                 coro_list.append(
-                    client.send_animation(
+                    await client.send_animation(
                         chat_id,
                         animation=match.group(0),
                         caption=out_str,
@@ -191,7 +193,9 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                 f"Last Seen: `{afk_time}` ago"
             )
-            coro_list.append(message.reply(out_str))
+            coro_list.append(
+                message.reply(out_str)
+            )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
