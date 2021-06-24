@@ -2,13 +2,13 @@
 # code-rgb
 
 from pyrogram.errors import YouBlockedUser
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from userge import Message, userge, Config
+from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
 
-
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 CHANNEL = userge.getCLogger(__name__)
+
 
 @userge.on_cmd(
     "q",
@@ -93,21 +93,19 @@ async def quotecmd(message: Message):
         )
 
 
-async def send_buttons(message: Message, text: str, markup: InlineKeyboardMarkup) -> None:
-    await message.reply(
-        text, disable_web_page_preview=True, reply_markup=markup)
-    
+async def send_buttons(
+    message: Message, text: str, markup: InlineKeyboardMarkup
+) -> None:
+    await message.reply(text, disable_web_page_preview=True, reply_markup=markup)
 
 
 @userge.on_cmd(
     "git",
-    about={
-        "header": "test"},
+    about={"header": "test"},
 )
 async def git_(message: Message):
     msg = "IAAEEEEEEE"
-    teste = []
-    
+
     buttons = InlineKeyboardMarkup(
         [
             [
@@ -115,7 +113,7 @@ async def git_(message: Message):
             ]
         ]
     )
-    
+
     buttons2 = InlineKeyboardMarkup(
         [
             [
@@ -123,20 +121,14 @@ async def git_(message: Message):
             ]
         ]
     )
-    
+
     buttons3 = [
         [
             InlineKeyboardButton(text="GITHUB", url="https://github.com/"),
         ]
     ]
-    
+
     await send_buttons(message, msg, InlineKeyboardMarkup(buttons3))
-    
-    
-        
-
-
-
 
 
 @userge.on_cmd(
