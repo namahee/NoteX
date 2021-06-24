@@ -138,6 +138,7 @@ async def handle_afk_incomming(message: Message) -> None:
                 photo=match.group(0),
                 caption=out_str,
                 reply_markup=buttons,
+              )
             )
         if chat.type == "private":
             USERS[user_id][0] += 1
