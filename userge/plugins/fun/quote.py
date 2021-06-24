@@ -130,7 +130,7 @@ async def git_(message: Message):
     
     if "mr" in message.flags:
         CHANNEL.log("Executando .git mr ...")
-        message.edit(msg, reply_markup=buttons)
+        message.edit(msg)
     if "mg" in message.flags:
         message.edit(msg, reply_markup=buttons2)
     if "g" in message.flags:
