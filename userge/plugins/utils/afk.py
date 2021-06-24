@@ -106,6 +106,7 @@ async def handle_afk_incomming(message: Message) -> None:
     user_id = message.from_user.id
     chat = message.chat
     client = message.client
+    chat_id = message.chat.id
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
@@ -133,13 +134,12 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"I'm **AFK** right now, leave me alone.\nReason: {REASON}\n"
                     f"Last Seen: `{afk_time}` ago"
                 )
-            coro_list.append(
-                client.send_photo(
-                    chat_id,
-                    photo=match.group(0),
-                    caption=out_str,
-                    reply_markup=buttons,
-                )
+            coro_list.append(client.send_photo(
+                chat_id,
+                photo=match.group(0),
+                caption=out_str,
+                reply_markup=buttons,
+              )
             )
         if chat.type == "private":
             USERS[user_id][0] += 1
