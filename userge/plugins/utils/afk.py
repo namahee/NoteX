@@ -52,12 +52,12 @@ async def active_afk(message: Message) -> None:
     IS_AFK = True
     TIME = time.time()
     REASON = message.input_str
-    MATCH_ = _TELE_REGEX.search(REASON)
-    if MATCH:
+    match_ = _TELE_REGEX.search(REASON)
+    if match_:
         r_ = REASON.split(" | ", maxsplit=1)
         STATUS_ = r_[0]
         await asyncio.gather(
-            CHANNEL.log(f"You went AFK! : `{STATUS_}` [\u200c]({MATCH_.group(0)})"),
+            CHANNEL.log(f"You went AFK! : `{STATUS_}` [\u200c]({match_.group(0)})"),
             message.edit("`You went AFK!`", del_in=1),
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
@@ -107,10 +107,10 @@ async def handle_afk_incomming(message: Message) -> None:
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
-
+    
     client = message.client
     chat_id = message.chat.id
-
+    
     contact_url = "https://t.me/NoteZV"
     buttons = InlineKeyboardMarkup(
         [
@@ -130,7 +130,7 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                     f"▫️ **Status**: {STATUS}"
                 )
-
+                
                 if match.group(3) == "gif" or "mp4":
                     coro_list.append(
                         client.send_animation(
@@ -155,7 +155,9 @@ async def handle_afk_incomming(message: Message) -> None:
                     f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                     f"▫️ **Status**: {REASON}"
                 )
-                coro_list.append(message.reply(out_str))
+                coro_list.append(
+                    message.reply(out_str)
+                )
         if chat.type == "private":
             USERS[user_id][0] += 1
         else:
@@ -195,7 +197,9 @@ async def handle_afk_incomming(message: Message) -> None:
                 f"⚡️ **Auto Reply** ⒶⒻⓀ \n🕑 **Last Seen:** {afk_time} ago\n"
                 f"▫️ **Status**: {REASON}"
             )
-            coro_list.append(message.reply(out_str))
+            coro_list.append(
+                message.reply(out_str)
+            )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
         else:
@@ -230,7 +234,6 @@ async def handle_afk_incomming(message: Message) -> None:
     )
     await asyncio.gather(*coro_list)
 
-
 class _afk_:
     async def check_media_link(media_link: str):
         match_ = _TELE_REGEX.search(media_link.strip())
@@ -252,7 +255,7 @@ class _afk_:
                 message_id = match_.group(3)
             link = [chat_id, int(message_id)]
         return link_type, link
-
+    
     def afk_buttons() -> InlineKeyboardMarkup:
         buttons = [
             [
@@ -260,8 +263,8 @@ class _afk_:
             ]
         ]
         return InlineKeyboardMarkup(buttons)
-
-
+    
+    
 @userge.on_filters(IS_AFK_FILTER & filters.outgoing, group=-1, allow_via_bot=False)
 async def handle_afk_outgoing(message: Message) -> None:
     """handle outgoing messages when you afk"""
