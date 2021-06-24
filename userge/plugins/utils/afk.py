@@ -64,7 +64,7 @@ async def active_afk(message: Message) -> None:
         STATUSS = REASON.replace(rr.group(0), "")
         await asyncio.gather(
             CHANNEL.log(f"You went AFK! : `{STATUSS}` [\u200c]({MATCH.group(0)})"),
-            CHANNEL.log(await userge.bot.send_message(message.chat.id, "buttons", reply_markup=buttons),
+            CHANNEL.log(await userge.bot.send_message(message.chat.id, "buttons", reply_markup=buttons)),
             message.edit("`You went AFK!`", del_in=1),
             AFK_COLLECTION.drop(),
             SAVED_SETTINGS.update_one(
