@@ -101,7 +101,7 @@ async def quotecmd(message: Message):
     about={"header": "test"},
 )
 async def git_(message: Message):
-    msg = "IAAEEEEEEE {message.flags}"
+    msg = "IAAEEEEEEE"
     teste = []
     
     buttons = InlineKeyboardMarkup(
@@ -128,7 +128,7 @@ async def git_(message: Message):
         ]
     )
     
-    await message.edit(msg, reply_markup=buttons)
+    await message.edit(f"{msg} \n{message.flags}", reply_markup=buttons)
     
         
 
