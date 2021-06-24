@@ -196,7 +196,7 @@ async def handle_afk_incomming(message: Message) -> None:
             coro_list.append(
                 client.send_message(
                     chat_id,
-                    caption=out_str
+                    caption=out_str,
                     reply_markup=buttons,
                     disable_web_page_preview=True,
                 )
