@@ -105,11 +105,12 @@ async def handle_afk_incomming(message: Message) -> None:
         return
     user_id = message.from_user.id
     chat = message.chat
-    client = message.client
-    chat_id = message.chat.id
     user_dict = await message.client.get_user_dict(user_id)
     afk_time = time_formatter(round(time.time() - TIME))
     coro_list = []
+    
+    client = message.client
+    chat_id = message.chat.id
     
     contact_url = "https://t.me/NoteZV"
     buttons = InlineKeyboardMarkup(
