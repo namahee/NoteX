@@ -1,10 +1,9 @@
 # Rewrote with experimental bleck magik
 # code-rgb
 
-import asyncio
-
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+import asyncio
 
 from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
@@ -95,68 +94,6 @@ async def quotecmd(message: Message):
         )
 
 
-async def send_buttons(
-    message: Message, text: str, markup: InlineKeyboardMarkup
-) -> None:
-    await message.reply(text, disable_web_page_preview=True, reply_markup=markup)
-
-
-def _info() -> str:
-    _info_ = f"""
-<a href="https://telegram.dog/x_xtests"><b>NoteX</a> is Up and Running.</b>
-
-  🐍   <b>Python :</b>    <code>versão</code>
-  🔥   <b>Pyrogram :</b>    <code>oversao</code>
-  🧬   <b>𝑿 :</b>    <code>aversak
-o</code>
-
-<b>botalive</b>    <code>|</code>    🕔  <b>uptime</b>
-"""
-    return _info_
-
-
-@userge.on_cmd(
-    "git",
-    about={"header": "test"},
-)
-async def git_(message: Message):
-    cap = _info()
-    chat_id = message.chat.id
-    client = message.client
-    foto = "https://telegra.ph/file/b8581802499a71ebd3f96.jpg"
-    cap += (
-        f"\n⚡️  <a href={Config.UPSTREAM_REPO}><b>REPO</b></a>"
-        "    <code>|</code>    "
-        "👥  <a href='https://t.me/useless_x'><b>SUPPORT</b></a>"
-    )
-
-    buttons = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(text="REPO", url=Config.UPSTREAM_REPO),
-            ]
-        ]
-    )
-
-    buttons2 = InlineKeyboardMarkup(
-        [
-            [
-                InlineKeyboardButton(text="MY GIT", url="https://github.com/samuca78"),
-            ]
-        ]
-    )
-
-    buttons3 = [
-        [
-            InlineKeyboardButton(text="GITHUB", url="https://github.com/"),
-        ]
-    ]
-
-    await client.send_message(
-        chat_id,
-        caption=cap,
-        reply_markup=buttons2,
-    )
 
 
 @userge.on_cmd(
@@ -200,13 +137,13 @@ async def kfun(message: Message):
         "header": "execute .kkk",
     },
     trigger="",
-    allow_via_bot=False,
+    allow_via_bot=False
 )
 async def kkk_(message: Message):
     kkk = "!kkk"
     await message.try_to_edit(kkk, del_in=1)
-
-
+    
+    
 async def check_and_send(message: Message, *args, **kwargs):
     replied = message.reply_to_message
     if replied:
