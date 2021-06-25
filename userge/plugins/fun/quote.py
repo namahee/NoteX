@@ -157,17 +157,6 @@ async def git_(message: Message):
         reply_markup=buttons2,
     )
 
-    # await message.reply(msg, reply_markup=buttons2)
-
-    # try:
-    # await send_buttons(message, msg, InlineKeyboardMarkup(buttons3))
-    # except FloodWait as e:
-    # await asyncio.sleep(e.x + 10)
-    # except Exception as bpm_e:
-    # await CHANNEL.log(
-    # f"**ERRO**: {str(bpm_e)}\n\nOps, aconteceu algo estranho..."
-    # )
-
 
 @userge.on_cmd(
     "kkk",
