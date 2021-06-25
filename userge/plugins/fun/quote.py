@@ -2,7 +2,8 @@
 # code-rgb
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+from pyrogram.raw.types import ReplyKeyboardForceReply
 
 from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
@@ -154,7 +155,7 @@ async def git_(message: Message):
         chat_id,
         photo=foto,
         caption=cap,
-        ReplyKeyboardForceReply=buttons2,
+        ReplyKeyboardForceReply=InlineKeyboardMarkup(buttons3),
     )
 
     # await message.reply(msg, reply_markup=buttons2)
