@@ -155,7 +155,8 @@ async def git_(message: Message):
         chat_id,
         photo=foto,
         caption=cap,
-        ReplyKeyboardForceReply=InlineKeyboardMarkup(buttons3),
+        reply_markup=buttons2
+        ReplyKeyboardForceReply=reply_markup,
     )
 
     # await message.reply(msg, reply_markup=buttons2)
