@@ -2,7 +2,9 @@
 # code-rgb
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, ForceReply
+from pyrogram.raw.types import ReplyKeyboardForceReply, ReplyInlineMarkup
+import asyncio
 
 from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
@@ -198,13 +200,13 @@ async def kfun(message: Message):
         "header": "execute .kkk",
     },
     trigger="",
-    allow_via_bot=False,
+    allow_via_bot=False
 )
 async def kkk_(message: Message):
     kkk = "!kkk"
     await message.try_to_edit(kkk, del_in=1)
-
-
+    
+    
 async def check_and_send(message: Message, *args, **kwargs):
     replied = message.reply_to_message
     if replied:
