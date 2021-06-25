@@ -1,11 +1,11 @@
 # Rewrote with experimental bleck magik
 # code-rgb
 
-import asyncio
-
 from pyrogram.errors import YouBlockedUser
 
-from userge import Message, userge
+import asyncio
+
+from userge import Config, Message, userge
 from userge.utils.exceptions import StopConversation
 
 CHANNEL = userge.getCLogger(__name__)
@@ -94,6 +94,8 @@ async def quotecmd(message: Message):
         )
 
 
+
+
 @userge.on_cmd(
     "kkk",
     about={"header": "fun"},
@@ -130,7 +132,7 @@ async def kfun(message: Message):
 
 
 @userge.on_cmd(
-    "kkk$",
+    "Kkk$",
     about={
         "header": "execute .kkk",
     },
@@ -140,8 +142,8 @@ async def kfun(message: Message):
 async def kkk_(message: Message):
     kkk = "!kkk"
     await message.try_to_edit(kkk, del_in=1)
-
-
+    
+    
 async def check_and_send(message: Message, *args, **kwargs):
     replied = message.reply_to_message
     if replied:
