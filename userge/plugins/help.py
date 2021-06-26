@@ -27,8 +27,6 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
-from .custom.afk import _afk_
-
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -38,6 +36,7 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
+from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -697,7 +696,7 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-                                
+
             if string == "afk":
                 buttons = _afk_.afk_buttons()
                 type_, media_ = await check_media_link(match.group(0))
