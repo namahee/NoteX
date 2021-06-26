@@ -2,16 +2,40 @@
 # code-rgb
 
 import asyncio
-import random
-from re import compile as comp_regex
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.file_id import PHOTO_TYPES, FileId
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from userge import Config, Message, userge
-from userge.utils import get_file_id, rand_array
+from userge import Message, userge
 from userge.utils.exceptions import StopConversation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import random
+from datetime import datetime
+from re import compile as comp_regex
+
+from pyrogram import filters
+from pyrogram.errors import BadRequest, FloodWait, Forbidden, MediaEmpty
+from pyrogram.file_id import PHOTO_TYPES, FileId
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+from userge import Config, Message, get_version, userge, versions
+from userge.core.ext import RawClient
+from userge.utils import get_file_id, rand_array
 
 _ALIVE_REGEX = comp_regex(
     r"http[s]?://(i\.imgur\.com|telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
@@ -41,17 +65,42 @@ async def _init() -> None:
             except Exception as b_rr:
                 LOGGER.debug(b_rr)
 
-
 @userge.on_cmd("t", about={"header": "Just For Fun"}, allow_channels=False)
 async def alive_inline(message: Message):
     try:
         if message.client.is_bot:
             await send_alive_message(message)
+        elif userge.has_bot:
+            try:
+                await send_inline_alive(message)
+            except BadRequest:
+                await send_alive_message(message)
         else:
             await send_alive_message(message)
     except Exception as e_all:
         await message.err(str(e_all), del_in=10, log=__name__)
 
+async def send_inline_alive(message: Message) -> None:
+    _bot = await userge.bot.get_me()
+    try:
+        i_res = await userge.get_inline_bot_results(_bot.username, "alive")
+        i_res_id = (
+            (
+                await userge.send_inline_bot_result(
+                    chat_id=message.chat.id,
+                    query_id=i_res.query_id,
+                    result_id=i_res.results[0].id,
+                )
+            )
+            .updates[0]
+            .id
+        )
+    except (Forbidden, BadRequest) as ex:
+        await message.err(str(ex), del_in=5)
+        return
+    await message.delete()
+    await asyncio.sleep(60)
+    await userge.delete_messages(message.chat.id, i_res_id)
 
 TOI = (
     "https://telegra.ph/file/f5db2ec096a584052feb0.jpg",
@@ -67,23 +116,47 @@ async def send_alive_message(message: Message) -> None:
     chat_id = message.chat.id
     client = message.client
     cap = Bot_t.t_info()
-
-    url_ = random.choice(TOI)
-    type_, media_ = await Bot_t.check_media_link(url_)
-    if type_ == "url_gif":
-        await client.send_animation(
-            chat_id,
-            animation=url_,
-            caption=cap,
-            reply_markup=Bot_t.t_buttons(),
+    if client.is_bot:
+        reply_markup = Bot_t.t_buttons()
+        file_id = _BOT_CACHED_MEDIA
+    else:
+        reply_markup = None
+        file_id = _USER_CACHED_MEDIA
+        caption += (
+            "IIOOOOOOOOO"
         )
-    elif type_ == "url_image":
+    if not url:
         await client.send_photo(
             chat_id,
-            photo=url_,
+            photo=Bot_t.t_default_imgs(),
             caption=cap,
             reply_markup=Bot_t.t_buttons(),
         )
+        return
+    url_ = random.choice(TOI).strip()
+    if url_.lower() == "false":
+        await client.send_message(
+            chat_id,
+            caption=cap,
+            reply_markup=Bot_t.t_buttons(),
+            disable_web_page_preview=True,
+        )
+    else:
+        type_, media_ = await Bot_Alive.check_media_link(Config.ALIVE_MEDIA)
+        if type_ == "url_gif":
+            await client.send_animation(
+                chat_id,
+                animation=url_,
+                caption=cap,
+                reply_markup=Bot_t.t_buttons(),
+            )
+        elif type_ == "url_image":
+            await client.send_photo(
+                chat_id,
+                photo=url_,
+                caption=cap,
+                reply_markup=Bot_t.t_buttons(),
+            )
 
 
 class Bot_t:
@@ -111,7 +184,9 @@ class Bot_t:
 
     @staticmethod
     def t_info() -> str:
-        t_info_ = "OOIIIIIIII"
+        t_info_ = (
+            "OOIIIIIIII"
+        )
         return t_info_
 
     @staticmethod
@@ -141,6 +216,31 @@ class Bot_t:
     @staticmethod
     def is_photo(file_id: str) -> bool:
         return bool(FileId.decode(file_id).file_type in PHOTO_TYPES)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @userge.on_cmd(
@@ -280,3 +380,4 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
+        
