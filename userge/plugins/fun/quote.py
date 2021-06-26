@@ -8,7 +8,28 @@ from pyrogram.errors import YouBlockedUser
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
-CHANNEL = userge.getCLogger(__name__)
+
+
+import asyncio
+from datetime import datetime
+from re import compile as comp_regex
+
+from pyrogram import filters
+from pyrogram.errors import BadRequest, FloodWait, Forbidden, MediaEmpty
+from pyrogram.file_id import PHOTO_TYPES, FileId
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+from userge import Config, Message, get_version, userge, versions
+from userge.core.ext import RawClient
+from userge.utils import get_file_id, rand_array
+
+_ALIVE_REGEX = comp_regex(
+    r"http[s]?://(i\.imgur\.com|telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
+)
+_USER_CACHED_MEDIA, _BOT_CACHED_MEDIA = None, None
+
+LOGGER = userge.getLogger(__name__)
+
 
 
 @userge.on_cmd(
@@ -148,3 +169,4 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
+        
