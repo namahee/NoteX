@@ -8,6 +8,10 @@ from pyrogram.errors import YouBlockedUser
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
+
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ForceReply
+
+
 CHANNEL = userge.getCLogger(__name__)
 
 
@@ -148,3 +152,24 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
+        
+        
+        
+        
+@userge.on_cmd(
+    "t",
+    about={"header": "test"},
+)
+async def tt(message: Message):
+    await message.reply_text(
+        "oi",
+        reply_markup=InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(
+                        "oi", url="https://google.com"
+                    ),
+                ]
+            ]
+        )
+    )
