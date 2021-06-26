@@ -172,5 +172,4 @@ async def tt(message: Message):
     await message.reply_text(
         "oi",
         reply_markup=buttons,
-        ForceReply(True),
-    )
+        ForceReply(True))
