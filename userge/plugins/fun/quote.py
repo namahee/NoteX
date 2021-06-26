@@ -156,8 +156,7 @@ async def check_and_send(message: Message, *args, **kwargs):
     },
 )
 async def tt(message: Message):
-    await message.edit("ooi", disable_web_page_preview=True, reply_markup=
-    )
+    await message.edit("ooi", disable_web_page_preview=True, reply_markup=idk.buttons())
     
 class idk:
     def buttons() -> InlineKeyboardMarkup:
