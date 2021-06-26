@@ -697,26 +697,6 @@ if userge.has_bot:
                                     )
                                 )
 
-            if string == "afk_b":
-                buttons = _afk_.afk_buttons()
-                results.append(
-                    InlineQueryResultAnimation(
-                        animation_url="https://telegra.ph/file/66f47676e37a04da65c57.gif",
-                        caption="Oi...",
-                        reply_markup=buttons,
-                    )
-                )
-
-                # type_, media_ = await check_media_link(match.group(0))
-                # if type_ == "url_gif":
-                # results.append(
-                # InlineQueryResultAnimation(
-                # animation_url=match.group(0),
-                # caption=_afk_.out_str(),
-                # reply_markup=_afk_.afk_buttons(),
-                # )
-                # )
-
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
