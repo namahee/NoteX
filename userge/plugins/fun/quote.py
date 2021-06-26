@@ -161,16 +161,16 @@ async def check_and_send(message: Message, *args, **kwargs):
     about={"header": "test"},
 )
 async def tt(message: Message):
+    buttons = InlineKeyboardMarkup(
+        [
+            [
+                InlineKeyboardButton(
+                    "oi", url="https://google.com"),
+            ]
+        ]
+    )
     await message.reply_text(
         "oi",
-        reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton(
-                        "oi", url="https://google.com"
-                    ),
-                ]
-            ]
-        ),
+        reply_markup=buttons,
         ForceReply(True),
     )
