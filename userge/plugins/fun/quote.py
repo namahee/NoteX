@@ -118,12 +118,13 @@ async def send_alive_message(message: Message) -> None:
     cap = Bot_t.t_info()
     url_ = random.choice(TOI).strip()
     if url_.lower() == "false":
-        await client.send_message(
-            chat_id,
-            caption=cap,
-            reply_markup=Bot_t.t_buttons(),
-            disable_web_page_preview=True,
-        )
+        message.edit("EDITADO!")
+        # await client.send_message(
+            # chat_id,
+            # caption=cap,
+            # reply_markup=Bot_t.t_buttons(),
+            # disable_web_page_preview=True,
+        # )
     else:
         type_, media_ = await Bot_t.check_media_link(url_)
         if type_ == "url_gif":
