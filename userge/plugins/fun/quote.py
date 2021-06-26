@@ -146,4 +146,3 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-        
