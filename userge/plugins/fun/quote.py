@@ -2,12 +2,40 @@
 # code-rgb
 
 import asyncio
-from re import compile as comp_regex
 
 from pyrogram.errors import YouBlockedUser
 
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import random
+from datetime import datetime
+from re import compile as comp_regex
+
+from pyrogram import filters
+from pyrogram.errors import BadRequest, FloodWait, Forbidden, MediaEmpty
+from pyrogram.file_id import PHOTO_TYPES, FileId
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
+from userge import Config, Message, get_version, userge, versions
+from userge.core.ext import RawClient
+from userge.utils import get_file_id, rand_array
 
 _ALIVE_REGEX = comp_regex(
     r"http[s]?://(i\.imgur\.com|telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
@@ -15,6 +43,181 @@ _ALIVE_REGEX = comp_regex(
 _USER_CACHED_MEDIA, _BOT_CACHED_MEDIA = None, None
 
 LOGGER = userge.getLogger(__name__)
+
+
+async def _init() -> None:
+    global _USER_CACHED_MEDIA, _BOT_CACHED_MEDIA
+    if Config.ALIVE_MEDIA and Config.ALIVE_MEDIA.lower() != "false":
+        am_type, am_link = await Bot_t.check_media_link(Config.ALIVE_MEDIA.strip())
+        if am_type and am_type == "tg_media":
+            try:
+                if Config.HU_STRING_SESSION:
+                    _USER_CACHED_MEDIA = get_file_id(
+                        await userge.get_messages(am_link[0], am_link[1])
+                    )
+            except Exception as u_rr:
+                LOGGER.debug(u_rr)
+            try:
+                if userge.has_bot:
+                    _BOT_CACHED_MEDIA = get_file_id(
+                        await userge.bot.get_messages(am_link[0], am_link[1])
+                    )
+            except Exception as b_rr:
+                LOGGER.debug(b_rr)
+
+@userge.on_cmd("t", about={"header": "Just For Fun"}, allow_channels=False)
+async def alive_inline(message: Message):
+    try:
+        if message.client.is_bot:
+            await send_alive_message(message)
+        elif userge.has_bot:
+            try:
+                await send_inline_alive(message)
+            except BadRequest:
+                await send_alive_message(message)
+        else:
+            await send_alive_message(message)
+    except Exception as e_all:
+        await message.err(str(e_all), del_in=10, log=__name__)
+
+async def send_inline_alive(message: Message) -> None:
+    _bot = await userge.bot.get_me()
+    try:
+        i_res = await userge.get_inline_bot_results(_bot.username, "t")
+        i_res_id = (
+            (
+                await userge.send_inline_bot_result(
+                    chat_id=message.chat.id,
+                    query_id=i_res.query_id,
+                    result_id=i_res.results[0].id,
+                )
+            )
+            .updates[0]
+            .id
+        )
+    except (Forbidden, BadRequest) as ex:
+        await message.err(str(ex), del_in=5)
+        return
+    await message.delete()
+    await asyncio.sleep(60)
+    await userge.delete_messages(message.chat.id, i_res_id)
+
+
+TOI = (
+    "https://telegra.ph/file/f5db2ec096a584052feb0.jpg",
+    "https://telegra.ph/file/712d78c5cd60f369be907.gif",
+    "https://telegra.ph/file/d8873db3982a01fa1bd02.jpg",
+    "https://telegra.ph/file/fbbda51c7665c23062b42.gif",
+    "https://telegra.ph/file/e153a1b7b3aa76d1cfa86.jpg",
+    "https://telegra.ph/file/ccc44664b624bd2bdbbc1.gif",
+)
+
+
+async def send_alive_message(message: Message) -> None:
+    chat_id = message.chat.id
+    client = message.client
+    cap = Bot_t.t_info()
+    
+    url_ = random.choice(TOI)
+    type_, media_ = await Bot_t.check_media_link(url_)
+    if type_ == "url_gif":
+        await client.send_animation(
+            chat_id,
+            animation=url_,
+            caption=cap,
+            reply_markup=Bot_t.t_buttons(),
+        )
+    elif type_ == "url_image":
+        await client.send_photo(
+            chat_id,
+            photo=url_,
+            caption=cap,
+            reply_markup=Bot_t.t_buttons(),
+        )
+
+
+class Bot_t:
+    @staticmethod
+    async def check_media_link(media_link: str):
+        match = _ALIVE_REGEX.search(media_link.strip())
+        if not match:
+            return None, None
+        if match.group(1) == "i.imgur.com":
+            link = match.group(0)
+            link_type = "url_gif" if match.group(3) == "gif" else "url_image"
+        elif match.group(1) == "telegra.ph/file":
+            link = match.group(0)
+            link_type = "url_gif" if match.group(3) == "gif" or "mp4" else "url_image"
+        else:
+            link_type = "tg_media"
+            if match.group(2) == "c":
+                chat_id = int("-100" + str(match.group(3)))
+                message_id = match.group(4)
+            else:
+                chat_id = match.group(2)
+                message_id = match.group(3)
+            link = [chat_id, int(message_id)]
+        return link_type, link
+
+    @staticmethod
+    def t_info() -> str:
+        t_info_ = (
+            "OOIIIIIIII"
+        )
+        return t_info_
+
+    @staticmethod
+    def t_buttons() -> InlineKeyboardMarkup:
+        buttons = [
+            [
+                InlineKeyboardButton(text="CONTACT", url="https://t me/NoteZV"),
+                InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
+            ]
+        ]
+        return InlineKeyboardMarkup(buttons)
+
+    @staticmethod
+    def t_default_imgs() -> str:
+        t_imgs = [
+            "https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg",
+            "https://telegra.ph/file/40124fa6a893c1e5cc9d0.jpg",
+            "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
+            "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
+        ]
+        return rand_array(t_imgs)
+
+    @staticmethod
+    def get_bot_cached_fid() -> str:
+        return _BOT_CACHED_MEDIA
+
+    @staticmethod
+    def is_photo(file_id: str) -> bool:
+        return bool(FileId.decode(file_id).file_type in PHOTO_TYPES)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @userge.on_cmd(
@@ -154,3 +357,4 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
+        
