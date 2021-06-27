@@ -155,7 +155,7 @@ async def check_and_send(message: Message, *args, **kwargs):
     },
 )
 async def repo_inline(message: Message):
-    await message.edit("`🔍 Finding The Repo...`")
+    await message.edit("`🔍 Finding A Thing...`")
     bot = await userge.bot.get_me()
     x = await userge.get_inline_bot_results(bot.username, "t")
     await userge.send_inline_bot_result(
