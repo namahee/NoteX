@@ -27,6 +27,7 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -695,6 +696,29 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
+                                
+            if string == "alive":
+                out_str = _afk_.out_str()
+                _out_str = _afk_._out_str()
+                buttons = Bot_Alive.alive_buttons()
+                
+                _media_type, _media_url = await _afk_.check_media_link(match.group(0))
+                if _media_type == "url_gif":
+                    results.append(
+                        InlineQueryResultAnimation(
+                            animation_url=_media_url,
+                            caption=out_str,
+                            reply_markup=buttons,
+                        )
+                    )
+                elif _media_type == "url_image":
+                    results.append(
+                        InlineQueryResultPhoto(
+                            photo_url=_media_url,
+                            caption=out_str,
+                            reply_markup=buttons,
+                        )
+                    )
 
             if string == "geass":
                 results.append(
