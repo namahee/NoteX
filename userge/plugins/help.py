@@ -861,15 +861,6 @@ if userge.has_bot:
                                 )
                             )
 
-            if string == "gesso":
-                results.append(
-                    InlineQueryResultAnimation(
-                        animation_url="https://telegra.ph/file/ccc44664b624bd2bdbbc1.gif",
-                        caption=_afk_.out_str(),
-                        reply_markup=_afk_.afk_buttons(),
-                    )
-                )
-
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
@@ -926,24 +917,13 @@ if userge.has_bot:
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
-                button = _afk_.afk_buttons()
-                out_str = _afk_.out_str()
-                # link = _afk_.link()
-                link = "https://telegra.ph/file/51aa39df7e1745f815dcf.jpg"
                 results.append(
                     InlineQueryResultPhoto(
-                        photo_url=link,
-                        caption=out_str,
-                        reply_markup=button,
+                        photo_url="https://telegra.ph/file/51aa39df7e1745f815dcf.jpg",
+                        caption="My repo. Your motherf. It is private.",
+                        reply_markup=InlineKeyboardMarkup(buttons),
                     )
                 )
-                # results.append(
-                # InlineQueryResultPhoto(
-                # photo_url="https://telegra.ph/file/51aa39df7e1745f815dcf.jpg",
-                # caption="My repo. Your motherf. It is private.",
-                # reply_markup=InlineKeyboardMarkup(buttons),
-                # )
-                # )
 
             if string == "gapps":
                 buttons = [
