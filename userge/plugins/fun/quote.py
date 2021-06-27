@@ -3,12 +3,13 @@
 
 import asyncio
 
-from pyrogram.errors import BadRequest, Forbidden, YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.errors import YouBlockedUser
 
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
+from pyrogram.errors import BadRequest, FloodWait, Forbidden, MediaEmpty
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 @userge.on_cmd(
     "q",
@@ -147,53 +148,39 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-
-
+        
+        
 @userge.on_cmd(
     "t",
     about={
         "header": "iter_history",
     },
 )
-async def send_inline_alive(message: Message) -> None:
-    _bot = await userge.bot.get_me()
-    try:
-        i_res = await userge.get_inline_bot_results(_bot.username, "t")
-        i_res_id = (
-            (
-                await userge.send_inline_bot_result(
-                    chat_id=message.chat.id,
-                    query_id=i_res.query_id,
-                    result_id=i_res.results[0].id,
-                )
-            )
-            .updates[0]
-            .id
-        )
-    except (Forbidden, BadRequest) as ex:
-        await message.err(str(ex), del_in=5)
-        return
+async def repo_inline(message: Message):
+    await message.edit("`🔍 Finding The Repo...`")
+    bot = await userge.bot.get_me()
+    x = await userge.get_inline_bot_results(bot.username, "t")
+    await userge.send_inline_bot_result(
+        chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
+    )
     await message.delete()
-    await asyncio.sleep(60)
-    await userge.delete_messages(message.chat.id, i_res_id)
-
 
 # async def send_inline(message: Message):
-# bot = await userge.bot.get_me()
-# x = await userge.get_inline_bot_results(bot.username, "t")
-# await userge.send_inline_bot_result(
-# chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
-# )
-# await message.delete()
+   # bot = await userge.bot.get_me()
+   # x = await userge.get_inline_bot_results(bot.username, "t")
+   # await userge.send_inline_bot_result(
+       # chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
+   # )
+   # await message.delete()
 
 # async def tt(message: Message):
-# await message.edit_text("ooi", reply_markup=idk.buttons())
-
-
-class idk:
-    def buttons() -> InlineKeyboardMarkup:
-        buttons = [
-            [
-                InlineKeyboardButton(text="oi", url="https://google.com"),
-            ]
-        ]
+    # await message.edit_text("ooi", reply_markup=idk.buttons())
+    
+# class idk:
+    # def buttons() -> InlineKeyboardMarkup:
+        # buttons = [
+            # [
+                # InlineKeyboardButton(text="oi", url="https://google.com"),
+            # ]
+        # ]
+        
