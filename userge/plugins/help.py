@@ -27,6 +27,8 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_
+from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -695,9 +697,10 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
+                                
             if string == "afk":
-                alive_info = Bot_Alive.alive_info()
+                alive_info = _afk_.out_str()
                 buttons = Bot_Alive.alive_buttons()
                 if not Config.ALIVE_MEDIA:
                     results.append(
@@ -739,7 +742,7 @@ if userge.has_bot:
                                     reply_markup=buttons,
                                 )
                             )
-
+                                
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
@@ -788,10 +791,10 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
+                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
+                            "Github", url="https://github.com"
                         ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
