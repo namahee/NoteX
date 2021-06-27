@@ -862,7 +862,7 @@ if userge.has_bot:
                                 reply_markup=cnote.get("buttons"),
                             )
                         )
-            if string == "t":
+            if string == "k":
                 buttons = [
                     [
                         InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
