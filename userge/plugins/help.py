@@ -696,7 +696,7 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-                                
+
             if string == "gesso":
                 results.append(
                     InlineQueryResultPhoto(
@@ -705,9 +705,6 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-                    
-
-            
 
             if string == "geass":
                 results.append(
