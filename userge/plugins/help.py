@@ -696,16 +696,16 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afk":
                 results.append(
                     InlineQueryResultAnimation(
-                        animation_url="https://telegra.ph/file/5f153409f120195f14491.gif",
+                        animation_url=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
@@ -714,7 +714,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "_afk":
                 results.append(
                     InlineQueryResultPhoto(
@@ -722,6 +722,11 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
+              
+            
+                    
+
+            
 
             if string == "geass":
                 results.append(
