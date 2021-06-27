@@ -696,7 +696,7 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afk":
                 results.append(
                     InlineQueryResultAnimation(
@@ -705,7 +705,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
@@ -714,7 +714,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "_afk":
                 results.append(
                     InlineQueryResultPhoto(
@@ -722,6 +722,31 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
+              
+            if strint == "test":
+                _media_type, _media_url = await _afk_.check_media_link(
+                    _afk_.link()
+                )
+                if _media_type == "url_gif":
+                    results.append(
+                        InlineQueryResultAnimation(
+                            animation_url=_media_url,
+                            caption=_afk_.out_str(),
+                            reply_markup=_afk_.afk_buttons(),
+                        )
+                    )
+                elif _media_type == "url_image":
+                    results.append(
+                        InlineQueryResultPhoto(
+                            photo_url=_media_url,
+                            caption=_afk_.out_str(),
+                            reply_markup=_afk_.afk_buttons(),
+                        )
+                    )
+            
+                    
+
+            
 
             if string == "geass":
                 results.append(
