@@ -27,6 +27,8 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_
+from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -36,7 +38,6 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -696,25 +697,25 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afk":
                 out_str = _afk_.out_str()
                 # _out_str = _afk_._out_str()
                 buttons = _afk_.afk_buttons()
-
-                _media_type, _media_url = await _afk_.check_media_link(match.group(0))
-                if _media_type == "url_gif":
+                
+                type_, media_ = await _afk_.check_media_link(match.group(0))
+                if type_ == "url_gif":
                     results.append(
                         InlineQueryResultAnimation(
-                            animation_url=_media_url,
+                            animation_url=match.group(0),
                             caption=out_str,
                             reply_markup=buttons,
                         )
                     )
-                elif _media_type == "url_image":
+                elif type_ == "url_image":
                     results.append(
                         InlineQueryResultPhoto(
-                            photo_url=_media_url,
+                            photo_url=match.group(0),
                             caption=out_str,
                             reply_markup=InlineKeyboardMarkup(buttons),
                         )
@@ -768,10 +769,10 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
+                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
+                            "Github", url="https://github.com"
                         ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
