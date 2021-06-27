@@ -697,10 +697,10 @@ if userge.has_bot:
                                     )
                                 )
                                 
-            if string == "alive":
+            if string == "afk":
                 out_str = _afk_.out_str()
                 _out_str = _afk_._out_str()
-                buttons = Bot_Alive.alive_buttons()
+                buttons = _afk_.afk_buttons()
                 
                 _media_type, _media_url = await _afk_.check_media_link(match.group(0))
                 if _media_type == "url_gif":
