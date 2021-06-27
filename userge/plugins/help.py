@@ -696,15 +696,18 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "gesso":
                 results.append(
                     InlineQueryResultPhoto(
                         photo_url=Bot_Alive.alive_default_imgs(),
                         caption=_afk_.out_str(),
-                        reply_markup=afk_.afk_buttons(),
+                        reply_markup=_afk_.afk_buttons(),
                     )
                 )
+                    
+
+            
 
             if string == "geass":
                 results.append(
