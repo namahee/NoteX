@@ -696,8 +696,17 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
-            if string == "gesso":
+                                
+            if string == "afk":
+                results.append(
+                    InlineQueryResultAnimation(
+                        animation_url="https://telegra.ph/file/5f153409f120195f14491.gif",
+                        caption=_afk_.out_str(),
+                        reply_markup=_afk_.afk_buttons(),
+                    )
+                )
+                
+            if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
                         photo_url=Bot_Alive.alive_default_imgs(),
@@ -705,6 +714,19 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
+                
+            if string == "_afk":
+                results.append(
+                    InlineQueryResultPhoto(
+                        caption=_afk_._out_str(),
+                        reply_markup=_afk_.afk_buttons(),
+                    )
+                )
+              
+            
+                    
+
+            
 
             if string == "geass":
                 results.append(
