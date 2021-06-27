@@ -862,20 +862,11 @@ if userge.has_bot:
                             )
 
             if string == "gesso":
-                buttons = [
-                    [
-                        InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
-                        ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
-                    ],
-                    [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
-                ]
                 results.append(
                     InlineQueryResultAnimation(
                         animation_url="https://telegra.ph/file/ccc44664b624bd2bdbbc1.gif",
-                        caption="oi",
-                        reply_markup=InlineKeyboardButton(buttons),
+                        caption=_afk_.out_str(),
+                        reply_markup=_afk_.afk_buttons(),
                     )
                 )
 
