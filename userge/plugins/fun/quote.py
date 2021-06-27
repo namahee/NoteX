@@ -157,11 +157,11 @@ async def check_and_send(message: Message, *args, **kwargs):
 )
 async def send_inline(message: Message):
    bot = await userge.bot.get_me()
-    x = await userge.get_inline_bot_results(bot.username, "t")
-    await userge.send_inline_bot_result(
-        chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
-    )
-    await message.delete()
+   x = await userge.get_inline_bot_results(bot.username, "t")
+   await userge.send_inline_bot_result(
+       chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
+   )
+   await message.delete()
 
 # async def tt(message: Message):
     # await message.edit_text("ooi", reply_markup=idk.buttons())
