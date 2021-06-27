@@ -4,11 +4,11 @@
 import asyncio
 
 from pyrogram.errors import YouBlockedUser
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 @userge.on_cmd(
     "q",
@@ -147,27 +147,26 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-
-
+        
+        
 @userge.on_cmd(
     "t",
     about={
         "header": "iter_history",
     },
 )
-async def send_inline(message: Message):
-    bot = await userge.bot.get_me()
-    x = await userge.get_inline_bot_results(bot.username, "quote")
-    await userge.send_inline_bot_result(
-        chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
-    )
-    await message.delete()
-
+# async def send_inline(message: Message):
+   # bot = await userge.bot.get_me()
+    # x = await userge.get_inline_bot_results(bot.username, "quote")
+    # await userge.send_inline_bot_result(
+        # chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
+    # )
+    # await message.delete()
 
 async def tt(message: Message):
+    botname = (await userge.bot.get_me()).username
     await message.edit_text("ooi", reply_markup=idk.buttons())
-
-
+    
 class idk:
     def buttons() -> InlineKeyboardMarkup:
         buttons = [
@@ -175,3 +174,4 @@ class idk:
                 InlineKeyboardButton(text="oi", url="https://google.com"),
             ]
         ]
+        
