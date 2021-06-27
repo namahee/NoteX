@@ -708,7 +708,7 @@ if userge.has_bot:
                 
             if string == "afk_":
                 results.append(
-                    InlineQueryResultPhoto(
+                    await InlineQueryResultPhoto(
                         photo_url=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
@@ -717,7 +717,7 @@ if userge.has_bot:
                 
             if string == "_afk":
                 results.append(
-                    InlineQueryResultPhoto(
+                    await InlineQueryResultPhoto(
                         caption=_afk_._out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
