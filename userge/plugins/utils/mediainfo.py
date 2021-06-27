@@ -62,5 +62,5 @@ async def mediainfo(message: Message):
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=text_, url=link)]])
         await process.edit_text("ℹ️  <b>MEDIA INFO</b>", reply_markup=markup)
     # else:
-        # await message.edit(f"ℹ️  <b>MEDIA INFO:  [{text_}]({link})</b>")
+    # await message.edit(f"ℹ️  <b>MEDIA INFO:  [{text_}]({link})</b>")
     os.remove(file_path)
