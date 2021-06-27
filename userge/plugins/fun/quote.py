@@ -4,11 +4,11 @@
 import asyncio
 
 from pyrogram.errors import YouBlockedUser
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 @userge.on_cmd(
     "q",
@@ -147,8 +147,8 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-        
-        
+
+
 @userge.on_cmd(
     "tt",
     about={
@@ -158,6 +158,7 @@ async def check_and_send(message: Message, *args, **kwargs):
 async def tt(message: Message):
     await message.edit_text("ooi", reply_markup=idk.buttons())
 
+
 async def send_inline(message: Message):
     bot = await userge.bot.get_me()
     x = await userge.get_inline_bot_results(bot.username, "tt")
@@ -166,6 +167,7 @@ async def send_inline(message: Message):
     )
     await message.delete()
 
+
 class idk:
     def buttons() -> InlineKeyboardMarkup:
         buttons = [
@@ -173,4 +175,3 @@ class idk:
                 InlineKeyboardButton(text="oi", url="https://google.com"),
             ]
         ]
-        
