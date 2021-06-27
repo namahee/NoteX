@@ -696,24 +696,16 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afk":
                 results.append(
-                    await Message.client.send_animation(
-                        Message.chat.id,
-                        animation=_afk_.link(),
+                    InlineQueryResultAnimation(
+                        animation_url=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
-                # InlineQueryResultAnimation(
-                # animation_url=_afk_.link(),
-                # caption=_afk_.out_str(),
-                # reply_markup=_afk_.afk_buttons(),
-                # )
-                # )
-
+                
             if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
@@ -722,7 +714,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "_afk":
                 results.append(
                     InlineQueryResultPhoto(
@@ -730,6 +722,10 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
+            
+                    
+
+            
 
             if string == "geass":
                 results.append(
