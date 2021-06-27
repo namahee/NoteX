@@ -696,32 +696,37 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afk":
                 results.append(
-                    await InlineQueryResultAnimation(
+                    InlineQueryResultAnimation(
                         animation_url=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "afk_":
                 results.append(
-                    await InlineQueryResultPhoto(
+                    InlineQueryResultPhoto(
                         photo_url=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
+                
             if string == "_afk":
                 results.append(
-                    await InlineQueryResultPhoto(
+                    InlineQueryResultPhoto(
                         caption=_afk_._out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
+              
+            
+                    
+
+            
 
             if string == "geass":
                 results.append(
