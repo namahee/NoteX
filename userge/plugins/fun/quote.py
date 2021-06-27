@@ -154,7 +154,8 @@ async def check_and_send(message: Message, *args, **kwargs):
     about={
         "header": "iter_history",
     },
-)async def send_inline(message: Message):
+)
+async def send_inline(message: Message):
     bot = await userge.bot.get_me()
     x = await userge.get_inline_bot_results(bot.username, "ttt")
     await userge.send_inline_bot_result(
