@@ -701,6 +701,7 @@ if userge.has_bot:
                 results.append(
                     InlineQueryResultAnimation(
                         animation_url=_afk_.link(),
+                        # animation_url=Bot_Alive.alive_default_imgs(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
@@ -709,7 +710,8 @@ if userge.has_bot:
             if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
-                        photo_url=Bot_Alive.alive_default_imgs(),
+                        photo_url=_afk_.link(),
+                        # photo_url=Bot_Alive.alive_default_imgs(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
