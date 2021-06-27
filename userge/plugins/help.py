@@ -27,8 +27,6 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
-from .custom.afk import _afk_
-from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -38,6 +36,7 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
+from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -669,36 +668,35 @@ if userge.has_bot:
                                 )
                             )
                         # elif _media_type == "tg_media":
-                            # c_file_id = Bot_Alive.get_bot_cached_fid()
-                            # if c_file_id is None:
-                                # try:
-                                    # c_file_id = get_file_id(
-                                        # await userge.bot.get_messages(
-                                            # _media_url[0], _media_url[1]
-                                        # )
-                                    # )
-                                # except Exception as b_rr:
-                                    # await CHANNEL.log(str(b_rr))
-                            # if Bot_Alive.is_photo(c_file_id):
-                                # results.append(
-                                    # InlineQueryResultCachedPhoto(
-                                        # file_id=c_file_id,
-                                        # caption=alive_info,
-                                        # reply_markup=buttons,
-                                    # )
-                                # )
-                            # else:
-                                # results.append(
-                                    # InlineQueryResultCachedDocument(
-                                        # title="USERGE-X",
-                                        # file_id=c_file_id,
-                                        # caption=alive_info,
-                                        # description="ALIVE",
-                                        # reply_markup=buttons,
-                                    # )
-                                # )
-                                
-                                
+                        # c_file_id = Bot_Alive.get_bot_cached_fid()
+                        # if c_file_id is None:
+                        # try:
+                        # c_file_id = get_file_id(
+                        # await userge.bot.get_messages(
+                        # _media_url[0], _media_url[1]
+                        # )
+                        # )
+                        # except Exception as b_rr:
+                        # await CHANNEL.log(str(b_rr))
+                        # if Bot_Alive.is_photo(c_file_id):
+                        # results.append(
+                        # InlineQueryResultCachedPhoto(
+                        # file_id=c_file_id,
+                        # caption=alive_info,
+                        # reply_markup=buttons,
+                        # )
+                        # )
+                        # else:
+                        # results.append(
+                        # InlineQueryResultCachedDocument(
+                        # title="USERGE-X",
+                        # file_id=c_file_id,
+                        # caption=alive_info,
+                        # description="ALIVE",
+                        # reply_markup=buttons,
+                        # )
+                        # )
+
             if string == "afk":
                 out_str = _afk_.out_str()
                 buttons = _afk_.afk_buttons()
@@ -715,7 +713,8 @@ if userge.has_bot:
                         results.append(
                             InlineQueryResultArticle(
                                 title="USERGE-X",
-                                input_message_content=InputTextMessageContent(out_str, disable_web_page_preview=True
+                                input_message_content=InputTextMessageContent(
+                                    out_str, disable_web_page_preview=True
                                 ),
                                 description="AFK",
                                 reply_markup=buttons,
@@ -741,7 +740,7 @@ if userge.has_bot:
                                     reply_markup=buttons,
                                 )
                             )
-                                
+
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
@@ -790,10 +789,10 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
-                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "Github", url="https://github.com"
+                            "My Repo", url="https://github.com/samuca78/NoteX"
                         ),
+                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
