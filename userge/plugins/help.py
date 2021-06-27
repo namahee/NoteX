@@ -27,6 +27,8 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_
+from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -36,7 +38,6 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -696,7 +697,8 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
+                                
             if string == "afk":
                 out_str = _afk_.out_str()
                 buttons = _afk_.afk_buttons()
@@ -713,8 +715,7 @@ if userge.has_bot:
                         results.append(
                             InlineQueryResultArticle(
                                 title="USERGE-X",
-                                input_message_content=InputTextMessageContent(
-                                    out_str, disable_web_page_preview=True
+                                input_message_content=InputTextMessageContent(out_str, disable_web_page_preview=True
                                 ),
                                 description="AFK",
                                 reply_markup=buttons,
@@ -722,7 +723,7 @@ if userge.has_bot:
                         )
                     else:
                         _media_type, _media_url = await Bot_Alive.check_media_link(
-                            Config.ALIVE_MEDIA
+                            match.group(0)
                         )
                         if _media_type == "url_gif":
                             results.append(
@@ -769,7 +770,7 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
@@ -818,10 +819,10 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
+                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
+                            "Github", url="https://github.com"
                         ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
