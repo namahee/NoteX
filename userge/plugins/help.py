@@ -36,6 +36,7 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
+from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -695,15 +696,20 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "gesso":
-                results.append(
-                    InlineQueryResultPhoto(
-                        photo_url=Bot_Alive.alive_default_imgs(),
-                        caption=Bot_Alive.alive_info(),
-                        reply_markup=Bot_Alive.alive_buttons(),
+                type_, url_ == await Bot_Alive.check_media_link("https://telegra.ph/file/ccc44664b624bd2bdbbc1.gif")
+                if type_ == "url_gif":
+                    results.append(
+                        InlineQueryResultPhoto(
+                            photo_url=Bot_Alive.alive_default_imgs(),
+                            caption=Bot_Alive.alive_info(),
+                            reply_markup=Bot_Alive.alive_buttons(),
+                        )
                     )
-                )
+                    
+
+            
 
             if string == "geass":
                 results.append(
