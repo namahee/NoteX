@@ -771,30 +771,6 @@ if userge.has_bot:
                                     )
                                 )
                                 
-                                
-            if string == "afk":
-                # out_str = _afk_.out_str()
-                # _out_str = _afk_._out_str()
-                # buttons = _afk_.afk_buttons()
-                
-                # type_, media_ = await _afk_.check_media_link(match.group(0))
-                # if type_ == "url_gif":
-                    # results.append(
-                        # InlineQueryResultAnimation(
-                            # animation_url=match.group(0),
-                            # caption=out_str,
-                            # reply_markup=buttons,
-                        # )
-                    # )
-                # elif type_ == "url_image":
-                    # results.append(
-                        # InlineQueryResultPhoto(
-                            # photo_url=match.group(0),
-                            # caption=out_str,
-                            # reply_markup=InlineKeyboardMarkup(buttons),
-                        # )
-                    # )
-
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
