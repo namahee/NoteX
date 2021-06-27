@@ -704,14 +704,15 @@ if userge.has_bot:
                         animation=_afk_.link(),
                         caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
-                        )
+                    )
+                )
                         
                     # InlineQueryResultAnimation(
                         # animation_url=_afk_.link(),
                         # caption=_afk_.out_str(),
                         # reply_markup=_afk_.afk_buttons(),
                     # )
-                )
+                # )
                 
             if string == "afk_":
                 results.append(
