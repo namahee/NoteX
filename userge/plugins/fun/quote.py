@@ -8,6 +8,8 @@ from pyrogram.errors import YouBlockedUser
 from userge import Message, userge
 from userge.utils.exceptions import StopConversation
 
+from pyrogram.errors import BadRequest, FloodWait, Forbidden, MediaEmpty
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 @userge.on_cmd(
     "q",
@@ -146,8 +148,8 @@ async def check_and_send(message: Message, *args, **kwargs):
         await asyncio.gather(message.delete(), replied.reply(*args, **kwargs))
     else:
         await message.edit(*args, **kwargs)
-
-
+        
+        
 @userge.on_cmd(
     "t",
     about={
@@ -157,7 +159,7 @@ async def check_and_send(message: Message, *args, **kwargs):
 async def repo_inline(message: Message):
     await message.edit("`🔍 Finding The Repo...`")
     bot = await userge.bot.get_me()
-    x = await userge.get_inline_bot_results(bot.username, "gesso")
+    x = await userge.get_inline_bot_results(bot.username, "t")
     await userge.send_inline_bot_result(
         chat_id=message.chat.id, query_id=x.query_id, result_id=x.results[0].id
     )
