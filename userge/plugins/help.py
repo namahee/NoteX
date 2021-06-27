@@ -696,7 +696,7 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-                                
+
             if string == "afk":
                 results.append(
                     InlineQueryResultAnimation(
@@ -706,7 +706,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-                
+
             if string == "afk_":
                 results.append(
                     InlineQueryResultPhoto(
@@ -716,7 +716,7 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-                
+
             if string == "_afk":
                 results.append(
                     InlineQueryResultPhoto(
@@ -724,11 +724,6 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-              
-            
-                    
-
-            
 
             if string == "geass":
                 results.append(
