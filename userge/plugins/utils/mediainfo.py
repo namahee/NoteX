@@ -58,9 +58,6 @@ async def mediainfo(message: Message):
     if message.client.is_bot:
         markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=text_, url=link)]])
         await process.edit_text("ℹ️  <b>MEDIA INFO</b>", reply_markup=markup)
-    elif userge.has_bot:
-        markup = InlineKeyboardMarkup([[InlineKeyboardButton(text=text_, url=link)]])
-        await process.edit_text("ℹ️  <b>MEDIA INFO</b>", reply_markup=markup)
-    # else:
-    # await message.edit(f"ℹ️  <b>MEDIA INFO:  [{text_}]({link})</b>")
+    else:
+        await message.edit(f"ℹ️  <b>MEDIA INFO:  [{text_}]({link})</b>")
     os.remove(file_path)
