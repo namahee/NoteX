@@ -768,7 +768,7 @@ if userge.has_bot:
                         )
             if string == "t":
                 buttons=idk.buttons()
-                results.append(await Message.edit("ooi", reply_markup=buttons)
+                results.append(await Message.edit("ooi", reply_markup=buttons))
                 # async def t(message: Message):
                     # buttons = idk.buttons()
                     # results.append(
