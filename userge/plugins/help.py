@@ -27,8 +27,6 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
-from .fun.quote import idk
-from .custom.afk import _afk_
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -38,6 +36,8 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
+from .custom.afk import _afk_
+from .fun.quote import idk
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -697,12 +697,12 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-                                
+
             if string == "afk":
                 out_str = _afk_.out_str()
-                _out_str = _afk_._out_str()
+                _afk_._out_str()
                 buttons = _afk_.afk_buttons()
-                
+
                 _media_type, _media_url = await _afk_.check_media_link(match.group(0))
                 if _media_type == "url_gif":
                     results.append(
@@ -767,13 +767,13 @@ if userge.has_bot:
                             )
                         )
             if string == "t":
-                buttons=idk.buttons()
+                buttons = idk.buttons()
                 results.append(await Message.edit("ooi", reply_markup=buttons))
                 # async def t(message: Message):
-                    # buttons = idk.buttons()
-                    # results.append(
-                        # await message.edit("ooi", reply_markup=buttons)
-                    # )
+                # buttons = idk.buttons()
+                # results.append(
+                # await message.edit("ooi", reply_markup=buttons)
+                # )
 
             if string == "gapps":
                 buttons = [
