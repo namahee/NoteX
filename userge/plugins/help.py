@@ -27,6 +27,8 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_, REASON, _TELE_REGEX, link
+from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -36,7 +38,6 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _TELE_REGEX, REASON, _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -696,19 +697,20 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
             if string == "afkkk":
                 out_str = _afk_.out_str()
                 buttons = _afk_.afk_buttons()
+                link = _afk_.link()
                 if type_ == "url_gif":
                     results.append(
                         InlineQueryResultAnimation(
-                            animation_url="https://telegra.ph/file/081808e86849851e6510c.gif",
+                            animation_url=link,
                             caption=out_str,
                             reply_markup=buttons,
                         )
                     )
-
+                                
             if string == "afkk":
                 alive_info = _afk_.out_str()
                 buttons = _afk_.afk_buttons()
@@ -720,7 +722,9 @@ if userge.has_bot:
                     if url.lower().strip() == "false":
                         pass
                     else:
-                        _media_type, _media_url = await Bot_Alive.check_media_link(url)
+                        _media_type, _media_url = await Bot_Alive.check_media_link(
+                            url
+                        )
                         if _media_type == "url_gif":
                             results.append(
                                 InlineQueryResultAnimation(
@@ -737,7 +741,7 @@ if userge.has_bot:
                                     reply_markup=buttons,
                                 )
                             )
-
+                                
             if string == "afk":
                 url = Config.ALIVE_MEDIA
                 alive_info = _afk_.out_str()
@@ -774,46 +778,46 @@ if userge.has_bot:
                             )
                         )
                 # if not Config.ALIVE_MEDIA:
-                # results.append(
-                # InlineQueryResultPhoto(
-                # photo_url=Bot_Alive.alive_default_imgs(),
-                # caption=alive_info,
-                # reply_markup=buttons,
-                # )
-                # )
+                    # results.append(
+                        # InlineQueryResultPhoto(
+                            # photo_url=Bot_Alive.alive_default_imgs(),
+                            # caption=alive_info,
+                            # reply_markup=buttons,
+                        # )
+                    # )
                 # else:
-                # if Config.ALIVE_MEDIA.lower().strip() == "false":
-                # results.append(
-                # InlineQueryResultArticle(
-                # title="USERGE-X",
-                # input_message_content=InputTextMessageContent(
-                # alive_info, disable_web_page_preview=True
-                # ),
-                # description="ALIVE",
-                # reply_markup=buttons,
-                # )
-                # )
-                # else:
-                # _media_type, _media_url = await _afk_.check_media_link(
-                # match.group(0)
-                # )
-                # if _media_type == "url_gif":
-                # results.append(
-                # InlineQueryResultAnimation(
-                # animation_url=_media_url,
-                # caption=alive_info,
-                # reply_markup=buttons,
-                # )
-                # )
-                # elif _media_type == "url_image":
-                # results.append(
-                # InlineQueryResultPhoto(
-                # photo_url=_media_url,
-                # caption=alive_info,
-                # reply_markup=buttons,
-                # )
-                # )
-
+                    # if Config.ALIVE_MEDIA.lower().strip() == "false":
+                        # results.append(
+                            # InlineQueryResultArticle(
+                                # title="USERGE-X",
+                                # input_message_content=InputTextMessageContent(
+                                    # alive_info, disable_web_page_preview=True
+                                # ),
+                                # description="ALIVE",
+                                # reply_markup=buttons,
+                            # )
+                        # )
+                    # else:
+                        # _media_type, _media_url = await _afk_.check_media_link(
+                            # match.group(0)
+                        # )
+                        # if _media_type == "url_gif":
+                            # results.append(
+                                # InlineQueryResultAnimation(
+                                    # animation_url=_media_url,
+                                    # caption=alive_info,
+                                    # reply_markup=buttons,
+                                # )
+                            # )
+                        # elif _media_type == "url_image":
+                            # results.append(
+                                # InlineQueryResultPhoto(
+                                    # photo_url=_media_url,
+                                    # caption=alive_info,
+                                    # reply_markup=buttons,
+                                # )
+                            # )
+                                
             if string == "geass":
                 results.append(
                     InlineQueryResultAnimation(
@@ -862,20 +866,30 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
+                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
+                            "Github", url="https://github.com"
                         ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
+                button = _afk_.afk_buttons()
+                out_str = _afk_.out_str()
+                link = _afk_.link()
                 results.append(
-                    InlineQueryResultPhoto(
-                        photo_url="https://telegra.ph/file/51aa39df7e1745f815dcf.jpg",
-                        caption="My repo. Your motherf. It is private.",
-                        reply_markup=InlineKeyboardMarkup(buttons),
+                    InlineQueryResultAnimation(
+                        animation_url=link,
+                        caption=out_str,
+                        reply_markup=button,
                     )
                 )
+                # results.append(
+                    # InlineQueryResultPhoto(
+                        # photo_url="https://telegra.ph/file/51aa39df7e1745f815dcf.jpg",
+                        # caption="My repo. Your motherf. It is private.",
+                        # reply_markup=InlineKeyboardMarkup(buttons),
+                    # )
+                # )
 
             if string == "gapps":
                 buttons = [
