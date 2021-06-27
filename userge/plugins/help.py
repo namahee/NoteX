@@ -27,6 +27,8 @@ from userge.utils import get_file_id, get_response
 from userge.utils import parse_buttons as pb
 from userge.utils import rand_key
 
+from .custom.afk import _afk_
+from .custom import afk
 from .bot.alive import Bot_Alive
 from .bot.gogo import Anime
 from .bot.utube_inline import (
@@ -36,7 +38,6 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -696,29 +697,103 @@ if userge.has_bot:
                                         reply_markup=buttons,
                                     )
                                 )
-
+                                
+                                
             if string == "afk":
                 out_str = _afk_.out_str()
-                # _out_str = _afk_._out_str()
                 buttons = _afk_.afk_buttons()
-
-                type_, media_ = await _afk_.check_media_link(match.group(0))
-                if type_ == "url_gif":
+                if not Config.ALIVE_MEDIA:
                     results.append(
-                        InlineQueryResultAnimation(
-                            animation_url=match.group(0),
+                        InlineQueryResultPhoto(
+                            photo_url=Bot_Alive.alive_default_imgs(),
                             caption=out_str,
                             reply_markup=buttons,
                         )
                     )
-                elif type_ == "url_image":
-                    results.append(
-                        InlineQueryResultPhoto(
-                            photo_url=match.group(0),
-                            caption=out_str,
-                            reply_markup=InlineKeyboardMarkup(buttons),
+                else:
+                    if Config.ALIVE_MEDIA.lower().strip() == "false":
+                        results.append(
+                            InlineQueryResultArticle(
+                                title="USERGE-X",
+                                input_message_content=InputTextMessageContent(out_str, disable_web_page_preview=True
+                                ),
+                                description="AFK",
+                                reply_markup=buttons,
+                            )
                         )
-                    )
+                    else:
+                        _media_type, _media_url = await Bot_Alive.check_media_link(
+                            Config.ALIVE_MEDIA
+                        )
+                        if _media_type == "url_gif":
+                            results.append(
+                                InlineQueryResultAnimation(
+                                    animation_url=_media_url,
+                                    caption=out_str,
+                                    reply_markup=buttons,
+                                )
+                            )
+                        elif _media_type == "url_image":
+                            results.append(
+                                InlineQueryResultPhoto(
+                                    photo_url=_media_url,
+                                    caption=out_str,
+                                    reply_markup=buttons,
+                                )
+                            )
+                        elif _media_type == "tg_media":
+                            c_file_id = Bot_Alive.get_bot_cached_fid()
+                            if c_file_id is None:
+                                try:
+                                    c_file_id = get_file_id(
+                                        await userge.bot.get_messages(
+                                            _media_url[0], _media_url[1]
+                                        )
+                                    )
+                                except Exception as b_rr:
+                                    await CHANNEL.log(str(b_rr))
+                            if Bot_Alive.is_photo(c_file_id):
+                                results.append(
+                                    InlineQueryResultCachedPhoto(
+                                        file_id=c_file_id,
+                                        caption=out_str,
+                                        reply_markup=buttons,
+                                    )
+                                )
+                            else:
+                                results.append(
+                                    InlineQueryResultCachedDocument(
+                                        title="USERGE-X",
+                                        file_id=c_file_id,
+                                        caption=out_str,
+                                        description="AFK",
+                                        reply_markup=buttons,
+                                    )
+                                )
+                                
+                                
+            if string == "afk":
+                # out_str = _afk_.out_str()
+                # _out_str = _afk_._out_str()
+                # buttons = _afk_.afk_buttons()
+                
+                # type_, media_ = await _afk_.check_media_link(match.group(0))
+                # if type_ == "url_gif":
+                    # results.append(
+                        # InlineQueryResultAnimation(
+                            # animation_url=match.group(0),
+                            # caption=out_str,
+                            # reply_markup=buttons,
+                        # )
+                    # )
+                # elif type_ == "url_image":
+                    # results.append(
+                        # InlineQueryResultPhoto(
+                            # photo_url=match.group(0),
+                            # caption=out_str,
+                            # reply_markup=InlineKeyboardMarkup(buttons),
+                        # )
+                    # )
 
             if string == "geass":
                 results.append(
@@ -768,10 +843,10 @@ if userge.has_bot:
             if string == "t":
                 buttons = [
                     [
+                        InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/samuca78/NoteX"
+                            "Github", url="https://github.com"
                         ),
-                        InlineKeyboardButton("Github", url="https://github.com"),
                     ],
                     [InlineKeyboardButton("My Git", url="https://github.com/samuca78")],
                 ]
