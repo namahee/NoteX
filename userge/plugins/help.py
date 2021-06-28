@@ -718,59 +718,11 @@ if userge.has_bot:
             if string == "_afk":
                 results.append(
                     InlineQueryResultPhoto(
-                        await userge.send_message(
-                            message.chat.id,
-                            _afk_._out_str,
-                            reply_markup=_afk_.afk_buttons,
-                        )
+                        await userge.send_message(message.chat.id, _afk_._out_str, reply_markup=_afk_.afk_buttons)
                         # caption=_afk_._out_str(),
                         # reply_markup=_afk_.afk_buttons(),
                     )
                 )
-
-            if string == "test":
-                alive_info = _afk_.out_str()
-                buttons = _afk_.afk_buttons()
-                if not _afk_.link():
-                    results.append(
-                        InlineQueryResultPhoto(
-                            photo_url=Bot_Alive.alive_default_imgs(),
-                            caption=alive_info,
-                            reply_markup=buttons,
-                        )
-                    )
-                else:
-                    if Config.ALIVE_MEDIA.lower().strip() == "false":
-                        results.append(
-                            InlineQueryResultArticle(
-                                title="USERGE-X",
-                                input_message_content=InputTextMessageContent(
-                                    alive_info, disable_web_page_preview=True
-                                ),
-                                description="ALIVE",
-                                reply_markup=buttons,
-                            )
-                        )
-                    else:
-                        _media_type, _media_url = await Bot_Alive.check_media_link(
-                            _afk_.link()
-                        )
-                        if _media_type == "url_gif":
-                            results.append(
-                                InlineQueryResultAnimation(
-                                    animation_url=_media_url,
-                                    caption=alive_info,
-                                    reply_markup=buttons,
-                                )
-                            )
-                        elif _media_type == "url_image":
-                            results.append(
-                                InlineQueryResultPhoto(
-                                    photo_url=_media_url,
-                                    caption=alive_info,
-                                    reply_markup=buttons,
-                                )
-                            )
 
             if string == "geass":
                 results.append(
