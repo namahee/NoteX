@@ -6,11 +6,13 @@ from random import randint
 from re import compile as comp_regex
 
 from userge import Config, Message, filters, get_collection, userge
+
 from userge.plugins.utils.afk_inline import (
-    _send_inline_afk,
+    # _send_inline_afk,
     send_inline_afk,
-    send_inline_afk_,
+    # send_inline_afk_,
 )
+
 from userge.utils import time_formatter
 
 _TELE_REGEX = comp_regex(
