@@ -1,5 +1,6 @@
 from userge import Message, userge
 
+
 async def send_inline_afk_(message: Message):
     bot_ = await userge.bot.get_me()
     x_ = await userge.get_inline_bot_results(bot_.username, "afk_")
