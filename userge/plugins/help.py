@@ -36,7 +36,7 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _afk_
+from .custom.afk import _afk_, _TELE_REGEX, REASON
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -719,6 +719,16 @@ if userge.has_bot:
                 results.append(
                     InlineQueryResultPhoto(
                         caption=_afk_._out_str(),
+                        reply_markup=_afk_.afk_buttons(),
+                    )
+                )
+            if string == "kfa":
+                match = _TELE_REGEX.search(REASON)
+                if match:
+                    results.append(
+                    InlineQueryResultPhoto(
+                        photo_url=match.group(0),
+                        caption=_afk_.out_str(),
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
