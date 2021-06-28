@@ -36,11 +36,10 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
+from .custom.afk import _afk_
+from .utils.afk_inline import _afk
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
-
-# from .custom.afk import _afk_
-from .utils.afk_inline import _afk_
 from .utils.notes import get_inote
 
 CHANNEL = userge.getCLogger(__name__)
@@ -704,7 +703,7 @@ if userge.has_bot:
                     InlineQueryResultAnimation(
                         animation_url=_afk_.link(),
                         caption=_afk_.out_str(),
-                        reply_markup=_afk_.afk_buttons(),
+                        reply_markup=_afk.afk_buttons(),
                     )
                 )
 
@@ -713,7 +712,7 @@ if userge.has_bot:
                     InlineQueryResultPhoto(
                         photo_url=_afk_.link(),
                         caption=_afk_.out_str(),
-                        reply_markup=_afk_.afk_buttons(),
+                        reply_markup=_afk.afk_buttons(),
                     )
                 )
 
@@ -721,7 +720,7 @@ if userge.has_bot:
                 results.append(
                     InlineQueryResultPhoto(
                         caption=_afk_._out_str(),
-                        reply_markup=_afk_.afk_buttons(),
+                        reply_markup=_afk.afk_buttons(),
                     )
                 )
 
