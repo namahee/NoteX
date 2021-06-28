@@ -37,9 +37,9 @@ from .bot.utube_inline import (
     ytsearch_data,
 )
 from .custom.afk import _afk_
-from .utils.afk_inline import _afk
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
+from .utils.afk_inline import _afk
 from .utils.notes import get_inote
 
 CHANNEL = userge.getCLogger(__name__)
