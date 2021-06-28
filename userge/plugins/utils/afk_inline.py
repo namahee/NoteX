@@ -1,7 +1,8 @@
-from userge import Message, userge
-
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from userge import Message, userge
 from userge.plugins.custom.afk import _TELE_REGEX
+
 
 async def send_inline_afk(message: Message):
     bot = await userge.bot.get_me()
@@ -50,10 +51,10 @@ class _afk:
         return link_type, link
 
     def afk_buttons() -> InlineKeyboardMarkup:
-       buttons = [
+        buttons = [
             [
                 # InlineKeyboardButton(
-                    # "My Repo", url="https://github.com/samuca78/NoteX"
+                # "My Repo", url="https://github.com/samuca78/NoteX"
                 # ),
                 InlineKeyboardButton("▫️Bio", url="https://t.me/notezvbio"),
             ],
