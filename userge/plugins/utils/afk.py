@@ -5,18 +5,13 @@ import time
 from random import randint
 from re import compile as comp_regex
 
-
 from userge import Config, Message, filters, get_collection, userge
-from userge.utils import time_formatter
-
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-
 from userge.plugins.utils.afk_inline import (
+    _send_inline_afk,
     send_inline_afk,
     send_inline_afk_,
-    _send_inline_afk,
 )
-
+from userge.utils import time_formatter
 
 _TELE_REGEX = comp_regex(
     r"http[s]?://(i\.imgur\.com|telegra\.ph/file|t\.me)/(\w+)(?:\.|/)(gif|mp4|jpg|png|jpeg|[0-9]+)(?:/([0-9]+))?"
@@ -123,13 +118,11 @@ async def handle_afk_incomming(message: Message) -> None:
                 if type_ == "url_image":
                     await send_inline_afk_(message)
                 elif type_ == "url_gif":
-                     await send_inline_afk(message)
+                    await send_inline_afk(message)
             else:
-                coro_list.append(
-                    await _send_inline_afk(message)
-                )
+                coro_list.append(await _send_inline_afk(message))
                 # coro_list.append(
-                    # message.reply(_afk_._out_str())
+                # message.reply(_afk_._out_str())
                 # )
         if chat.type == "private":
             USERS[user_id][0] += 1
@@ -144,11 +137,9 @@ async def handle_afk_incomming(message: Message) -> None:
             elif type_ == "url_gif":
                 await send_inline_afk(message)
         else:
-            coro_list.append(
-                await _send_inline_afk(message)
-            )
+            coro_list.append(await _send_inline_afk(message))
             # coro_list.append(
-                # message.reply(_afk_._out_str())
+            # message.reply(_afk_._out_str())
             # )
         if chat.type == "private":
             USERS[user_id] = [1, 0, user_dict["mention"]]
@@ -195,7 +186,7 @@ class _afk_:
             f"▫️ **I'm not here because:**\n {_STATUS}"
         )
         return out_str
-        
+
     def _out_str() -> str:
         afk_time_ = time_formatter(round(time.time() - TIME))
         out_str = (
@@ -203,13 +194,13 @@ class _afk_:
             f"▫️ **I'm not here because:**\n {REASON}"
         )
         return out_str
-    
+
     def link() -> str:
-        _match_ =  _TELE_REGEX.search(REASON)
+        _match_ = _TELE_REGEX.search(REASON)
         if _match_:
             link = _match_.group(0)
             return link
-    
+
     async def check_media_link(media_link: str):
         match_ = _TELE_REGEX.search(media_link.strip())
         if not match_:
@@ -232,16 +223,17 @@ class _afk_:
         return link_type, link
 
     # def afk_buttons() -> InlineKeyboardMarkup:
-        # buttons = [
-            # [
-                # InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
-                # InlineKeyboardButton("Github", url="https://github.com"),
-            # ],
-            # [
-                # InlineKeyboardButton("My Git", url="https://github.com/samuca78"),
-            # ],
-        # ]
-        # return InlineKeyboardMarkup(buttons)
+    # buttons = [
+    # [
+    # InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
+    # InlineKeyboardButton("Github", url="https://github.com"),
+    # ],
+    # [
+    # InlineKeyboardButton("My Git", url="https://github.com/samuca78"),
+    # ],
+    # ]
+    # return InlineKeyboardMarkup(buttons)
+
 
 @userge.on_filters(IS_AFK_FILTER & filters.outgoing, group=-1, allow_via_bot=False)
 async def handle_afk_outgoing(message: Message) -> None:
