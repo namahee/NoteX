@@ -36,7 +36,7 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _afk_, _TELE_REGEX, REASON
+from .custom.afk import _TELE_REGEX, REASON, _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
