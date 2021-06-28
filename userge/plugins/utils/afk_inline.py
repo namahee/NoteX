@@ -1,7 +1,5 @@
 from userge import Message, userge
 
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from userge.plugins.custom.afk import _TELE_REGEX
 
 async def send_inline_afk(message: Message):
     bot = await userge.bot.get_me()
