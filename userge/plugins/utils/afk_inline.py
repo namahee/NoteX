@@ -1,8 +1,9 @@
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 from userge import Message, userge
 from userge.plugins.custom.afk import _TELE_REGEX, REASON
 from userge.utils import time_formatter
 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 async def send_inline_afk(message: Message):
     bot = await userge.bot.get_me()
@@ -27,6 +28,7 @@ async def _send_inline_afk(message: Message):
         chat_id=message.chat.id, query_id=_x.query_id, result_id=_x.results[0].id
     )
 
+
 class _afk_:
     def out_str() -> str:
         _afk_time = time_formatter(round(time.time() - TIME))
@@ -37,7 +39,7 @@ class _afk_:
             f"▫️ **I'm not here because:**\n {_STATUS}"
         )
         return out_str
-        
+
     def _out_str() -> str:
         afk_time_ = time_formatter(round(time.time() - TIME))
         out_str = (
@@ -45,13 +47,13 @@ class _afk_:
             f"▫️ **I'm not here because:**\n {REASON}"
         )
         return out_str
-    
+
     def link() -> str:
-        _match_ =  _TELE_REGEX.search(REASON)
+        _match_ = _TELE_REGEX.search(REASON)
         if _match_:
             link = _match_.group(0)
             return link
-    
+
     async def check_media_link(media_link: str):
         match_ = _TELE_REGEX.search(media_link.strip())
         if not match_:
@@ -76,7 +78,9 @@ class _afk_:
     def afk_buttons() -> InlineKeyboardMarkup:
         buttons = [
             [
-                InlineKeyboardButton("My Repo", url="https://github.com/samuca78/NoteX"),
+                InlineKeyboardButton(
+                    "My Repo", url="https://github.com/samuca78/NoteX"
+                ),
                 InlineKeyboardButton("Github", url="https://github.com"),
             ],
             [
