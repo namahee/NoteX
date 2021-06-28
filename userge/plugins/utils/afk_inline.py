@@ -1,4 +1,4 @@
-from userge import Message
+from userge import Message, userge
 
 
 async def send_inline_afk(message: Message):
