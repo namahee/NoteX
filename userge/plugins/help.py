@@ -36,7 +36,8 @@ from .bot.utube_inline import (
     result_formatter,
     ytsearch_data,
 )
-from .custom.afk import _TELE_REGEX, REASON, _afk_
+# from .custom.afk import _afk_
+from .utils.afk_inline import _afk_
 from .fun.stylish import Styled, font_gen
 from .misc.redditdl import reddit_thumb_link
 from .utils.notes import get_inote
@@ -722,17 +723,6 @@ if userge.has_bot:
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
-            if string == "cafe":
-                match = _TELE_REGEX.search(REASON)
-                if match:
-                    if match.group(3) == "gif":
-                        results.append(
-                            InlineQueryResultPhoto(
-                                photo_url=match.group(0),
-                                caption=_afk_.out_str(),
-                                reply_markup=_afk_.afk_buttons(),
-                            )
-                        )
 
             if string == "geass":
                 results.append(
