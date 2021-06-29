@@ -730,8 +730,8 @@ if userge.has_bot:
                         # )
                         # caption=_afk_._out_str(),
                         # reply_markup=_afk_.afk_buttons(),
-                    )
-                )
+                    # )
+                # )
 
             if string == "geass":
                 results.append(
