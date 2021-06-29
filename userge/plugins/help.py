@@ -716,13 +716,18 @@ if userge.has_bot:
                 )
 
             if string == "_afk":
-                results.append(
-                    InlineQueryResultPhoto(
-                        await userge.send_message(
-                            message.chat.id,
-                            _afk_._out_str,
-                            reply_markup=_afk_.afk_buttons,
-                        )
+                kfa = InlineQueryResultArticle(
+                    description=_afk_._out_str(),
+                    reply_markup=_afk_.afk_buttons(),
+                )
+                results.append(kfa)
+                # results.append(
+                    # InlineQueryResultPhoto(
+                        # await userge.send_message(
+                            # message.chat.id,
+                            # _afk_._out_str,
+                            # reply_markup=_afk_.afk_buttons,
+                        # )
                         # caption=_afk_._out_str(),
                         # reply_markup=_afk_.afk_buttons(),
                     )
