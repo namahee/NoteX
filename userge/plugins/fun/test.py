@@ -1,17 +1,15 @@
 """ Módulo de testes para o @NoteZV com fins de aprendizado """
 
-import asyncio
-import os
 from pyrogram.errors import YouBlockedUser
-from userge import Config, Message, userge
-from userge.utils.exceptions import StopConverimport
+
+from userge import Message, userge
 
 
 @userge.on_cmd(
     "nbot",
     about={
         "header": "criar um bot",
-        "como usar": "{tr}nbot [nome] | [username_bot] ou [usernameBot]", 
+        "como usar": "{tr}nbot [nome] | [username_bot] ou [usernameBot]",
     },
     allow_via_bot=False,
     allow_channels=False,
@@ -31,12 +29,12 @@ async def nbot_(message: Message):
             # oi = await conv.get_response(mark_read=True)
         # await message.edit(f"Aqui:\n\n{oi}")
         await message.edit(f"Prontinho, bot criado. [Aqui](t.me/{name[1]})")
-  
+
     except YouBlockedUser:
         await message.edit("Desbloqueie o **@BotFather**")
     except StopConversation:
         await message.err("O Bot está morto...")
-        
+
 
 @userge.on_cmd(
     "cname",
@@ -64,7 +62,7 @@ async def cname_(message: Message):
         await message.edit("Desbloqueie o **@BotFather**")
     except StopConversation:
         await message.err("O bot morreu...")
-        
+
 
 @userge.on_cmd(
     "sdescription",
@@ -92,8 +90,8 @@ async def sdescription_(message: Message):
         await message.edit("Desbloqueie o **@BotFather**")
     except StopConversation:
         await message.err("O bot morreu...")
-        
-        
+
+
 @userge.on_cmd(
     "atext",
     about={
@@ -120,7 +118,7 @@ async def atext_(message: Message):
         await message.edit("Desbloqueie o **@BotFather**")
     except StopConversation:
         await message.err("O bot morreu...")
-        
+
 
 @userge.on_cmd(
     "spick",
@@ -153,4 +151,3 @@ async def spick_(message: Message):
         await message.edit("Desbloqueie o **@BotFather**")
     except StopConversation:
         await message.err("O bot está morto...")
-    
