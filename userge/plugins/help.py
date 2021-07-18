@@ -719,9 +719,7 @@ if userge.has_bot:
                 results.append(
                     InlineQueryResultArticle(
                         title="USERGE-X",
-                        input_message_content=InputTextMessageContent(
-                            _afk_.out_str_()
-                        ),
+                        input_message_content=InputTextMessageContent(_afk_.out_str_()),
                         description="ALIVE",
                         reply_markup=_afk_.afk_buttons(),
                     )
