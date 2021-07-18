@@ -718,9 +718,9 @@ if userge.has_bot:
             if string == "_afk":
                 results.append(
                     InlineQueryResultArticle(
-                        title="USERGE-X",
+                        # title="NoteX",
                         input_message_content=InputTextMessageContent(_afk_._out_str()),
-                        description="ALIVE",
+                        # description="AFK",
                         reply_markup=_afk_.afk_buttons(),
                     )
                 )
