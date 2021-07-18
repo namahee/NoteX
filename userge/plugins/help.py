@@ -716,22 +716,16 @@ if userge.has_bot:
                 )
 
             if string == "_afk":
-                kfa = InlineQueryResultArticle(
-                    description=_afk_._out_str(),
-                    reply_markup=_afk_.afk_buttons(),
+                results.append(
+                    InlineQueryResultArticle(
+                        title="USERGE-X",
+                        input_message_content=InputTextMessageContent(
+                            _afk_.out_str_()
+                        ),
+                        description="ALIVE",
+                        reply_markup=_afk_.afk_buttons(),
+                    )
                 )
-                results.append(kfa)
-                # results.append(
-                # InlineQueryResultPhoto(
-                # await userge.send_message(
-                # message.chat.id,
-                # _afk_._out_str,
-                # reply_markup=_afk_.afk_buttons,
-                # )
-                # caption=_afk_._out_str(),
-                # reply_markup=_afk_.afk_buttons(),
-                # )
-                # )
 
             if string == "geass":
                 results.append(
