@@ -1,6 +1,6 @@
 version: "1"
 rules:
   - base: master
-    upstream: samuca78:master
+    upstream: yusukesy:master
     mergeMethod: rebase
     mergeUnstable: false

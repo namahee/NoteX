@@ -128,7 +128,7 @@ def get_version() -> str:
             setattr(Config, "HBOT_VERSION", hbot_version(ver))
         return Config.HBOT_VERSION
     try:
-        if "/samuca78/NoteX" in Config.UPSTREAM_REPO.lower():
+        if "/yusukesy/NoteX" in Config.UPSTREAM_REPO.lower():
             diff = list(_REPO.iter_commits(f"v{ver}..HEAD"))
             if diff:
                 ver = f"{ver}|VULCAN.{len(diff)}"
