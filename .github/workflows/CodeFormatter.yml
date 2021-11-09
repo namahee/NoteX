@@ -29,6 +29,6 @@ jobs:
           commit_message: "auto: @yusukesy"
           commit_options: "--no-verify"
           repository: .
-          commit_user_name: code-rgb
+          commit_user_name: yusukesy
           commit_user_email: 62891774+yusukesy@users.noreply.github.com
           commit_author: yusukesy <62891774+yusukesy@users.noreply.github.com>
