@@ -125,5 +125,3 @@ async def video(message: Message):
             print(str(e))
         finally:
             os.remove(f"./userge/xcache/{filename}")
-        
-
