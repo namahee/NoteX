@@ -1,12 +1,12 @@
 import os
-
+os.system("pip3 install youtube-search")
 import requests
 from pytube import YouTube
 from youtube_search import YoutubeSearch
 
 from userge import Message, userge
 
-os.system("pip3 install youtube-search")
+
 
 
 def search_music(query):
@@ -49,7 +49,7 @@ def down_song(link, filename):
 
 
 def down_video(link, filename):
-    YouTube(url).streams.get_highest_resolution().download(
+    YouTube(link).streams.get_highest_resolution().download(
         "./userge/xcache/", filename=filename
     )
 
