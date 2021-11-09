@@ -1,7 +1,7 @@
 <h2 align="center"><b>Owner: <a href="https://telegram.dog/deleteduser420">𝚂𝚢𝚗𝚝𝚊𝚡 ░ Σrr♢r</a></b></h2>
 <br>
 <p align="center">
-   <a href="https://github.com/yusukesy/NoteX"><img src="https://i.imgur.com/53mdl2v.png" alt="NoteX" width=400px></a>
+   <a href="https://github.com/namahee/NoteX"><img src="https://i.imgur.com/53mdl2v.png" alt="NoteX" width=400px></a>
    <br>
    <br>
 </p>
@@ -10,18 +10,18 @@
 <br>
 <br>
 
-[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/yusukesy/NoteX)
-[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?&style=flat-square)](https://github.com/yusukesy/NoteX#copyright--license)
-[![Stars](https://img.shields.io/github/stars/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/stargazers)
-[![Forks](https://img.shields.io/github/forks/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/network/members)
-[![Issues Open](https://img.shields.io/github/issues/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/issues)
-[![Issues Closed](https://img.shields.io/github/issues-closed/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/issues?q=is:closed)
-[![PR Open](https://img.shields.io/github/issues-pr/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/pulls)
-[![PR Closed](https://img.shields.io/github/issues-pr-closed/yusukesy/NoteX?&style=flat-square)](https://github.com/yusukesy/NoteX/pulls?q=is:closed)
-![Repo Size](https://img.shields.io/github/repo-size/yusukesy/NoteX?style=flat-square)
-[![CodeFactor](https://www.codefactor.io/repository/github/yusukesy/NoteX/badge?&style=flat-square)](https://www.codefactor.io/repository/github/yusukesy/NoteX)
-[![DeepSource](https://deepsource.io/gh/yusukesy/NoteX.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/yusukesy/NoteX/?ref=repository-badge)
-[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/yusukesy/NoteX)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/namahee/NoteX)
+[![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg?&style=flat-square)](https://github.com/namahee/NoteX#copyright--license)
+[![Stars](https://img.shields.io/github/stars/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/stargazers)
+[![Forks](https://img.shields.io/github/forks/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/network/members)
+[![Issues Open](https://img.shields.io/github/issues/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/issues)
+[![Issues Closed](https://img.shields.io/github/issues-closed/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/issues?q=is:closed)
+[![PR Open](https://img.shields.io/github/issues-pr/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/pulls)
+[![PR Closed](https://img.shields.io/github/issues-pr-closed/namahee/NoteX?&style=flat-square)](https://github.com/namahee/NoteX/pulls?q=is:closed)
+![Repo Size](https://img.shields.io/github/repo-size/namahee/NoteX?style=flat-square)
+[![CodeFactor](https://www.codefactor.io/repository/github/namahee/NoteX/badge?&style=flat-square)](https://www.codefactor.io/repository/github/namahee/NoteX)
+[![DeepSource](https://deepsource.io/gh/namahee/NoteX.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/namahee/NoteX/?ref=repository-badge)
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/namahee/NoteX)
 [![Docker Image](https://img.shields.io/docker/image-size/varietyjames1/userge_x?color=blue&label=Docker%20Size&style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/varietyjames1/userge_x/tags?page=1&ordering=last_updated)
 <br>
 
@@ -57,7 +57,7 @@
 ## How To Deploy 
 * With Heroku:
 <p align="center">
-   <a href = "https://heroku.com/deploy?template=https://github.com/yusukesy/NoteX-Deploy"><img src="https://telegra.ph/file/57c4edb389224c9cf9996.png" alt="Press to Takeoff" width="490px"></a>
+   <a href = "https://heroku.com/deploy?template=https://github.com/namahee/NoteX-Deploy"><img src="https://telegra.ph/file/57c4edb389224c9cf9996.png" alt="Press to Takeoff" width="490px"></a>
 </p>
 <br>
 
@@ -80,12 +80,12 @@
 ## Other Ways
 
 * With Docker 🐳 
-    <a href="https://github.com/yusukesy/NoteX/blob/alpha/resources/readmeDocker.md"><b>See Detailed Guide</b></a>
+    <a href="https://github.com/namahee/NoteX/blob/master/resources/readmeDocker.md"><b>See Detailed Guide</b></a>
 
 * With Git, Python and pip 🔧
   ```bash
   # clone the repo
-  git clone https://github.com/yusukesy/NoteX.git
+  git clone https://github.com/namahee/NoteX.git
   cd NoteX
 
   # create virtualenv
@@ -171,4 +171,4 @@ async def test_filter(message: Message):
 * [PaperPlane](https://github.com/RaphielGang/Telegram-Paperplane)
 * [Uniborg](https://github.com/SpEcHiDe/UniBorg)
 ### Copyright & License 
-[**GNU General Public License v3.0**](https://github.com/yusukesy/NoteX/blob/alpha/LICENSE)
+[**GNU General Public License v3.0**](https://github.com/namahee/NoteX/blob/master/LICENSE)

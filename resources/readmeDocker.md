@@ -13,10 +13,10 @@
 - Setup configs
     - Download the sample config file <br>
         - ```mkdir userge-x && cd userge-x```
-        - ```wget https://raw.githubusercontent.com/yusukesy/notex/master/config.env.sample -O config.env```
+        - ```wget https://raw.githubusercontent.com/namahee/NoteX/master/config.env.sample -O config.env```
         - ```vim config.env```
     - Download the yml file for docker-compose
-        - ```wget https://raw.githubusercontent.com/yusukesy/notex/master/resources/docker-compose.yml```
+        - ```wget https://raw.githubusercontent.com/namahee/NoteX/master/resources/docker-compose.yml```
 - Finally start the bot <br>
 ```docker-compose up -d```
 - The bot should be running now <br>

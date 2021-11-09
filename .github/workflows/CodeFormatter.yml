@@ -26,9 +26,9 @@ jobs:
           black userge/plugins/ userge/utils/ userge/config.py
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "auto: @yusukesy"
+          commit_message: "auto: @namahee"
           commit_options: "--no-verify"
           repository: .
-          commit_user_name: yusukesy
-          commit_user_email: 62891774+yusukesy@users.noreply.github.com
-          commit_author: yusukesy <62891774+yusukesy@users.noreply.github.com>
+          commit_user_name: namahee
+          commit_user_email: 62891774+namahee@users.noreply.github.com
+          commit_author: namahee <62891774+namahee@users.noreply.github.com>
