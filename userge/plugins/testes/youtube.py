@@ -1,12 +1,12 @@
 import os
-
+os.system("pip3 install youtube-search")
 import requests
 from pytube import YouTube
 from youtube_search import YoutubeSearch
 
 from userge import Message, userge
 
-os.system("pip3 install youtube-search")
+
 
 
 def search_music(query):
@@ -83,10 +83,10 @@ async def song(message: Message):
     else:
         if os.path.exists(f"./userge/xcache/{thumb}"):
             caption = f"""
-            **Título:** __[{result[0]['title']}]({link})__
-            **Duração:** __{duration}__
-            **Views:** __{result[0]['views']}__
-            """
+**Título:** __[{result[0]['title']}]({link})__
+**Duração:** __{duration}__
+**Views:** __{result[0]['views']}__
+"""
             try:
                 await message.reply_audio(
                     audio=f"./userge/xcache/{filename}",
