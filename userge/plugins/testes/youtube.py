@@ -1,12 +1,12 @@
 import os
-
+os.system("pip3 install youtube-search")
 import requests
 from pytube import YouTube
 from youtube_search import YoutubeSearch
 
 from userge import Message, userge
 
-os.system("pip3 install youtube-search")
+
 
 
 def search_music(query):
@@ -92,7 +92,7 @@ async def song(message: Message):
                     audio=f"./userge/xcache/{filename}",
                     caption=caption,
                     title=result[0]["title"],
-                    thumb=f"./userge/xcache/{thumb_name}",
+                    thumb=f"./userge/xcache/{thumb}",
                     duration=dur,
                 )
             except Exception as e:
