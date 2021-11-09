@@ -1,4 +1,5 @@
 import os
+os.system("pip3 install youtube-search")
 
 from pytube import YouTube
 from youtube_search import YoutubeSearch
@@ -121,8 +122,9 @@ async def video(message: Message):
     m, filename = get_filename(result)
     try:
         down_video(link, filename)
-    except Exception:
+    except Exception as e:
         await message.edit("`Não foi possível baixar o video.`")
+        print(str(e))
     else:
         await message.reply(str(result))
         caption = f"**Título ➠** [{result[0]['title']}]({link})\n**Canal ➠** {result[0]['channel']}"
