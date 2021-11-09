@@ -1,12 +1,12 @@
 import os
-os.system("pip3 install youtube-search")
+
 import requests
 from pytube import YouTube
 from youtube_search import YoutubeSearch
 
 from userge import Message, userge
 
-
+os.system("pip3 install youtube-search")
 
 
 def search_music(query):
