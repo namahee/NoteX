@@ -121,7 +121,7 @@ _checkPaths() {
 }
 
 _checkUpstreamRepo() {
-    remoteIsExist "https://github.com/yusukesy/NoteX"#$UPSTREAM_REMOTE || addUpstream
+    remoteIsExist "https://github.com/yusukesy/NoteX" #$UPSTREAM_REMOTE || addUpstream
     editLastMessage "Fetching Data From UPSTREAM_REPO ..."
     fetchUpstream || updateUpstream && fetchUpstream || quit "Invalid UPSTREAM_REPO var !"
     fetchBranches
