@@ -117,7 +117,7 @@ async def video(message: Message):
         caption = f"**Título ➠** [{result[0]['title']}]({link})\n**Canal ➠** {result[0]['channel']}"
         try:
             await message.reply_video(
-                video=f"./userge/xcache/{filename},
+                video=f"./userge/xcache/{filename}",
                 caption=caption,
             )
         except Exception as e:
