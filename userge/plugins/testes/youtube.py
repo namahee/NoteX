@@ -114,7 +114,7 @@ async def video(message: Message):
         await message.edit("`Não foi possível baixar o video.`")
     else:
         await message.reply(str(result))
-        caption = f"**Título ➠** [{result[0]['title']}]({link})\n**Canal ➠** {result[0]['channel'}"
+        caption = f"**Título ➠** [{result[0]['title']}]({link})\n**Canal ➠** {result[0]['channel']}"
         try:
             await message.reply_video(
                 video=f"./userge/xcache/{filename},
