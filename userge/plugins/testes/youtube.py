@@ -1,23 +1,26 @@
-from userge import userge, Message
-
-from youtube_search import YoutubeSearch
-from pytube import YouTube
-
 import os
+
+from pytube import YouTube
+from youtube_search import YoutubeSearch
+
+from userge import Message, userge
 
 
 def search_music(query):
     result = YoutubeSearch(query, max_results=1).to_dict()
     return result
 
+
 def get_link(result) -> str:
     return f"https://www.youtube.com{result[0]['url_suffix']}"
-    
+
+
 def get_filename(result) -> str:
     title_ = result[0]["title"]
     title = title_.replace(" ", "_")
     return title + ".mp3", title + ".mp4"
-    
+
+
 def get_duration(result):
     duration = result[0]["duration"]
     secmul, dur, dur_arr = 1, 0, duration.split(":")
@@ -25,7 +28,8 @@ def get_duration(result):
         dur += int(dur_arr[i]) * secmul
         secmul *= 60
     return duration, dur
-    
+
+
 def get_thumb(result):
     thumbnail = result[0]["thumbnails"][0]
     title = result[0]["title"]
@@ -33,13 +37,19 @@ def get_thumb(result):
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(os.path.join("./userge/xcache/", thumb_name), "wb").write(thumb.content)
     return thumb_name
-    
+
+
 def down_song(link, filename):
-    YouTube(link).streams.filter(only_audio=True).first().download("./userge/xcache/", filename=filename)
-    
+    YouTube(link).streams.filter(only_audio=True).first().download(
+        "./userge/xcache/", filename=filename
+    )
+
+
 def down_video(link, filename):
-    YouTube(url).streams.get_highest_resolution().download("./userge/xcache/", filename=filename)
-    
+    YouTube(url).streams.get_highest_resolution().download(
+        "./userge/xcache/", filename=filename
+    )
+
 
 @userge.on_cmd(
     "song",
@@ -88,14 +98,15 @@ async def song(message: Message):
             finally:
                 os.remove(f"./userge/xcache/{filename}")
                 os.remove(f"./userge/xcache/{thumb_name}")
-            
+
+
 @userge.on_cmd(
     "video",
     about={
         "header": "Video Downloader",
         "description": "Baixe vídeos usando o pytube. ;-;",
         "usage": "{tr}video [nome / reply msg / link]",
-    }
+    },
 )
 async def video(message: Message):
     video = message.input_or_reply_str
@@ -110,7 +121,7 @@ async def video(message: Message):
     m, filename = get_filename(result)
     try:
         down_video(link, filename)
-    except Exception as e:
+    except Exception:
         await message.edit("`Não foi possível baixar o video.`")
     else:
         await message.reply(str(result))
