@@ -100,7 +100,7 @@ async def song(message: Message):
                 print(str(e))
             finally:
                 os.remove(f"./userge/xcache/{filename}")
-                os.remove(f"./userge/xcache/{thumb_name}")
+                os.remove(f"./userge/xcache/{thumb}")
 
 
 @userge.on_cmd(
@@ -128,8 +128,7 @@ async def video(message: Message):
         await message.edit("`Não foi possível baixar o video.`")
         print(str(e))
     else:
-        await message.reply(str(result))
-        caption = f"**Título ➠** [{result[0]['title']}]({link})\n**Canal ➠** {result[0]['channel']}"
+        caption = f"**Título ➠** __[{result[0]['title']}]({link})__\n**Canal ➠** __{result[0]['channel']}__"
         try:
             await message.reply_video(
                 video=f"./userge/xcache/{filename}",
