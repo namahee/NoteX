@@ -715,10 +715,10 @@ if userge.has_bot:
                     )
                 )
 
-            if string == "_afk":
+            if string == "_afk_":
                 results.append(
                     InlineQueryResultArticle(
-                        # title="NoteX",
+                        title="@NoteZV",
                         input_message_content=InputTextMessageContent(_afk_._out_str()),
                         # description="AFK",
                         reply_markup=_afk_.afk_buttons(),
