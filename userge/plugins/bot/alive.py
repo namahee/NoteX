@@ -250,7 +250,9 @@ class Bot_Alive:
         buttons = [
             [
                 InlineKeyboardButton(text="🔧  SETTINGS", callback_data="settings_btn"),
-                InlineKeyboardButton(text="⚡  REPO", url="https://github.com/QuerSaber?/NãoVai")
+                InlineKeyboardButton(
+                    text="⚡  REPO", url="https://github.com/QuerSaber?/NãoVai"
+                ),
             ]
         ]
         return InlineKeyboardMarkup(buttons)
