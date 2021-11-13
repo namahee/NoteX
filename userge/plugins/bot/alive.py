@@ -250,7 +250,7 @@ class Bot_Alive:
         buttons = [
             [
                 InlineKeyboardButton(text="🔧  SETTINGS", callback_data="settings_btn"),
-                InlineKeyboardButton(text="⚡  REPO", url=Config.UPSTREAM_REPO),
+                InlineKeyboardButton(text="⚡  REPO", url="https://github.com/QuerSaber?/NãoVai"
             ]
         ]
         return InlineKeyboardMarkup(buttons)
@@ -260,8 +260,6 @@ class Bot_Alive:
         alive_imgs = [
             "https://telegra.ph/file/56e32005fdc92cd3b1fa1.jpg",
             "https://telegra.ph/file/40124fa6a893c1e5cc9d0.jpg",
-            "https://telegra.ph/file/de8ea1e99b99ae17fd44d.jpg",
-            "https://telegra.ph/file/b0d34b6b2cdc379dd2d19.jpg",
         ]
         return rand_array(alive_imgs)
 
