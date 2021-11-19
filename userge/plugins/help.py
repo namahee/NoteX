@@ -779,7 +779,11 @@ if userge.has_bot:
                         ),
                         InlineKeyboardButton("Github", url="https://github.com"),
                     ],
-                    [InlineKeyboardButton("My Git", url="https://github.com/NãoTeInteressa")],
+                    [
+                        InlineKeyboardButton(
+                            "My Git", url="https://github.com/NãoTeInteressa"
+                        )
+                    ],
                 ]
                 results.append(
                     InlineQueryResultPhoto(
