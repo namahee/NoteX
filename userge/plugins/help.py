@@ -67,13 +67,13 @@ REPO_X = InlineQueryResultArticle(
         [
             [
                 InlineKeyboardButton(
-                    "🔥 NOTE-X Repo", url="https://github.com/namahee/NoteX"
+                    "🔥 NOTE-X Repo", url="https://github.com/QuerSaber?/NãoVai"
                 ),
                 InlineKeyboardButton(
                     "🚀 Deploy NoteX",
                     url=(
                         "https://heroku.com/deploy?template="
-                        "https://github.com/namahee/NoteX-Deploy"
+                        "https://github.com/NumVai/Saber"
                     ),
                 ),
             ]
