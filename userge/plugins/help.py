@@ -60,7 +60,7 @@ SAVED_SETTINGS = get_collection("CONFIGS")
 REPO_X = InlineQueryResultArticle(
     title="Repo",
     input_message_content=InputTextMessageContent("**Here's how to setup NoteX** "),
-    url="https://github.com/namahee/NoteX",
+    url="https://github.com/QuerSaber?/NãoVai",
     description="Setup Your Own",
     thumb_url="https://i.imgur.com/1xsOo9o.png",
     reply_markup=InlineKeyboardMarkup(
@@ -775,11 +775,11 @@ if userge.has_bot:
                 buttons = [
                     [
                         InlineKeyboardButton(
-                            "My Repo", url="https://github.com/namahee/NoteX"
+                            "My Repo", url="https://github.com/QuerSabe/NãoVai"
                         ),
                         InlineKeyboardButton("Github", url="https://github.com"),
                     ],
-                    [InlineKeyboardButton("My Git", url="https://github.com/namahee")],
+                    [InlineKeyboardButton("My Git", url="https://github.com/NãoTeInteressa")],
                 ]
                 results.append(
                     InlineQueryResultPhoto(
