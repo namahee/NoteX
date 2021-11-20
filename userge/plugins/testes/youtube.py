@@ -73,6 +73,7 @@ async def song(message: Message):
     if not music:
         await message.edit("`Vou baixar o vento?!`")
         return
+    await message.edit("`Processando...`")
     result = search_music(music)
     if result is None:
         await message.edit("`Não foi possível encontrar a música.`")
@@ -122,6 +123,7 @@ async def video(message: Message):
     if not video:
         await message.edit("`Vou baixar o vento?!`")
         return
+    await message.edit("`Processando...`")
     result = search_video(video)
     if result is None:
         await message.edit("`Não foi possível encontrar o vídeo.`")
