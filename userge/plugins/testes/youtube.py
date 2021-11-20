@@ -1,7 +1,8 @@
-import json
 import os
 
+import json
 import requests
+
 from pytube import YouTube
 from youtubesearchpython import Search, SearchVideos
 
@@ -125,6 +126,7 @@ async def video(message: Message):
     if result is None:
         await message.edit("`Não foi possível encontrar o vídeo.`")
         return
+    await message.reply(str(result))
     link = get_link(result)
     m, filename = get_filename(result)
     try:
