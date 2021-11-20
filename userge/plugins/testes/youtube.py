@@ -113,7 +113,7 @@ async def song(message: Message):
                 await message.edit("`Não foi possível enviar a música.`")
                 print(str(e))
                 time.sleep(2)
-        await message.delete()
+                await message.delete()
             finally:
                 time.sleep(2)
                 await message.delete()
