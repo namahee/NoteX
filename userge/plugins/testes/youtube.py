@@ -14,7 +14,8 @@ def search_music(query):
 
 def search_video(query):
     search = SearchVideos(query, offset=1, max_results=1)
-    return search.result()["search_result"]
+    print(str(search.result()))
+    return search.result()
 
 
 def get_link(result) -> str:
