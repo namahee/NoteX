@@ -1,9 +1,8 @@
+import json
 import os
 import time
 
-import json
 import requests
-
 from pytube import YouTube
 from youtubesearchpython import Search, SearchVideos
 
