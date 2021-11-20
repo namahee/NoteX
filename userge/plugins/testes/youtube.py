@@ -10,14 +10,15 @@ from userge import Message, userge
 def search_music(query):
     search = Search(query, limit=1)
     return search.result()["result"]
-    
+
+
 def search_video(query):
-    search = SearchVideos(query, offset = 1, max_results = 1)
+    search = SearchVideos(query, offset=1, max_results=1)
     return search.result()["search_result"]
 
 
 def get_link(result) -> str:
-    return result[0]['link']
+    return result[0]["link"]
 
 
 def get_filename(result) -> str:
