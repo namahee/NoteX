@@ -116,7 +116,7 @@ async def song(message: Message):
         await message.delete()
             finally:
                 time.sleep(2)
-        await message.delete()
+                await message.delete()
                 os.remove(f"./userge/xcache/{filename}")
                 os.remove(f"./userge/xcache/{thumb}")
 
