@@ -1,8 +1,9 @@
-import json
 import os
 import time
 
+import json
 import requests
+
 from pytube import YouTube
 from youtubesearchpython import Search, SearchVideos
 
@@ -114,7 +115,6 @@ async def song(message: Message):
                 time.sleep(2)
                 await message.delete()
             finally:
-                time.sleep(2)
                 await message.delete()
                 os.remove(f"./userge/xcache/{filename}")
                 os.remove(f"./userge/xcache/{thumb}")
@@ -164,6 +164,5 @@ async def video(message: Message):
             time.sleep(2)
             await message.delete()
         finally:
-            time.sleep(2)
             await message.delete()
             os.remove(f"./userge/xcache/{filename}")
