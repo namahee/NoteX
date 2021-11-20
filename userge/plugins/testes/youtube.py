@@ -1,7 +1,9 @@
-import json
 import os
+import time
 
+import json
 import requests
+
 from pytube import YouTube
 from youtubesearchpython import Search, SearchVideos
 
@@ -71,11 +73,15 @@ async def song(message: Message):
     music = message.input_or_reply_str
     if not music:
         await message.edit("`Vou baixar o vento?!`")
+        time.sleep(2)
+        await message.delete()
         return
     await message.edit("`Processando...`")
     result = search_music(music)
     if result is None:
         await message.edit("`Não foi possível encontrar a música.`")
+        time.sleep(2)
+        await message.delete()
         return
     link = get_link(result)
     duration, dur = get_duration(result)
@@ -86,6 +92,8 @@ async def song(message: Message):
     except Exception as e:
         await message.edit("`Não foi possível baixar a música.`")
         print(str(e))
+        time.sleep(2)
+        await message.delete()
     else:
         if os.path.exists(f"./userge/xcache/{thumb}"):
             caption = f"""
@@ -104,7 +112,11 @@ async def song(message: Message):
             except Exception as e:
                 await message.edit("`Não foi possível enviar a música.`")
                 print(str(e))
+                time.sleep(2)
+        await message.delete()
             finally:
+                time.sleep(2)
+        await message.delete()
                 os.remove(f"./userge/xcache/{filename}")
                 os.remove(f"./userge/xcache/{thumb}")
 
@@ -121,11 +133,15 @@ async def video(message: Message):
     video = message.input_or_reply_str
     if not video:
         await message.edit("`Vou baixar o vento?!`")
+        time.sleep(2)
+        await message.delete()
         return
     await message.edit("`Processando...`")
     result = search_video(video)
     if result is None:
         await message.edit("`Não foi possível encontrar o vídeo.`")
+        time.sleep(2)
+        await message.delete()
         return
     link = get_link(result)
     m, filename = get_filename(result)
@@ -133,6 +149,8 @@ async def video(message: Message):
         down_video(link, filename)
     except Exception as e:
         await message.edit("`Não foi possível baixar o video.`")
+        time.sleep(2)
+        await message.delete()
         print(str(e))
     else:
         caption = f"**Título ➠** __[{result[0]['title']}]({link})__\n**Canal ➠** __{result[0]['channel']}__"
@@ -144,5 +162,9 @@ async def video(message: Message):
         except Exception as e:
             await message.reply("`Não foi possível enviar o vídeo.`")
             print(str(e))
+            time.sleep(2)
+            await message.delete()
         finally:
+            time.sleep(2)
+            await message.delete()
             os.remove(f"./userge/xcache/{filename}")
