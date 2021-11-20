@@ -1,7 +1,8 @@
-import json
 import os
 
+import json
 import requests
+
 from pytube import YouTube
 from youtubesearchpython import Search, SearchVideos
 
@@ -16,7 +17,7 @@ def search_music(query):
 def search_video(query):
     search = SearchVideos(query, offset=1, mode="json", max_results=1)
     print(str(search.result()))
-    return json.loas(search.result())["search_result"]
+    return json.loads(search.result())["search_result"]
 
 
 def get_link(result) -> str:
