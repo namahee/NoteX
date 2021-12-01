@@ -59,7 +59,7 @@ async def see_info(message: Message):
         with open(".git/HEAD", "r") as gitfile:
             branch = gitfile.read().split("/")[-1].strip()
     if branch == "master":
-        branch = "alpha"
+        branch = "master"
     plugin_name = userge.manager.commands[cmd_str].plugin_name
     plugin_loc = ("/" + userge.manager.plugins[plugin_name].parent).replace(
         "/plugins", ""
