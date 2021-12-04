@@ -14,7 +14,6 @@ from pyrogram.types import (
     InlineQuery,
     InlineQueryResultAnimation,
     InlineQueryResultArticle,
-    InlineQueryResultCachedDocument,
     InlineQueryResultCachedPhoto,
     InlineQueryResultPhoto,
     InputTextMessageContent,
@@ -688,7 +687,7 @@ if userge.has_bot:
                                 )
                             else:
                                 results.append(
-                                    InlineQueryResultCachedDocument(
+                                    InlineQueryResultDocument(
                                         title="USERGE-X",
                                         file_id=c_file_id,
                                         caption=alive_info,
@@ -751,7 +750,7 @@ if userge.has_bot:
                         )
                     elif type_ == "media":
                         results.append(
-                            InlineQueryResultCachedDocument(
+                            InlineQueryResultDocument(
                                 title="Inline Note",
                                 file_id=cnote.get("file_id"),
                                 caption=cnote.get("caption"),
@@ -1035,7 +1034,7 @@ if userge.has_bot:
                                     )
                                 else:
                                     results.append(
-                                        InlineQueryResultCachedDocument(
+                                        InlineQueryResultDocument(
                                             title=textx,
                                             file_id=media_data,
                                             caption=textx,
