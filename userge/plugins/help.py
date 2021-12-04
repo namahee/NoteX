@@ -687,7 +687,7 @@ if userge.has_bot:
                                 )
                             else:
                                 results.append(
-                                    InlineQueryResultDocument(
+                                    InlineQueryResultCachedDocument(
                                         title="USERGE-X",
                                         file_id=c_file_id,
                                         caption=alive_info,
@@ -750,7 +750,7 @@ if userge.has_bot:
                         )
                     elif type_ == "media":
                         results.append(
-                            InlineQueryResultDocument(
+                            InlineQueryResultCachedDocument(
                                 title="Inline Note",
                                 file_id=cnote.get("file_id"),
                                 caption=cnote.get("caption"),
@@ -1034,7 +1034,7 @@ if userge.has_bot:
                                     )
                                 else:
                                     results.append(
-                                        InlineQueryResultDocument(
+                                        InlineQueryResultCachedDocument(
                                             title=textx,
                                             file_id=media_data,
                                             caption=textx,
