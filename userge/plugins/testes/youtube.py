@@ -49,7 +49,7 @@ def get_thumb(result):
 
 
 def down_song(link, filename):
-    YouTube(link).streams.filter(only_audio=True)[0].download(
+    YouTube(link).streams.filter(only_audio=True).first().download(
         "./userge/xcache/", filename=filename
     )
 
