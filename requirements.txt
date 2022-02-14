@@ -39,7 +39,7 @@ git+https://github.com/ytdl-org/youtube-dl
 pytube
 youtube-search
 git+https://github.com/Nekos-life/Async-nekos.life-wrapper
-ruamel.yaml==0.17.10
+ruamel.yaml==0.17.21
 ujson>=4.0.1
 youtube-search-python==1.4.6
 git+https://github.com/fnixdev/google-images-download.git
